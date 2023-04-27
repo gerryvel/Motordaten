@@ -14,16 +14,15 @@ The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter. 12V DC comes fro
 - Waveshare SN65HVD230 Can Board (adapted, cutted the (also without) connector)
 - Case Wago 789
 
-
 The Website use SPIFFS Filesystem. You must use Partition Schemes "Minimal SPIFFS with APPS and OTA".
 The HTML Data upload separately with "ESP 32 Scetch Data upload" from /data directory.
 
-![Schaltplan PDF](https://github.com/gerryvel/Bootsdaten/blob/main/ESP32%20Bootselektronik.pdf)
+[KiCADbootsdaten.pdf](https://github.com/gerryvel/Bootsdaten/files/11346156/KiCADbootsdaten.pdf)
 
-![Schematics](https://github.com/gerryvel/Bootsdaten/blob/main/Zwischenablage01.jpg)
+![Zwischenablage01](https://user-images.githubusercontent.com/17195231/234933514-95c5519c-ce94-45df-af15-64128691161c.jpg)
 
-![Schematics](https://github.com/gerryvel/Bootsdaten/blob/main/Zwischenablage02.jpg)
+![Zwischenablage02](https://user-images.githubusercontent.com/17195231/234933530-b59c1f4c-b747-41a3-8f6a-eba9062560dc.jpg)
 
-![Schematics](https://github.com/gerryvel/Bootsdaten/blob/main/Zwischenablage03.jpg)
+![Zwischenablage03](https://user-images.githubusercontent.com/17195231/234933552-55ede022-9682-486e-8518-c98acedd2c1a.jpg)
 
-![Schematics](https://github.com/gerryvel/Bootsdaten/blob/main/Zwischenablage04.jpg)
+![Zwischenablage04](https://user-images.githubusercontent.com/17195231/234933563-c5276110-f2e7-4a71-a5f1-1a3fbc7df484.jpg)
