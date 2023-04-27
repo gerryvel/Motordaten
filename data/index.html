@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootsdaten</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src='gauge.min.js'></script>
+    <meta http-equiv="refresh" content="5">
+</head>
+<body>
+    <p class="label">Kiel ausgefahren: %sSStellung% cm</p>
+    <p  class="label">Kiel absoluter Tiefgang: %sAbsTief% cm</p>
+    <canvas data-type="radial-gauge"
+            data-width="300"
+            data-height="300"
+            data-units="Grad"
+            data-title="Kr&auml;ngung"
+            data-min-value="-50"
+            data-start-angle="90"
+            data-ticks-angle="180"
+            data-value-box="true"
+            data-max-value="50"
+            data-major-ticks="-50,-40,-30,-20,-10,0,10,20,30,40,50"
+            data-minor-ticks="2"
+            data-stroke-ticks="true"
+            data-highlights='[
+        {"from": -50, "to": -30, "color": "rgba(255, 50, 50, .75)"},
+        {"from": -30, "to": 30, "color": "rgba(0, 255, 0, .75)"},
+        {"from": 30, "to": 50, "color": "rgba(255, 50, 50, .75)"}
+    ]'
+            data-color-plate="#fff"
+            data-border-shadow-width="0"
+            data-borders="false"
+            data-needle-type="arrow"
+            data-needle-width="2"
+            data-needle-circle-size="7"
+            data-needle-circle-outer="true"
+            data-needle-circle-inner="false"
+            data-animation-duration="1500"
+            data-animation-rule="linear"
+            data-value-text='%sKraengung%&deg; %sSTBB%'
+            data-value='%sGaugeKraengung%'></canvas>
+    <ul class="bottomnav">
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="settings.html">Setting</a></li>
+        <li><a href="system.html">System</a></li>
+        <li class="right"><a href="ueber.html">About</a></li>
+    </ul>
+</body>
+</html>
