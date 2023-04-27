@@ -17,7 +17,11 @@ The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter. 12V DC comes fro
 The Website use SPIFFS Filesystem. You must use Partition Schemes "Minimal SPIFFS with APPS and OTA".
 The HTML Data upload separately with "ESP 32 Scetch Data upload" from /data directory.
 
+# Wiring diagram
+
 [KiCADbootsdaten.pdf](https://github.com/gerryvel/Bootsdaten/files/11346156/KiCADbootsdaten.pdf)
+
+# Webinterface
 
 ![Zwischenablage01](https://user-images.githubusercontent.com/17195231/234933514-95c5519c-ce94-45df-af15-64128691161c.jpg)
 
