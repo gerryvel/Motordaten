@@ -15,7 +15,10 @@ The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter. 12V DC comes fro
 - Case Wago 789
 
 The Website use LittleFS Filesystem. You must use Partition Schemes "Minimal SPIFFS with APPS and OTA".
-The HTML Data upload separately with "ESP 32 Scetch Data upload" from /data directory.
+The HTML Data upload separately with 
+- "ESP 32 Skcetch Data upload" (Arduino IDE) or 
+- PlatformIO > Build Filesystem and Upload Filesystem Image (PlatformIO) 
+from /data directory.
 
 # Wiring diagram
 
