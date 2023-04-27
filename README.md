@@ -19,7 +19,7 @@ The HTML Data upload separately with "ESP 32 Scetch Data upload" from /data dire
 
 # Wiring diagram
 
-[KiCADbootsdaten.pdf](https://github.com/gerryvel/Bootsdaten/files/11346156/KiCADbootsdaten.pdf)
+[KiCADbootsdaten.pdf](https://github.com/gerryvel/Bootsdaten/files/11347440/KiCADbootsdaten.pdf)
 
 # Webinterface
 
