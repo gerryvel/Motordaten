@@ -14,7 +14,7 @@ The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter. 12V DC comes fro
 - Waveshare SN65HVD230 Can Board (adapted, cutted the (also without) connector)
 - Case Wago 789
 
-The Website use SPIFFS Filesystem. You must use Partition Schemes "Minimal SPIFFS with APPS and OTA".
+The Website use LittleFS Filesystem. You must use Partition Schemes "Minimal SPIFFS with APPS and OTA".
 The HTML Data upload separately with "ESP 32 Scetch Data upload" from /data directory.
 
 # Wiring diagram
