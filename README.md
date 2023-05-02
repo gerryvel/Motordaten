@@ -22,7 +22,11 @@ from /data directory.
 
 # Wiring diagram
 
-[KiCADbootsdaten.pdf](https://github.com/gerryvel/Bootsdaten/files/11347440/KiCADbootsdaten.pdf)
+[BootsdatenKiCAD.pdf](https://github.com/gerryvel/Bootsdaten/files/11375329/BootsdatenKiCAD.pdf)
+
+# Platine
+
+![Bootsdaten](https://user-images.githubusercontent.com/17195231/235722790-19746dad-97db-45c5-9742-c14e6034b3b3.png)
 
 # Webinterface
 
