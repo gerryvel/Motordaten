@@ -59,4 +59,3 @@ String sendXDR()
   
   return SendSensorKraeng;
 }
-
