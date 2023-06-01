@@ -265,7 +265,7 @@ void loop()
   Serial.printf("Soft-AP IP address = %s\n", WiFi.softAPIP().toString());
   sCL_Status = sWifiStatus(WiFi.status());
 
-// read MMA, use only x for Kraengung
+// read MMA, use only x for Kraengung (Pitch)
 	Serial.printf("X: %f °\n", mma.getX() / 11.377);
 	fKraengung = mma.getX() / 11.377;
 	fKraengung = (abs(fKraengung));

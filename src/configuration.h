@@ -26,8 +26,8 @@ const bool  hide_SSID      = false;             // To disable SSID broadcast -> 
 const int   max_connection = 4;                 // Maximum simultaneous connected clients on the AP
 
 // Variables for WIFI-AP
-IPAddress IP = IPAddress(192, 168, 16, 1);
-IPAddress Gateway = IPAddress(192, 168, 16, 1);
+IPAddress IP = IPAddress(192, 168, 15, 20);
+IPAddress Gateway = IPAddress(192, 168, 15, 1);
 IPAddress NMask = IPAddress(255, 255, 255, 0);
 IPAddress AP_IP;
 String AP_SSID = "Bootsdaten";
