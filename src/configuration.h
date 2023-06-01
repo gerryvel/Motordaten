@@ -15,7 +15,7 @@ struct Web_Config
 	char wAP_IP[20];
 	char wAP_SSID[64];
 	char wAP_Password[12];
-	char wKiel_Offset[5];
+	char wTemp_Offset[5];
 };
 Web_Config tAP_Config;
 
