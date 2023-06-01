@@ -23,7 +23,7 @@ The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter (Traco-Power TSR 
 The following values are measured and transmitted to the NMEA2000 bus:
 
 - The Exhaust Temperature is measured with a DS18B20 Sensor (the DallasTemperature library has to be installed with the Arduiono IDE Library Manager).
-- The Engine RPM is measured on connection "W" of the generator/alternator. The Engine RPM is detected with a H11L1 optocoupler device (or alternatively a PC900v). This device plus the 2K resistor and the 1N4148 diode) translates the signal from "W" connection of the generator to ESP32 GPIO pin 33. The diode is not critical an can be replaced with nearly any another type.
+- The Engine RPM is measured on connection "W" of the generator/alternator. The Engine RPM is detected with a H11L1 optocoupler device (or alternatively a PC900v). This device plus the 2K resistor and the 1N4148 diode translates the signal from "W" connection of the generator to ESP32 GPIO pin 33. The diode is not critical an can be replaced with nearly any another type.
 There is a RPM difference between generator and diesel engine RPM. The calibration value has to be set in the program.
 - The Battery Voltage is measured at GPIO pin 35 (check calibration value with regards to the real resistor values of R4/R5).
 
