@@ -9,7 +9,7 @@ enum LED {
   Red = 25, 
   Green = 33, 
   Blue = 26,
-  LEDBoard = 13 //Adafruit Huzzah32
+  Board = 13 //Adafruit Huzzah32
   };
 
 void LEDblink(int PIN = LED()){
@@ -41,7 +41,7 @@ void LEDInit() {
   pinMode(LED(Red),   OUTPUT);
   pinMode(LED(Blue),  OUTPUT);
   pinMode(LED(Green), OUTPUT);
-  pinMode(LED(LEDBoard), OUTPUT);
+  pinMode(LED(Board), OUTPUT);
 }
 
 void LEDoff() {
