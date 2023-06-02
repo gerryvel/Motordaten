@@ -54,13 +54,14 @@ String sBMP_Status = "";
 // const int iMaxSonar = 35;			//Analoginput 
 int iDistance = 0;
 
-float fKraengung = 0;
-float fGaugeKraengung = 0;
-float fSStellung = 0;
-float fAbsTief = 0;
-float fKielOffset = 0;
-String sSTBB = "";
-String sOrient = "";
+// Variables Website
+float fDrehzahl = 0;
+float fGaugeDrehzahl = 0;
+// float fSStellung = 0;
+// float fAbsTief = 0;
+float fTempOffset = 0;
+// String sSTBB = "";
+// String sOrient = "";
 
 //Definiton NMEA0183 MWV
 double dMWV_WindDirectionT = 0;
