@@ -132,13 +132,15 @@ void setup()
 	case 0:
 		Serial.println("\nMMA could not start!");
 		sBMP_Status = "Keinen Sensor gefunden!";
+		bI2C_Status = 0;
 		break;
 	case 1:
 		Serial.println("\nMMA found!");
 		mma.init(SCALE_2G);
 		Serial.print("Range = "); Serial.print(2 << mma.available());
 		Serial.println("G");   
-		sBMP_Status = "Sensor gefunden!";           
+		sBMP_Status = "Sensor gefunden!"; 
+		bI2C_Status = 1;          
 	}
 	
 	//WIFI
@@ -255,6 +257,7 @@ void loop()
 	// LED visu Wifi
 	LEDoff();
 	LEDflash(LED(LEDBoard)); // Betrieb ok
+	if (bI2C_Status == 0) LEDflash(LED(Red)); // Sensorfehler
 
 // OTA	
 	ArduinoOTA.handle();
@@ -281,7 +284,7 @@ void loop()
 
 	SendNMEA0183Message(sendXDR());
 
-	// read I2C Orientation Sensor, visu RGB LED
+	// read I2C Orientation Sensor
 	bool bSFM = 0; // SensorFalschMontiert
 	uint8_t Orientation = mma.readPL();
 	switch (Orientation) {
@@ -300,7 +303,7 @@ void loop()
 	Serial.printf("Orientation: %s\n", sOrient);
 
 	// LED Kraengung
-	if (bSFM == 0)
+	if (bSFM == 0 && bI2C_Status == 1)
 	{
 		if (sSTBB == "Backbord")
 		{
@@ -311,7 +314,7 @@ void loop()
 			digitalWrite(LED(Green), HIGH);
 		}
 	}
-	else
+	else if (bI2C_Status == 1)
 	{
 		digitalWrite(LED(Blue), HIGH);
 	}	

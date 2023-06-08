@@ -2,8 +2,8 @@
 #define __configuration__H__
 
 // Configuration N2k
-#define ESP32_CAN_TX_PIN GPIO_NUM_5  // Set CAN TX port to 4 
-#define ESP32_CAN_RX_PIN GPIO_NUM_4  // Set CAN RX port to 5
+#define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
+#define ESP32_CAN_RX_PIN GPIO_NUM_5  // Set CAN RX port to 5
 #define N2K_SOURCE 15
 
 //Configuration Refresh Page x Sec.
@@ -50,6 +50,7 @@ float fbmp_temperature = 0;
 float fbmp_pressure = 0;
 float fbmp_altitude = 0;
 String sBMP_Status = "";
+bool bI2C_Status = 0;
 
 const int iMaxSonar = 35;			//Analoginput 
 int iDistance = 0;
