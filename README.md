@@ -11,7 +11,7 @@ The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter. 12V DC comes fro
 - Adafruit Huzzah! ESP32 (for programming need USB-Adapter)
 - Traco-Power TSR 1-2450 for 12V / 5V
 - RGB LED Kingbright L-154A4SURKQBDZGW
-- Waveshare SN65HVD230 Can Board (adapted, cutted the (also without) connector)
+- SN65HVD230 
 - Case Wago 789
 
 The Website use LittleFS Filesystem. You must use Partition Schemes "Minimal SPIFFS with APPS and OTA".
@@ -22,7 +22,11 @@ from /data directory.
 
 # Wiring diagram
 
-[KiCADbootsdaten.pdf](https://github.com/gerryvel/Bootsdaten/files/11347440/KiCADbootsdaten.pdf)
+[BootsdatenKiCAD.pdf](https://github.com/gerryvel/Bootsdaten/files/11690286/BootsdatenKiCAD.pdf)
+
+# PCB
+
+![Bootsdaten](https://github.com/gerryvel/Bootsdaten/assets/17195231/b4be1809-5393-4396-8dcf-747c5ca8a09e)
 
 # Webinterface
 
