@@ -257,7 +257,7 @@ void loop()
 	// LED visu Wifi
 	LEDoff();
 	LEDflash(LED(LEDBoard)); // Betrieb ok
-	if (bI2C_Status == 0) LEDflash(LED(Red)); // Sensorfehler
+	if (bI2C_Status == 0) LEDblink(LED(Red)); // Sensorfehler
 
 // OTA	
 	ArduinoOTA.handle();
