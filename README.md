@@ -8,21 +8,29 @@ The Roll-data are available as NMEA0183 UDP-Stream over Wlan.
 
 The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter. 12V DC comes from the N2k Bus Connector with the M12 Connector.
 
-- Adafruit Huzzah! ESP32 (for programming need USB-Adapter)
-- Traco-Power TSR 1-2450 for 12V / 5V
-- RGB LED Kingbright L-154A4SURKQBDZGW
-- Waveshare SN65HVD230 Can Board (adapted, cutted the (also without) connector)
-- Case Wago 789
-
 The Website use LittleFS Filesystem. You must use Partition Schemes "Minimal SPIFFS with APPS and OTA".
 The HTML Data upload separately with 
 - "ESP 32 Skcetch Data upload" (Arduino IDE) or 
 - PlatformIO > Build Filesystem and Upload Filesystem Image (PlatformIO) 
 from /data directory.
 
+# Partlist:
+
+- Adafruit Huzzah! ESP32 (for programming need USB-Adapter)
+- SN65HVD230 [Link](https://www.reichelt.de/high-speed-can-transceiver-1-mbit-s-3-3-v-so-8-sn-65hvd230d-p58427.html?&trstct=pos_0&nbc=1)
+- Traco-Power TSR 1-2450 for 12V / 5V [Link](https://www.reichelt.de/dc-dc-wandler-tsr-1-1-w-5-v-1000-ma-sil-to-220-tsr-1-2450-p116850.html?search=tsr+1-24)
+- PCB by Aisler [Link](https://aisler.net/p/JCQLQVHC)
+- Case Wago 789
+- Resistor 200Ohm , 10kOhm
+
+
 # Wiring diagram
 
-[KiCADbootsdaten.pdf](https://github.com/gerryvel/Bootsdaten/files/11347440/KiCADbootsdaten.pdf)
+[BootsdatenKiCAD.pdf](https://github.com/gerryvel/Bootsdaten/files/11690286/BootsdatenKiCAD.pdf)
+
+# PCB
+
+![Bootsdaten](https://github.com/gerryvel/Bootsdaten/assets/17195231/b4be1809-5393-4396-8dcf-747c5ca8a09e)
 
 # Webinterface
 
