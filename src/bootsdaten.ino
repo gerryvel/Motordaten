@@ -11,6 +11,7 @@
 #include "configuration.h"
 #include "helper.h"
 #include <esp.h>
+#include <Preferences.h>
 #include <ESPmDNS.h>
 #include <ESP_WiFi.h>
 #include <ESPAsyncWebServer.h>
@@ -20,6 +21,9 @@
 #include "Analog.h"
 #include <LittleFS.h>
 #include "NMEA0183Telegram.h"
+#include <NMEA2000_CAN.h>
+#include <NMEA2000.h>
+#include <N2kMessages.h>
 
 // Set web server port number to 80
 AsyncWebServer server(80);
@@ -27,6 +31,9 @@ AsyncWebServer server(80);
 // Info Board for HTML-Output
 String sBoardInfo;
 BoardInfo boardInfo;
+
+// NMEA2000
+Preferences preferences;             // Nonvolatile storage on ESP32 - To store LastDeviceAddress
 
 //Gyro
 MMA8452Q mma;
@@ -86,10 +93,41 @@ void SendNMEA0183Message(String var) {
   udp.endPacket();
 }
 
+// Set the information for other bus devices, which messages we support
+const unsigned long TransmitMessages[] PROGMEM = {127257L, // Pitch/Roll                                              
+                                                  0
+                                                 };
+
+bool IsTimeToUpdate(unsigned long NextUpdate) {
+  		return (NextUpdate < millis());
+	}
+	unsigned long InitNextUpdate(unsigned long Period, unsigned long Offset = 0) {
+  		return millis() + Period + Offset;
+	}
+	void SetNextUpdate(unsigned long &NextUpdate, unsigned long Period) {
+  		while ( NextUpdate < millis() ) NextUpdate += Period;
+	}
+
+  // Create NMEA2000 message
+void SendN2kPitch(double Yaw, double Pitch, double Roll) {   // Gieren //Krängung // Schlingern
+static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod);				
+tN2kMsg N2kMsg;
+
+  	if ( IsTimeToUpdate(SlowDataUpdated) ) {
+    	SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
+
+    	Serial.printf("Krängung     : %3.0f ", Pitch);
+    	Serial.println("°");
+
+  		SetN2kPGN127257(N2kMsg, 0, Yaw, Pitch, Roll); 
+  		NMEA2000.SendMsg(N2kMsg);
+		}
+}
 
 // The setup() function runs once each time the micro-controller starts
 void setup()
 {
+
 	Serial.begin(115200);
 
 	//Filesystem prepare for Webfiles
@@ -102,15 +140,11 @@ void setup()
 
 	File root = LittleFS.open("/");
   	listDir(LittleFS, "/", 3);
-	//file exists, reading and loading config file
+	// file exists, reading and loading config file
 	readConfig("/config.json");
 	AP_SSID = tAP_Config.wAP_SSID;
 	AP_PASSWORD = tAP_Config.wAP_Password;
 	fKielOffset = atof(tAP_Config.wKiel_Offset);
-
-  	freeHeapSpace();
-
-	sBoardInfo = boardInfo.ShowChipIDtoString();
 
 	pinMode(iMaxSonar, INPUT);
 
@@ -217,6 +251,38 @@ void setup()
 	// Add service to MDNS-SD
 	MDNS.addService("http", "tcp", 80);
 
+	// NMEA2000
+  	NMEA2000.SetN2kCANMsgBufSize(8);
+  	NMEA2000.SetN2kCANReceiveFrameBufSize(250);
+  	NMEA2000.SetN2kCANSendFrameBufSize(250);
+
+  	esp_efuse_mac_get_default(chipid);
+  	for (i = 0; i < 6; i++) id += (chipid[i] << (7 * i));
+
+  	// Set product information
+  	NMEA2000.SetProductInformation("1", // Manufacturer's Model serial code
+                                 100, // Manufacturer's product code
+                                 "BoatData Sensor Module",  // Manufacturer's Model ID
+                                 "1.0.2.25 (2023-05-30)",  // Manufacturer's Software version code
+                                 "1.0.2.0 (2023-05-30)" // Manufacturer's Model version
+                                );
+  	// Set device information
+  	NMEA2000.SetDeviceInformation(id, // Unique number. Use e.g. Serial number.
+                                132, // Device function=Analog to NMEA 2000 Gateway. See codes on http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
+                                25, // Device class=Inter/Intranetwork Device. See codes on  http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
+                                2046 // Just choosen free from code list on http://www.nmea.org/Assets/20121020%20nmea%202000%20registration%20list.pdf
+                               );
+
+	NMEA2000.SetForwardType(tNMEA2000::fwdt_Text); // Show in clear text. Leave uncommented for default Actisense format.
+
+  	preferences.begin("nvs", false);                          // Open nonvolatile storage (nvs)
+  	NodeAddress = preferences.getInt("LastNodeAddress", 33);  // Read stored last NodeAddress, default 33
+  	preferences.end();
+  	Serial.printf("NodeAddress=%d\n", NodeAddress);
+
+  	NMEA2000.SetMode(tNMEA2000::N2km_ListenAndNode, NodeAddress);
+  	NMEA2000.ExtendTransmitMessages(TransmitMessages);
+  	NMEA2000.Open();
 
 
 	ArduinoOTA
@@ -245,6 +311,7 @@ void setup()
 
 	ArduinoOTA.setHostname(HostName);
 	ArduinoOTA.begin();
+
 }
 
 // Add the main program code into the continuous loop() function
@@ -281,8 +348,6 @@ void loop()
 		sSTBB = "Backbord";
 	else sSTBB = "Steuerbord";
 	Serial.printf("Kraengung nach: %s %f °\n", sSTBB, fKraengung);
-
-	SendNMEA0183Message(sendXDR());
 
 	// read I2C Orientation Sensor
 	bool bSFM = 0; // SensorFalschMontiert
@@ -333,5 +398,26 @@ void loop()
 	readConfig("/config.json");
 	fKielOffset = atof(tAP_Config.wKiel_Offset);
 
+// Send Messages NMEA
+	SendNMEA0183Message(sendXDR()); // Send NMEA0183 Message
+
+	SendN2kPitch(0, fKraengung, 0); // Send NMEA0183 Message
+
+    NMEA2000.ParseMessages();       // Parse NMEA2000 Messages
+    int SourceAddress = NMEA2000.GetN2kSource();
+  	if (SourceAddress != NodeAddress) { // Save potentially changed Source Address to NVS memory
+    	NodeAddress = SourceAddress;      // Set new Node Address (to save only once)
+    	preferences.begin("nvs", false);
+    	preferences.putInt("LastNodeAddress", SourceAddress);
+    	preferences.end();
+    	Serial.printf("Address Change: New Address=%d\n", SourceAddress);
+  }
+
+  // Dummy to empty input buffer to avoid board to stuck with e.g. NMEA Reader
+  	if ( Serial.available() ) {
+    Serial.read();
+  }
+	
+	
 	freeHeapSpace();
 }

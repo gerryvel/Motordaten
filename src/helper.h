@@ -11,6 +11,7 @@
 #include <WiFi.h>
 #include "configuration.h"
 #include <ArduinoJson.h>
+#include <Preferences.h>
 
 void ShowTime(){
 	time_t now = time(NULL);
@@ -231,4 +232,4 @@ String sWifiStatus(int Status)
   }
 }
 
-#endif   
+#endif 

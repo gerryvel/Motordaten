@@ -2,9 +2,14 @@
 #define __configuration__H__
 
 // Configuration N2k
-#define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
-#define ESP32_CAN_RX_PIN GPIO_NUM_5  // Set CAN RX port to 5
+#define ESP32_CAN_TX_PIN GPIO_NUM_5  // Set CAN TX port to 4 
+#define ESP32_CAN_RX_PIN GPIO_NUM_4  // Set CAN RX port to 5
 #define N2K_SOURCE 15
+int NodeAddress;                     // To store Last Node Address
+uint8_t chipid[6];
+uint32_t id = 0;
+int i = 0;
+#define SlowDataUpdatePeriod 1000  // Time between CAN Messages sent
 
 //Configuration Refresh Page x Sec.
 #define PAGE_REFRESH 10 
