@@ -53,7 +53,7 @@ String replaceVariable(const String& var)
   	if (var == "sAP_Clients")return String(WiFi.softAPgetStationNum());
   	if (var == "sCL_Addr")return WiFi.localIP().toString();
   	if (var == "sCL_Status")return String(sCL_Status);
-  	if (var == "sBMP_Status")return String(sBMP_Status);
+  	if (var == "sI2C_Status")return String(sI2C_Status);
 	if (var == "CONFIGPLACEHOLDER")return processor(var);
   	return "NoVariable";
 }
@@ -87,7 +87,6 @@ String processor(const String& var)
 WiFiUDP udp;  // Create UDP instance
 
 void SendNMEA0183Message(String var) {
-
   udp.beginPacket(udpAddress, udpPort);   // Send to UDP
   udp.println(var);
   udp.endPacket();
@@ -108,7 +107,7 @@ bool IsTimeToUpdate(unsigned long NextUpdate) {
   		while ( NextUpdate < millis() ) NextUpdate += Period;
 	}
 
-  // Create NMEA2000 message
+// Create NMEA2000 message
 void SendN2kPitch(double Yaw, double Pitch, double Roll) {   // Gieren //Krängung // Schlingern
 static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod);				
 tN2kMsg N2kMsg;
@@ -132,7 +131,7 @@ void setup()
 
 	//Filesystem prepare for Webfiles
 	if (!LittleFS.begin(true)) {
-		Serial.println("An Error has occurred while mounting SPIFFS");
+		Serial.println("An Error has occurred while mounting LittleFS");
 		return;
 	}
 	Serial.println("Speicher LittleFS benutzt:");
@@ -165,7 +164,7 @@ void setup()
 	switch (MMAbegin) {
 	case 0:
 		Serial.println("\nMMA could not start!");
-		sBMP_Status = "Keinen Sensor gefunden!";
+		sI2C_Status = "Keinen Sensor gefunden!";
 		bI2C_Status = 0;
 		break;
 	case 1:
@@ -173,7 +172,7 @@ void setup()
 		mma.init(SCALE_2G);
 		Serial.print("Range = "); Serial.print(2 << mma.available());
 		Serial.println("G");   
-		sBMP_Status = "Sensor gefunden!"; 
+		sI2C_Status = "Sensor gefunden!"; 
 		bI2C_Status = 1;          
 	}
 	
@@ -205,6 +204,9 @@ void setup()
 	}
 	Serial.println("mDNS responder started");
 
+	server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(LittleFS, "/favicon.ico", "image/x-icon");
+	});
 	server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) {
 		request->send(LittleFS, "/index.html", String(), false, replaceVariable);
 	});
@@ -328,7 +330,6 @@ void loop()
 
 // OTA	
 	ArduinoOTA.handle();
-	delay(1000);
 
 // Status AP 
   Serial.printf("Stationen mit AP verbunden = %d\n", WiFi.softAPgetStationNum());
@@ -392,7 +393,6 @@ void loop()
 	Serial.printf("Schwert: %f cm\n", fSStellung);
 	fAbsTief = fSStellung + fKielOffset;
 	Serial.printf("Tiefgang: %f cm\n", fAbsTief);
-	delay(500);
 
 // config von LittleFS lesen, Kieloffset schreiben
 	readConfig("/config.json");
@@ -401,7 +401,7 @@ void loop()
 // Send Messages NMEA
 	SendNMEA0183Message(sendXDR()); // Send NMEA0183 Message
 
-	SendN2kPitch(0, fKraengung, 0); // Send NMEA0183 Message
+	SendN2kPitch(0, fKraengung, 0); // Send NMEA2000 Message
 
     NMEA2000.ParseMessages();       // Parse NMEA2000 Messages
     int SourceAddress = NMEA2000.GetN2kSource();
@@ -417,7 +417,6 @@ void loop()
   	if ( Serial.available() ) {
     Serial.read();
   }
-	
 	
 	freeHeapSpace();
 }

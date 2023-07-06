@@ -47,10 +47,9 @@ String sendXDR()
     //NMEASensorKraeng += ",";
     NMEASensorKraeng += String(fGaugeKraengung);
     NMEASensorKraeng += ",D,ROLL";
-
-  // Build CheckSum
-  HexCheckSum = String(CheckSum(NMEASensorKraeng), HEX);
-  // Build complete NMEA string
+    // Build CheckSum
+    HexCheckSum = String(CheckSum(NMEASensorKraeng), HEX);
+    // Build complete NMEA string
   SendSensorKraeng = "$" + NMEASensorKraeng;
   SendSensorKraeng += "*";
   SendSensorKraeng += HexCheckSum;

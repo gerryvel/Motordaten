@@ -8,7 +8,6 @@
 #include <LITTLEFS.h>
 #include <FS.h>
 #include <Wire.h>
-#include <WiFi.h>
 #include "configuration.h"
 #include <ArduinoJson.h>
 #include <Preferences.h>
@@ -21,8 +20,6 @@ void ShowTime(){
 	strftime(buff, sizeof(buff), "%d-%m-%Y %H:%M:%S", &tm_now);
 	printf("Zeit: %s\n", buff);
 }
-
-#define WEB_TITEL "NMEA2000 TPW"
 
 void freeHeapSpace(){
 	static unsigned long last = millis();
@@ -65,6 +62,8 @@ void WiFiDiag(void) {
     }
   }
 }
+
+/***************************** Filesystem **************************/
 
 void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
     Serial.printf("Listing directory: %s\r\n", dirname);
@@ -172,6 +171,7 @@ bool writeConfig(String json)
 	return true;
 }
 
+/***************************** I2C Bus **************************/
 
 void I2C_scan(void){
   byte error, address;
