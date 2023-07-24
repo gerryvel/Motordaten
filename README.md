@@ -26,7 +26,7 @@ from /data directory.
 
 # Wiring diagram
 
-![BootsdatenKiCAD.pdf](https://github.com/gerryvel/Bootsdaten/files/12145147/BootsdatenKiCAD.pdf)
+![grafik](https://github.com/gerryvel/Bootsdaten/assets/17195231/5571a0f5-8a37-4b18-a9da-5ba11bb2f8b1)
 
 # PCB
 
