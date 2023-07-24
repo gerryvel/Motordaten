@@ -19,14 +19,14 @@ from /data directory.
 - Adafruit Huzzah! ESP32 (for programming need USB-Adapter)[Link](https://www.exp-tech.de/plattformen/internet-of-things-iot/9350/adafruit-huzzah32-esp32-breakout-board)
 - SN65HVD230 [Link](https://www.reichelt.de/high-speed-can-transceiver-1-mbit-s-3-3-v-so-8-sn-65hvd230d-p58427.html?&trstct=pos_0&nbc=1)
 - Traco-Power TSR 1-2450 for 12V / 5V [Link](https://www.reichelt.de/dc-dc-wandler-tsr-1-1-w-5-v-1000-ma-sil-to-220-tsr-1-2450-p116850.html?search=tsr+1-24)
+- Gyro MMA8452Q [Link](https://www.reichelt.de/entwicklerboards-beschleunigungsmesser-board-mma8452q-debo-sens-acc3-p284397.html)
 - Case Wago 789
 - Resistor 200Ohm , 10kOhm
 
 
 # Wiring diagram
 
-[BootsdatenKiCAD.pdf](https://github.com/gerryvel/Bootsdaten/files/12145147/BootsdatenKiCAD.pdf)
-
+![BootsdatenKiCAD.pdf](https://github.com/gerryvel/Bootsdaten/files/12145147/BootsdatenKiCAD.pdf)
 
 # PCB
 
