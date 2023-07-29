@@ -11,7 +11,7 @@ String replaceVariable(const String& var)
 {
 	if (var == "sKraengung")return String(fDrehzahl,1);
 	if (var == "sGaugeKraengung")return String(fGaugeDrehzahl, 1);
-	if (var == "sSStellung")return String(fSStellung,1);
+	if (var == "sBordspannung")return String(fBordspannung,1);
 	if (var == "sAbsTief")return String(fAbsTief,1);
 	if (var == "sSTBB")return sSTBB;
 	if (var == "sBoardInfo")return sBoardInfo;

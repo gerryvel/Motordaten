@@ -118,7 +118,7 @@ void readConfig(String filename) {
 			strcpy(tAP_Config.wAP_SSID, testDocument["SSID"] | "Bootsdaten");
 			strcpy(tAP_Config.wAP_IP, testDocument["IP"] | "192.168.16.1");
 			strcpy(tAP_Config.wAP_Password, testDocument["Password"] | "12345678");
-			strcpy(tAP_Config.wKiel_Offset, testDocument["Kiel_Offset"] | "70.0");
+			strcpy(tAP_Config.wTemp_Offset, testDocument["Kiel_Offset"] | "70.0");
 			Serial.println(tAP_Config.wAP_SSID);
 		}
 		configFile.close();
