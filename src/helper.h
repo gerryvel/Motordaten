@@ -8,9 +8,9 @@
 #include <LITTLEFS.h>
 #include <FS.h>
 #include <Wire.h>
-#include <WiFi.h>
 #include "configuration.h"
 #include <ArduinoJson.h>
+#include <Preferences.h>
 
 void ShowTime(){
 	time_t now = time(NULL);
@@ -20,8 +20,6 @@ void ShowTime(){
 	strftime(buff, sizeof(buff), "%d-%m-%Y %H:%M:%S", &tm_now);
 	printf("Zeit: %s\n", buff);
 }
-
-#define WEB_TITEL "NMEA2000 TPW"
 
 void freeHeapSpace(){
 	static unsigned long last = millis();
@@ -64,6 +62,8 @@ void WiFiDiag(void) {
     }
   }
 }
+
+/***************************** Filesystem **************************/
 
 void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
     Serial.printf("Listing directory: %s\r\n", dirname);
@@ -118,7 +118,7 @@ void readConfig(String filename) {
 			strcpy(tAP_Config.wAP_SSID, testDocument["SSID"] | "Bootsdaten");
 			strcpy(tAP_Config.wAP_IP, testDocument["IP"] | "192.168.16.1");
 			strcpy(tAP_Config.wAP_Password, testDocument["Password"] | "12345678");
-			strcpy(tAP_Config.wTemp_Offset, testDocument["Temp_Offset"] | "70.0");
+			strcpy(tAP_Config.wKiel_Offset, testDocument["Kiel_Offset"] | "70.0");
 			Serial.println(tAP_Config.wAP_SSID);
 		}
 		configFile.close();
@@ -171,6 +171,7 @@ bool writeConfig(String json)
 	return true;
 }
 
+/***************************** I2C Bus **************************/
 
 void I2C_scan(void){
   byte error, address;
@@ -231,4 +232,4 @@ String sWifiStatus(int Status)
   }
 }
 
-#endif   
+#endif 

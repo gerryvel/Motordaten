@@ -2,12 +2,18 @@
 #define __configuration__H__
 
 // Configuration N2k
-#define ESP32_CAN_TX_PIN GPIO_NUM_5  // Set CAN TX port to 4 
-#define ESP32_CAN_RX_PIN GPIO_NUM_4  // Set CAN RX port to 5
+#define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
+#define ESP32_CAN_RX_PIN GPIO_NUM_5  // Set CAN RX port to 5
 #define N2K_SOURCE 15
+int NodeAddress;                     // To store Last Node Address
+uint8_t chipid[6];
+uint32_t id = 0;
+int i = 0;
+#define SlowDataUpdatePeriod 1000  // Time between CAN Messages sent
 
-//Configuration Refresh Page x Sec.
-#define PAGE_REFRESH 10 
+//Configuration Web Page 
+#define PAGE_REFRESH 10 // x Sec.
+#define WEB_TITEL "Bootsdaten"
 
 //Configuration mit Webinterface
 struct Web_Config
@@ -15,22 +21,22 @@ struct Web_Config
 	char wAP_IP[20];
 	char wAP_SSID[64];
 	char wAP_Password[12];
-	char wTemp_Offset[5];
+	char wKiel_Offset[5];
 };
 Web_Config tAP_Config;
 
 //Configuration AP 
-#define HostName        "Motordaten"
+#define HostName        "Bootsdaten"
 const int   channel        = 10;                // WiFi Channel number between 1 and 13
 const bool  hide_SSID      = false;             // To disable SSID broadcast -> SSID will not appear in a basic WiFi scan
 const int   max_connection = 4;                 // Maximum simultaneous connected clients on the AP
 
 // Variables for WIFI-AP
-IPAddress IP = IPAddress(192, 168, 15, 40);
+IPAddress IP = IPAddress(192, 168, 15, 20);
 IPAddress Gateway = IPAddress(192, 168, 15, 1);
 IPAddress NMask = IPAddress(255, 255, 255, 0);
 IPAddress AP_IP;
-String AP_SSID = "Motordaten";
+String AP_SSID = "Bootsdaten";
 String AP_PASSWORD  = "12345678";
 IPAddress CL_IP;
 IPAddress SELF_IP;
@@ -52,7 +58,7 @@ float fbmp_altitude = 0;
 String sI2C_Status = "";
 bool bI2C_Status = 0;
 
-// const int iMaxSonar = 35;			//Analoginput 
+const int iMaxSonar = 35;			//Analoginput 
 int iDistance = 0;
 
 // Variables Website

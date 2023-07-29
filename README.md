@@ -1,49 +1,44 @@
-# NMEA2000 Battery Voltage, Engine RPM and Exhaust Temp Sender
-This repository shows how to measure the Battery Voltage, Engine RPM, Fuel Level and the Exhaust Temeperature and send it as NNMEA2000 meassage.
+# Bootsdaten
 
-# Wiring diagram
-![grafik](https://github.com/gerryvel/NMEA2000-Data-Sender/assets/17195231/1649b9d7-06d8-432c-8cfc-e48873710a5e)
+The ESP32 in this project is an Adafruit Huzzah! ESP32. This is a small module without USB connector.
 
-# PCB Layout
-![grafik](https://github.com/gerryvel/NMEA2000-Data-Sender/assets/17195231/95a2bd04-50ca-4ac5-9da0-dfeb12f30040)
+With the ESP32 and 2 Sensors for gyro (MMA8452) and distance (Sharp GP2Y0A21) it's possible
+monitoring the varaible Kiel and the Inclined position (Krängung, Roll). 
+The Roll-data are available as NMEA0183 UDP-Stream over Wlan.
 
-![grafik](https://github.com/gerryvel/NMEA2000-Data-Sender/assets/17195231/8f7d6ff9-ccad-4adb-b75d-5e98a85193fb)
+The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter. 12V DC comes from the N2k Bus Connector with the M12 Connector.
 
-
-The project requires the NMEA2000 and the NMEA2000_esp32 libraries from Timo Lappalainen: https://github.com/ttlappalainen.
-Both libraries have to be downloaded and installed.
-
-The ESP32 in this project is an Adafruit Huzzah! ESP32. Pin layout for other ESP32 devices might differ.
-
-For the ESP32 CAN bus, I used the "SN65HVD230 Chip from TI" as transceiver. It works well with the ESP32.
-The correct GPIO ports are defined in the main sketch. For this project, I use the pins GPIO4 for CAN RX and GPIO5 for CAN TX. 
-
-The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter (Traco-Power TSR 1-2450).
-
-The following values are measured and transmitted to the NMEA2000 bus:
-
-- The Exhaust Temperature is measured with a DS18B20 Sensor (the DallasTemperature library has to be installed with the Arduiono IDE Library Manager).
-- The Engine RPM is measured on connection "W" of the generator/alternator. The Engine RPM is detected with a H11L1 optocoupler device (or alternatively a PC900v). This device plus the 2K resistor and the 1N4148 diode translates the signal from "W" connection of the generator to ESP32 GPIO pin 33. The diode is not critical an can be replaced with nearly any another type.
-There is a RPM difference between generator and diesel engine RPM. The calibration value has to be set in the program.
-- The Battery Voltage is measured at GPIO pin 35 (check calibration value with regards to the real resistor values of R4/R5).
-
-The following PGNs are sent to the NMEA 2000 Bus:
-- 127505 Fluid Level
-- 130311 Temperature (or alternatively 130312, 130316)
-- 127488 Engine Rapid / RPM
-- 127508 Battery Status
-
-Change the PGNs if your MFD can not show a certain PGN.
-BTW: The full list of PGNs is defined in this header file of the NMEA 2000 library: https://github.com/ttlappalainen/NMEA2000/blob/master/src/N2kMessages.h
+The Website use LittleFS Filesystem. You must use Partition Schemes "Minimal SPIFFS with APPS and OTA".
+The HTML Data upload separately with 
+- "ESP 32 Skcetch Data upload" (Arduino IDE) or 
+- PlatformIO > Build Filesystem and Upload Filesystem Image (PlatformIO) 
+from /data directory.
 
 # Partlist:
 
-- Adafruit Huzzah! ESP32 (for programming need USB-Adapter)
+- Adafruit Huzzah! ESP32 (for programming need USB-Adapter)[Link](https://www.exp-tech.de/plattformen/internet-of-things-iot/9350/adafruit-huzzah32-esp32-breakout-board)
 - SN65HVD230 [Link](https://www.reichelt.de/high-speed-can-transceiver-1-mbit-s-3-3-v-so-8-sn-65hvd230d-p58427.html?&trstct=pos_0&nbc=1)
 - Traco-Power TSR 1-2450 for 12V / 5V [Link](https://www.reichelt.de/dc-dc-wandler-tsr-1-1-w-5-v-1000-ma-sil-to-220-tsr-1-2450-p116850.html?search=tsr+1-24)
-- Resistor 3,3 KOhm [Link](https://www.reichelt.de/widerstand-kohleschicht-3-3-kohm-0207-250-mw-5--1-4w-3-3k-p1397.html?search=widerstand+250+mw+3k3) Other resistors are the same type! Click on "5% Carbon film resistors" then two times "+ more filter" to select values.
-- Diode 1N4148 [Link](https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html?search=1n4148)
-- Zenerdiode 3,3 V [Link](https://www.reichelt.de/zenerdiode-3-3-v-0-5-w-do-35-zf-3-3-p23126.html?&trstct=pos_6&nbc=1)
-- H11-L1 [Link](https://www.reichelt.de/optokoppler-1-mbit-s-dil-6-h11l1m-p219351.html?search=H11-l1)
-- PCB by Aisler [Link](https://aisler.net/p/JCQLQVHC)
+- Gyro MMA8452Q [Link](https://www.reichelt.de/entwicklerboards-beschleunigungsmesser-board-mma8452q-debo-sens-acc3-p284397.html)
+- Case Wago 789
+- Resistor 200Ohm , 10kOhm
 
+
+# Wiring diagram
+
+![grafik](https://github.com/gerryvel/Bootsdaten/assets/17195231/5571a0f5-8a37-4b18-a9da-5ba11bb2f8b1)
+
+# PCB
+
+![Bootsdaten](https://github.com/gerryvel/Bootsdaten/assets/17195231/b4be1809-5393-4396-8dcf-747c5ca8a09e)
+PCB by Aisler [Link](https://aisler.net/p/NZFHAMAJ)
+
+# Webinterface
+
+![Zwischenablage01](https://user-images.githubusercontent.com/17195231/234933514-95c5519c-ce94-45df-af15-64128691161c.jpg)
+
+![Zwischenablage02](https://user-images.githubusercontent.com/17195231/234933530-b59c1f4c-b747-41a3-8f6a-eba9062560dc.jpg)
+
+![Zwischenablage03](https://user-images.githubusercontent.com/17195231/234933552-55ede022-9682-486e-8518-c98acedd2c1a.jpg)
+
+![Zwischenablage04](https://user-images.githubusercontent.com/17195231/234933563-c5276110-f2e7-4a71-a5f1-1a3fbc7df484.jpg)
