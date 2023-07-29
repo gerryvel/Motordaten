@@ -49,7 +49,8 @@ bool bClientConnected = 0;
 float fbmp_temperature = 0;
 float fbmp_pressure = 0;
 float fbmp_altitude = 0;
-String sBMP_Status = "";
+String sI2C_Status = "";
+bool bI2C_Status = 0;
 
 // const int iMaxSonar = 35;			//Analoginput 
 int iDistance = 0;
@@ -57,11 +58,11 @@ int iDistance = 0;
 // Variables Website
 float fDrehzahl = 0;
 float fGaugeDrehzahl = 0;
-// float fSStellung = 0;
-// float fAbsTief = 0;
+float fSStellung = 0;
+float fAbsTief = 0;
 float fTempOffset = 0;
-// String sSTBB = "";
-// String sOrient = "";
+String sSTBB = "";
+String sOrient = "";
 
 //Definiton NMEA0183 MWV
 double dMWV_WindDirectionT = 0;

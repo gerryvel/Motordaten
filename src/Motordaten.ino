@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Version 0.8, 30.05.2023, Gerry Sebb
+// Version 0.9, 30.07.2023, Gerry Sebb
 
 #include <Arduino.h>
 #include <Preferences.h>
@@ -27,8 +27,14 @@
 #include <memory>
 #include <N2kMessages.h>
 #include <DallasTemperature.h>
+#include "web.h"
+#include <ESPmDNS.h>
 
 #define ENABLE_DEBUG_LOG 0 // Debug log
+
+
+// Set web server port number to 80
+AsyncWebServer server(80);
 
 #define ADC_Calibration_Value1 250.0 // For resistor measure 5 Volt and 180 Ohm equals 100% plus 1K resistor.
 #define ADC_Calibration_Value2 18.9  // The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3
@@ -123,11 +129,106 @@ void setup() {
   // Init USB serial port
   Serial.begin(115200);
 
+  //Filesystem prepare for Webfiles
+	if (!LittleFS.begin(true)) {
+		Serial.println("An Error has occurred while mounting LittleFS");
+		return;
+	}
+	Serial.println("Speicher LittleFS benutzt:");
+	Serial.println(LittleFS.usedBytes());
+
+	File root = LittleFS.open("/");
+  	listDir(LittleFS, "/", 3);
+	// file exists, reading and loading config file
+	readConfig("/config.json");
+	AP_SSID = tAP_Config.wAP_SSID;
+	AP_PASSWORD = tAP_Config.wAP_Password;
+	fTempOffset = atof(tAP_Config.wTemp_Offset);
+
   // LED
   LEDInit();
 
-  // Init RPM measure
+  // Boardinfo	
+  	sBoardInfo = boardInfo.ShowChipIDtoString();
 
+  //WIFI
+	if (!WiFi.setHostname(HostName))
+		Serial.println("\nSet Hostname success");
+	else
+		Serial.println("\nSet Hostname not success");
+
+	//WiFiServer AP starten
+	WiFi.mode(WIFI_AP_STA);
+	WiFi.softAP(AP_SSID, AP_PASSWORD);
+	delay(1000);
+	if (WiFi.softAPConfig(IP, Gateway, NMask))
+		Serial.println("\nIP config success");	
+	else
+		Serial.println("IP config not success");	
+
+	IPAddress myIP = WiFi.softAPIP();
+	Serial.print("AP IP configured with address: ");
+	Serial.println(myIP);
+	
+
+	if (!MDNS.begin(HostName)) {
+		Serial.println("Error setting up MDNS responder!");
+		while (1) {
+			delay(1000);
+		}
+	}
+	Serial.println("mDNS responder started");
+
+  
+	server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(LittleFS, "/favicon.ico", "image/x-icon");
+	});
+	server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) {
+		request->send(LittleFS, "/index.html", String(), false, replaceVariable);
+	});
+	server.on("/system.html", HTTP_GET, [](AsyncWebServerRequest* request) {
+		request->send(LittleFS, "/system.html", String(), false, replaceVariable);
+	});
+	server.on("/settings.html", HTTP_GET, [](AsyncWebServerRequest* request) {
+		request->send(LittleFS, "/settings.html", String(), false, replaceVariable);
+	});
+	server.on("/ueber.html", HTTP_GET, [](AsyncWebServerRequest* request) {
+		request->send(LittleFS, "/ueber.html", String(), false, replaceVariable);
+	});
+	server.on("/gauge.min.js", HTTP_GET, [](AsyncWebServerRequest* request) {
+		request->send(LittleFS, "/gauge.min.js");
+	});
+	server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request) {
+		request->send(LittleFS, "/style.css", "text/css");
+	});
+	server.on("/settings.html", HTTP_POST, [](AsyncWebServerRequest *request)
+	{
+		int count = request->params();
+		Serial.printf("Anzahl: %i\n", count);
+		for (int i = 0;i < count;i++)
+		{
+			AsyncWebParameter* p = request->getParam(i);
+			Serial.print("PWerte von der Internet - Seite: ");
+			Serial.print("Param name: ");
+			Serial.println(p->name());
+			Serial.print("Param value: ");
+			Serial.println(p->value());
+			Serial.println("------");
+			// p->value in die config schreiben
+			writeConfig(p->value());
+		}
+		request->send(200, "text/plain", "Daten gespeichert");
+	});
+
+ // Start TCP (HTTP) server
+	server.begin();
+	Serial.println("TCP server started");
+
+	// Add service to MDNS-SD
+	MDNS.addService("http", "tcp", 80);
+
+
+  // Init RPM measure
   pinMode(Eingine_RPM_Pin, INPUT_PULLUP);                                            // sets pin high
   attachInterrupt(digitalPinToInterrupt(Eingine_RPM_Pin), handleInterrupt, FALLING); // attaches pin to interrupt on Falling Edge
   timer = timerBegin(0, 80, true);                                                // this returns a pointer to the hw_timer_t global variable
@@ -329,6 +430,14 @@ void loop() {
   LEDblink(LED(Green)); // blink for loop run
   if (!sensors.getAddress(MotorThermometer, 0)) LEDflash(LED(Red));  // search for device on the bus and unable to find
 
+  //Wifi variables
+	bConnect_CL = WiFi.status() == WL_CONNECTED ? 1 : 0;
+
+  // Status AP 
+  Serial.printf("Stationen mit AP verbunden = %d\n", WiFi.softAPgetStationNum());
+  Serial.printf("Soft-AP IP address = %s\n", WiFi.softAPIP().toString());
+  sCL_Status = sWifiStatus(WiFi.status());
+
   unsigned int size;
 
   BatteryVolt = ((BatteryVolt * 15) + (ReadVoltage(ADCpin2) * ADC_Calibration_Value2 / 4096)) / 16; // This implements a low pass filter to eliminate spike for ADC readings
@@ -359,5 +468,10 @@ void loop() {
   if ( Serial.available() ) {
     Serial.read();
   }
+
+freeHeapSpace();	
+
+// OTA	
+	ArduinoOTA.handle();
 
 }

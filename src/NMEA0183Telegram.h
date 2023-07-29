@@ -30,33 +30,32 @@ Transducer Values
     n) Checksum
 
     Example:
-    $IIXDR,C,19.52,C,TempAir*19
-    $IIXDR,P,1.02481,B,Barometer*29
+    Temperatur $IIXDR,C,19.52,C,TempAir*19
+    Druck      $IIXDR,P,1.02481,B,Barometer*29
+    Kraengung  $IIXDR,A,0,x.x,ROLL*hh<CR><LF>
 */
 
-// Send Kraengung data
+// Send Sensor data
 String sendXDR()
 {   
   String HexCheckSum;
-  String NMEASensorKraeng;
-  String SendSensorKraeng;
+  String NMEASensor;
+  String SendSensor;
   
-  // Create NMEA string for XDR sensor Kraengung $IIXDR,A,0,x.x,ROLL*hh<CR><LF>
-  
-    NMEASensorKraeng = "IIXDR,A,";  //NMEASensorKraeng = "IIXDR,A," + String(SensorID);  
+    NMEASensor = "IIXDR,A,";  //NMEASensor = "IIXDR,A," + String(SensorID);  
     //NMEASensorKraeng += ",";
-    NMEASensorKraeng += String(fGaugeKraengung);
-    NMEASensorKraeng += ",D,ROLL";
+    NMEASensor += String(fGaugeDrehzahl);
+    NMEASensor += ",D,ROLL";
 
   // Build CheckSum
-  HexCheckSum = String(CheckSum(NMEASensorKraeng), HEX);
+  HexCheckSum = String(CheckSum(NMEASensor), HEX);
   // Build complete NMEA string
-  SendSensorKraeng = "$" + NMEASensorKraeng;
-  SendSensorKraeng += "*";
-  SendSensorKraeng += HexCheckSum;
+  SendSensor = "$" + NMEASensor;
+  SendSensor += "*";
+  SendSensor += HexCheckSum;
 
-  Serial.println(SendSensorKraeng);
+  Serial.println(SendSensor);
   
-  return SendSensorKraeng;
+  return SendSensor;
 }
 
