@@ -1,8 +1,8 @@
-# NMEA2000 Battery Voltage, Engine RPM and Exhaust Temp Sender
+
 This repository shows how to measure the Battery Voltage, Engine RPM, Fuel Level and the Exhaust Temeperature and send it as NNMEA2000 meassage.
 
 # Wiring diagram
-![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/e9192386-f672-4e20-b8e6-1d4efa33608e)
+![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/44acbbf8-2d19-42a0-892f-61b3b6aa889a)# NMEA2000 Battery Voltage, Engine RPM and Exhaust Temp Sender
 
 
 # PCB Layout
