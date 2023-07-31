@@ -2,7 +2,8 @@
 This repository shows how to measure the Battery Voltage, Engine RPM, Fuel Level and the Exhaust Temeperature and send it as NNMEA2000 meassage.
 
 # Wiring diagram
-![grafik](https://github.com/gerryvel/NMEA2000-Data-Sender/assets/17195231/1649b9d7-06d8-432c-8cfc-e48873710a5e)
+![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/e9192386-f672-4e20-b8e6-1d4efa33608e)
+
 
 # PCB Layout
 ![grafik](https://github.com/gerryvel/NMEA2000-Data-Sender/assets/17195231/95a2bd04-50ca-4ac5-9da0-dfeb12f30040)
