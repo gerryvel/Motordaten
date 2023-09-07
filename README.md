@@ -3,14 +3,11 @@ This repository shows how to measure the Battery Voltage, Engine RPM, Fuel Level
 According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) .
 
 # Wiring diagram
-![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/44acbbf8-2d19-42a0-892f-61b3b6aa889a)# NMEA2000 Battery Voltage, Engine RPM and Exhaust Temp Sender
-
+![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/d507fcf4-b0a5-4727-8adc-7d75e1f193b7)
 
 # PCB Layout
-![grafik](https://github.com/gerryvel/NMEA2000-Data-Sender/assets/17195231/95a2bd04-50ca-4ac5-9da0-dfeb12f30040)
-
-![grafik](https://github.com/gerryvel/NMEA2000-Data-Sender/assets/17195231/8f7d6ff9-ccad-4adb-b75d-5e98a85193fb)
-
+![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/145f6471-3dc7-4fd2-86d0-a982d48366ff)
+![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/56854047-a3f6-4fc3-a74d-e5f0a27eabe8)
 
 The project requires the NMEA2000 and the NMEA2000_esp32 libraries from Timo Lappalainen: https://github.com/ttlappalainen.
 Both libraries have to be downloaded and installed.
