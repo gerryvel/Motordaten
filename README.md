@@ -38,6 +38,8 @@ BTW: The full list of PGNs is defined in this header file of the NMEA 2000 libra
 # Partlist:
 
 - PCB by Aisler [Link](https://aisler.net/p/JCQLQVHC)
+  
+Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13480525/MD.N2k__Assembly.pdf)
 
 - 1			C1	10µ	CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder	1
 - 2			C2	22µ	CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder	1
