@@ -66,3 +66,7 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 - 21			J2, J3	Conn_01x04_Pin	PinHeader_1x04_P2.54mm_Vertical	2
 - 22			J1	Conn_01x03_Pin	PinHeader_1x03_P2.54mm_Vertical	1
 - Wago-Case: [Link](https://www.wago.com/de/zubehoer/gehaeuse-55-mm/p/789-120)
+
+Revison 2.0
+- change Hardware layout, add protection's and C's on Voltage input, add protection's for CanBus
+  
