@@ -8,6 +8,8 @@ According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger
 # PCB Layout
 ![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/152cf410-2b51-408b-b6c6-68b826d2239b)
 ![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/f2e08ff9-fd00-447a-ac95-1913529f3cf8)
+![image](https://github.com/gerryvel/Motordaten/assets/17195231/961056f8-e4fa-480a-8aef-d366a8ed4e61)
+
 
 The project requires the NMEA2000 and the NMEA2000_esp32 libraries from Timo Lappalainen: https://github.com/ttlappalainen.
 Both libraries have to be downloaded and installed.
