@@ -63,4 +63,4 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 - 20			FL1	EPCO B82789C0513	B82789C0113N002	1
 - 21			J2, J3	Conn_01x04_Pin	PinHeader_1x04_P2.54mm_Vertical	2
 - 22			J1	Conn_01x03_Pin	PinHeader_1x03_P2.54mm_Vertical	1
-
+- Case: Link](https://www.wago.com/de/zubehoer/gehaeuse-55-mm/p/789-120)
