@@ -1,10 +1,23 @@
-# Bootsdaten
+# MotorData N2k
+This repository shows how to measure the Battery Voltage, Engine RPM, Fuel Level and the Exhaust Temeperature and send it as NNMEA2000 meassage.
+According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger.
 
-The ESP32 in this project is an Adafruit Huzzah! ESP32. This is a small module without USB connector.
+# Wiring diagram
+![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/200a603d-1bbc-480a-a8bb-c428463898cd)
 
-With the ESP32 and 2 Sensors for gyro (MMA8452) and distance (Sharp GP2Y0A21) it's possible
-monitoring the varaible Kiel and the Inclined position (Krängung, Roll). 
-The Roll-data are available as NMEA0183 UDP-Stream over Wlan.
+# PCB Layout
+![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/152cf410-2b51-408b-b6c6-68b826d2239b)
+![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/f2e08ff9-fd00-447a-ac95-1913529f3cf8)
+![image](https://github.com/gerryvel/Motordaten/assets/17195231/961056f8-e4fa-480a-8aef-d366a8ed4e61)
+
+
+The project requires the NMEA2000 and the NMEA2000_esp32 libraries from Timo Lappalainen: https://github.com/ttlappalainen.
+Both libraries have to be downloaded and installed.
+
+The ESP32 in this project is an Adafruit Huzzah! ESP32. Pin layout for other ESP32 devices might differ.
+
+For the ESP32 CAN bus, I used the "SN65HVD230 Chip from TI" as transceiver. It works well with the ESP32.
+The correct GPIO ports are defined in the main sketch. For this project, I use the pins GPIO4 for CAN RX and GPIO5 for CAN TX. 
 
 The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter. 12V DC comes from the N2k Bus Connector with the M12 Connector.
 
@@ -16,29 +29,36 @@ from /data directory.
 
 # Partlist:
 
-- Adafruit Huzzah! ESP32 (for programming need USB-Adapter)[Link](https://www.exp-tech.de/plattformen/internet-of-things-iot/9350/adafruit-huzzah32-esp32-breakout-board)
-- SN65HVD230 [Link](https://www.reichelt.de/high-speed-can-transceiver-1-mbit-s-3-3-v-so-8-sn-65hvd230d-p58427.html?&trstct=pos_0&nbc=1)
-- Traco-Power TSR 1-2450 for 12V / 5V [Link](https://www.reichelt.de/dc-dc-wandler-tsr-1-1-w-5-v-1000-ma-sil-to-220-tsr-1-2450-p116850.html?search=tsr+1-24)
-- Gyro MMA8452Q [Link](https://www.reichelt.de/entwicklerboards-beschleunigungsmesser-board-mma8452q-debo-sens-acc3-p284397.html)
-- Case Wago 789
-- Resistor 200Ohm , 10kOhm
+- PCB by Aisler [Link](https://aisler.net/p/JCQLQVHC)
+  
+Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13480525/MD.N2k__Assembly.pdf)
 
+- 1			C1	10µ	CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder	1
+- 2			C2	22µ	CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder	1
+- 3			R1	100k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 4			R2	27k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 5			R3	300R	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 6			R4	10k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 7			R5	1k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 8			R6	4k7	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 9			R7	2k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 10			D1	B360	D_SMC	1
+- 11			D2	LED_RBKG	PinHeader_1x04_P2.00mm_LED RGB	1
+- 12			D3	PESD1CAN	SOT-23	1
+- 13			D4	ZPD3.3	D_DO-35_SOD27_P10.16mm_Horizontal	1  [Link](https://www.reichelt.de/zenerdiode-3-3-v-0-5-w-do-35-zf-3-3-p23126.html?&trstct=pos_6&nbc=1)
+- 14			D5	1N4148	D_DO-35_SOD27_P7.62mm_Horizontal	1  [Link](https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html?search=1n4148)
+- 15			D6	P4SMAJ26CA	D_SMA_TVS	1
+- 16			U1	TSR_1-2450	Converter_DCDC_TRACO_TSR-1_THT	1   [Link](https://www.reichelt.de/dc-dc-wandler-tsr-1-1-w-5-v-1000-ma-sil-to-220-tsr-1-2450-p116850.html?search=tsr+1-24)
+- 17			U2	ESP32-Huzzah	Adafruit_ESP32	1
+- 18			U3	SN65HVD230	SOIC-8_3.9x4.9mm_P1.27mm	1  [Link](https://www.reichelt.de/high-speed-can-transceiver-1-mbit-s-3-3-v-so-8-sn-65hvd230d-p58427.html?&trstct=pos_0&nbc=1)
+- 19			U4	H11L1	DIP-6_W7.62mm	1  [Link](https://www.reichelt.de/optokoppler-1-mbit-s-dil-6-h11l1m-p219351.html?search=H11-l1)
+- 20			FL1	EPCO B82789C0513	B82789C0113N002	1
+- 21			J2, J3	Conn_01x04_Pin	PinHeader_1x04_P2.54mm_Vertical	2
+- 22			J1	Conn_01x03_Pin	PinHeader_1x03_P2.54mm_Vertical	1
+- Wago-Case: [Link](https://www.wago.com/de/zubehoer/gehaeuse-55-mm/p/789-120)
 
-# Wiring diagram
+# Changes
 
-![grafik](https://github.com/gerryvel/Bootsdaten/assets/17195231/5571a0f5-8a37-4b18-a9da-5ba11bb2f8b1)
-
-# PCB
-
-![Bootsdaten](https://github.com/gerryvel/Bootsdaten/assets/17195231/b4be1809-5393-4396-8dcf-747c5ca8a09e)
-PCB by Aisler [Link](https://aisler.net/p/NZFHAMAJ)
-
-# Webinterface
-
-![Zwischenablage01](https://user-images.githubusercontent.com/17195231/234933514-95c5519c-ce94-45df-af15-64128691161c.jpg)
-
-![Zwischenablage02](https://user-images.githubusercontent.com/17195231/234933530-b59c1f4c-b747-41a3-8f6a-eba9062560dc.jpg)
-
-![Zwischenablage03](https://user-images.githubusercontent.com/17195231/234933552-55ede022-9682-486e-8518-c98acedd2c1a.jpg)
-
-![Zwischenablage04](https://user-images.githubusercontent.com/17195231/234933563-c5276110-f2e7-4a71-a5f1-1a3fbc7df484.jpg)
+Revison 2.0
+- change Hardware layout, add protection's and C's on Voltage input, add protection's for CanBus
+  
