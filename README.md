@@ -59,6 +59,7 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 
 # Changes
 
-Revison 2.0
+Version 2.0
 - change Hardware layout, add protection's and C's on Voltage input, add protection's for CanBus
+- change Webinterface, add calibration-offset for temperature
   
