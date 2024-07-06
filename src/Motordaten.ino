@@ -32,14 +32,9 @@
 
 #define ENABLE_DEBUG_LOG 0 // Debug log
 
-
-// Set web server port number to 80
-AsyncWebServer server(80);
-
 #define ADC_Calibration_Value1 250.0 // For resistor measure 5 Volt and 180 Ohm equals 100% plus 1K resistor.
-#define ADC_Calibration_Value2 18.9  // The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3
+#define ADC_Calibration_Value2 17.9  // The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3
 
-int NodeAddress;  // To store last Node Address
 
 Preferences preferences;             // Nonvolatile storage on ESP32 - To store LastDeviceAddress
 
@@ -55,8 +50,7 @@ const unsigned long TransmitMessages[] PROGMEM = {127505L, // Fluid Level
 // RPM data. Generator RPM is measured on connector "W"
 
 #define RPM_Calibration_Value 1.0 // Translates Generator RPM to Engine RPM 
-
-#define Eingine_RPM_Pin 23  // Engine RPM is measured as interrupt on GPIO 33
+#define Eingine_RPM_Pin 23  // Engine RPM is measured as interrupt on GPIO 23
 
 volatile uint64_t StartValue = 0;                  // First interrupt value
 volatile uint64_t PeriodCount = 0;                // period in counts of 0.000001 of a second
@@ -64,9 +58,6 @@ unsigned long Last_int_time = 0;
 hw_timer_t * timer = NULL;                        // pointer to a variable of type hw_timer_t
 portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;  // synchs between maon cose and interrupt?
 
-
-// Data wire for teperature (Dallas DS18B20) is plugged into GPIO 13 on the ESP32
-#define ONE_WIRE_BUS 34
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
 OneWire oneWire(ONE_WIRE_BUS);
 // Pass our oneWire reference to Dallas Temperature.
@@ -74,23 +65,8 @@ DallasTemperature sensors(&oneWire);
 // arrays to hold device addresses
 DeviceAddress MotorThermometer;
 
-// Send time offsets
-#define TempSendOffset 0
-#define TankSendOffset 40
-#define RPM_SendOffset 80
-#define BatterySendOffset 100
-#define SlowDataUpdatePeriod 1000  // Time between CAN Messages sent
-
 const int ADCpin2 = 35; // Voltage measure is connected GPIO 35 (Analog ADC1_CH7)
-
-
-// Tank fluid level measure is connected GPIO 34 (Analog ADC1_CH6)
-// const int ADCpin1 = 34;
-
-// Global Data
-float ExhaustTemp = 0;
-float EngineRPM = 0;
-float BatteryVolt = 0;
+const int ADCpin1 = 34; // Tank fluid level measure is connected GPIO 34 (Analog ADC1_CH6)
 
 // Task handle for OneWire read (Core 0 on ESP32)
 TaskHandle_t Task1;
@@ -98,7 +74,6 @@ TaskHandle_t Task1;
 // Serial port 2 config (GPIO 16)
 const int baudrate = 38400;
 const int rs_config = SERIAL_8N1;
-
 
 void debug_log(char* str) {
 #if ENABLE_DEBUG_LOG == 1
@@ -119,13 +94,14 @@ void IRAM_ATTR handleInterrupt()
   Last_int_time = millis();
 }
 
-
+/******************************************* Setup *******************************************************/
 void setup() {
 
   uint8_t chipid[6];
   uint32_t id = 0;
   int i = 0;
 
+  Serial.println("Motordaten setup start\n");
   // Init USB serial port
   Serial.begin(115200);
 
@@ -149,13 +125,10 @@ void setup() {
   LEDInit();
 
   // Boardinfo	
-  	sBoardInfo = boardInfo.ShowChipIDtoString();
+  sBoardInfo = boardInfo.ShowChipIDtoString();
 
   //WIFI
-	if (!WiFi.setHostname(HostName))
-		Serial.println("\nSet Hostname success");
-	else
-		Serial.println("\nSet Hostname not success");
+  WiFi.softAPdisconnect(); // alle Clients trennen
 
 	//WiFiServer AP starten
 	WiFi.mode(WIFI_AP_STA);
@@ -170,6 +143,10 @@ void setup() {
 	Serial.print("AP IP configured with address: ");
 	Serial.println(myIP);
 	
+  if (WiFi.setHostname(HostName))
+		Serial.println("\nSet Hostname success");
+	else
+		Serial.println("\nSet Hostname not success");
 
 	if (!MDNS.begin(HostName)) {
 		Serial.println("Error setting up MDNS responder!");
@@ -177,58 +154,20 @@ void setup() {
 			delay(1000);
 		}
 	}
-	Serial.println("mDNS responder started");
+Serial.println("mDNS responder started\n");
 
-  
-	server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(LittleFS, "/favicon.ico", "image/x-icon");
-	});
-	server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) {
-		request->send(LittleFS, "/index.html", String(), false, replaceVariable);
-	});
-	server.on("/system.html", HTTP_GET, [](AsyncWebServerRequest* request) {
-		request->send(LittleFS, "/system.html", String(), false, replaceVariable);
-	});
-	server.on("/settings.html", HTTP_GET, [](AsyncWebServerRequest* request) {
-		request->send(LittleFS, "/settings.html", String(), false, replaceVariable);
-	});
-	server.on("/ueber.html", HTTP_GET, [](AsyncWebServerRequest* request) {
-		request->send(LittleFS, "/ueber.html", String(), false, replaceVariable);
-	});
-	server.on("/gauge.min.js", HTTP_GET, [](AsyncWebServerRequest* request) {
-		request->send(LittleFS, "/gauge.min.js");
-	});
-	server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request) {
-		request->send(LittleFS, "/style.css", "text/css");
-	});
-	server.on("/settings.html", HTTP_POST, [](AsyncWebServerRequest *request)
-	{
-		int count = request->params();
-		Serial.printf("Anzahl: %i\n", count);
-		for (int i = 0;i < count;i++)
-		{
-			AsyncWebParameter* p = request->getParam(i);
-			Serial.print("PWerte von der Internet - Seite: ");
-			Serial.print("Param name: ");
-			Serial.println(p->name());
-			Serial.print("Param value: ");
-			Serial.println(p->value());
-			Serial.println("------");
-			// p->value in die config schreiben
-			writeConfig(p->value());
-		}
-		request->send(200, "text/plain", "Daten gespeichert");
-	});
 
  // Start TCP (HTTP) server
 	server.begin();
-	Serial.println("TCP server started");
+	Serial.println("TCP server started\n");
 
 	// Add service to MDNS-SD
 	MDNS.addService("http", "tcp", 80);
 
+// Webconfig laden
+  website();
 
-  // Init RPM measure
+// Init RPM measure
   pinMode(Eingine_RPM_Pin, INPUT_PULLUP);                                            // sets pin high
   attachInterrupt(digitalPinToInterrupt(Eingine_RPM_Pin), handleInterrupt, FALLING); // attaches pin to interrupt on Falling Edge
   timer = timerBegin(0, 80, true);                                                // this returns a pointer to the hw_timer_t global variable
@@ -237,21 +176,17 @@ void setup() {
   // true - counts up
   timerStart(timer);                                                              // starts the timer
 
-
-  // Start OneWire
+// Start OneWire
   sensors.begin();
-
-  // locate devices on the bus
-  Serial.print("Found ");
+  Serial.print("Found device "); // locate devices on the bus
   Serial.print(sensors.getDeviceCount(), DEC);
-  Serial.println(" devices.");
+  sOneWire_Status = String(sensors.getAddress(MotorThermometer, 0));
+  Serial.println("Adresse" + sOneWire_Status);
 
   // search for devices on the bus and assign based on an index
   if (!sensors.getAddress(MotorThermometer, 0)) Serial.println("Unable to find address for Device 0");
 
-
-  // Reserve enough buffer for sending all messages. This does not work on small memory devices like Uno or Mega
-
+// Reserve enough buffer for sending all messages. This does not work on small memory devices like Uno or Mega
   NMEA2000.SetN2kCANMsgBufSize(8);
   NMEA2000.SetN2kCANReceiveFrameBufSize(250);
   NMEA2000.SetN2kCANSendFrameBufSize(250);
@@ -260,10 +195,10 @@ void setup() {
   for (i = 0; i < 6; i++) id += (chipid[i] << (7 * i));
 
   // Set product information
-  NMEA2000.SetProductInformation("1", // Manufacturer's Model serial code
+  NMEA2000.SetProductInformation("MD01", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
                                  "MD Sensor Module",  // Manufacturer's Model ID
-                                 "1.0.2.25 (2023-05-30)",  // Manufacturer's Software version code
+                                 "2.0.0.0 (2024-06-07)",  // Manufacturer's Software version code
                                  "1.0.2.0 (2023-05-30)" // Manufacturer's Model version
                                 );
   // Set device information
@@ -283,22 +218,21 @@ void setup() {
   Serial.printf("NodeAddress=%d\n", NodeAddress);
 
   NMEA2000.SetMode(tNMEA2000::N2km_ListenAndNode, NodeAddress);
-
   NMEA2000.ExtendTransmitMessages(TransmitMessages);
-
   NMEA2000.Open();
 
-  // Create task for core 0, loop() runs on core 1
-  xTaskCreatePinnedToCore(
-    GetTemperature, /* Function to implement the task */
-    "Task1", /* Name of the task */
-    10000,  /* Stack size in words */
-    NULL,  /* Task input parameter */
-    0,  /* Priority of the task */
-    &Task1,  /* Task handle. */
-    0); /* Core where the task should run */
+// Create task for core 0, loop() runs on core 1
+//  xTaskCreatePinnedToCore(
+//   GetTemperature, /* Function to implement the task */
+//    "Task1", /* Name of the task */
+//    10000,  /* Stack size in words */
+//    NULL,  /* Task input parameter */
+//    0,  /* Priority of the task */
+//    &Task1,  /* Task handle. */
+//    0); /* Core where the task should run */
 
   delay(200);
+  
 }
 
 // This task runs isolated on core 0 because sensors.requestTemperatures() is slow and blocking for about 750 ms
@@ -313,9 +247,7 @@ void GetTemperature( void * parameter) {
   }
 }
 
-
 // Calculate engine RPM from number of interupts per time
-
 double ReadRPM() {
   double RPM = 0;
 
@@ -340,7 +272,7 @@ void SetNextUpdate(unsigned long &NextUpdate, unsigned long Period) {
   while ( NextUpdate < millis() ) NextUpdate += Period;
 }
 
-
+// n2k Datenfunktionen 
 
 void SendN2kBattery(double BatteryVoltage) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, BatterySendOffset);
@@ -349,8 +281,7 @@ void SendN2kBattery(double BatteryVoltage) {
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Voltage     : %3.1f ", BatteryVoltage);
-    Serial.println("V");
+    Serial.printf("Voltage     : %3.1f V\n", BatteryVoltage);
 
     SetN2kDCBatStatus(N2kMsg, 0, BatteryVoltage, N2kDoubleNA, N2kDoubleNA, 1);
     NMEA2000.SendMsg(N2kMsg);
@@ -365,8 +296,7 @@ void SendN2kTankLevel(double level, double capacity) {
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Fuel Level  : %3.1f ", level);
-    Serial.println("%");
+    Serial.printf("Fuel Level  : %3.1f %\n", level);
 
     SetN2kFluidLevel(N2kMsg, 0, N2kft_Fuel, level, capacity );
     NMEA2000.SendMsg(N2kMsg);
@@ -423,36 +353,40 @@ double ReadVoltage(byte pin) {
 } // Added an improved polynomial, use either, comment out as required
 
 
-
+/************************************ Loop ***********************************/
 void loop() {
 
   // LED
-  LEDblink(LED(Green)); // blink for loop run
+  LEDflash(LED(Green)); // flash for loop run
+
   if (!sensors.getAddress(MotorThermometer, 0)) LEDflash(LED(Red));  // search for device on the bus and unable to find
+  sensors.requestTemperatures(); // Send the command to get temperatures
+  ExhaustTemp = sensors.getTempCByIndex(0) + fTempOffset;
+
 
   //Wifi variables
 	bConnect_CL = WiFi.status() == WL_CONNECTED ? 1 : 0;
 
   // Status AP 
-  Serial.printf("Stationen mit AP verbunden = %d\n", WiFi.softAPgetStationNum());
-  Serial.printf("Soft-AP IP address = %s\n", WiFi.softAPIP().toString());
-  sCL_Status = sWifiStatus(WiFi.status());
+  // Serial.printf("Stationen mit AP verbunden = %d\n", WiFi.softAPgetStationNum());
+  // Serial.printf("Soft-AP IP address = %s\n", WiFi.softAPIP().toString());
+
 
   unsigned int size;
 
-  BatteryVolt = ((BatteryVolt * 15) + (ReadVoltage(ADCpin2) * ADC_Calibration_Value2 / 4096)) / 16; // This implements a low pass filter to eliminate spike for ADC readings
+  BordSpannung = ((BordSpannung * 15) + (ReadVoltage(ADCpin2) * ADC_Calibration_Value2 / 4096)) / 16; // This implements a low pass filter to eliminate spike for ADC readings
 
-  // FuelLevel = ((FuelLevel * 15) + (ReadVoltage(ADCpin1) * ADC_Calibration_Value1 / 4096)) / 16; // This implements a low pass filter to eliminate spike for ADC readings
+  FuelLevel = ((FuelLevel * 15) + (ReadVoltage(ADCpin1) * ADC_Calibration_Value1 / 4096)) / 16; // This implements a low pass filter to eliminate spike for ADC readings
 
   EngineRPM = ((EngineRPM * 5) + ReadRPM() * RPM_Calibration_Value) / 6 ; // This implements a low pass filter to eliminate spike for RPM measurements
 
 
   // if (FuelLevel>100) FuelLevel=100;
 
-  // SendN2kTankLevel(FuelLevel, 200);  // Adjust max tank capacity.  Is it 200 ???
+  SendN2kTankLevel(FuelLevel, 30);  // Adjust max tank capacity.  Is it 200 ???
   SendN2kExhaustTemp(ExhaustTemp);
   SendN2kEngineRPM(EngineRPM);
-  SendN2kBattery (BatteryVolt);
+  SendN2kBattery (BordSpannung);
 
   NMEA2000.ParseMessages();
   int SourceAddress = NMEA2000.GetN2kSource();
@@ -473,5 +407,12 @@ freeHeapSpace();
 
 // OTA	
 	ArduinoOTA.handle();
+
+// WebsiteData
+fTemp = ExhaustTemp;
+fBordSpannung = BordSpannung;
+fDrehzahl = EngineRPM;
+sCL_Status = sWifiStatus(WiFi.status());
+sAP_Station = WiFi.softAPgetStationNum();
 
 }

@@ -8,6 +8,7 @@
 #include <LITTLEFS.h>
 #include <FS.h>
 #include <Wire.h>
+#include <WiFi.h>
 #include "configuration.h"
 #include <ArduinoJson.h>
 #include <Preferences.h>
@@ -97,7 +98,7 @@ void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
 }
 
 void readConfig(String filename) {
-	StaticJsonDocument<200> testDocument;
+	JsonDocument testDocument;
 	File configFile = LittleFS.open(filename);
 	if (configFile)
 	{
@@ -115,10 +116,10 @@ void readConfig(String filename) {
 		Serial.println("deserializeJson ok");
 		{
 			Serial.println("Lese Daten aus Config - Datei");
-			strcpy(tAP_Config.wAP_SSID, testDocument["SSID"] | "Bootsdaten");
+			strcpy(tAP_Config.wAP_SSID, testDocument["SSID"] | "Motordaten");
 			strcpy(tAP_Config.wAP_IP, testDocument["IP"] | "192.168.16.1");
 			strcpy(tAP_Config.wAP_Password, testDocument["Password"] | "12345678");
-			strcpy(tAP_Config.wTemp_Offset, testDocument["Kiel_Offset"] | "70.0");
+			strcpy(tAP_Config.wTemp_Offset, testDocument["TempOffset"] | "0.0");
 			Serial.println(tAP_Config.wAP_SSID);
 		}
 		configFile.close();
@@ -146,7 +147,7 @@ bool writeConfig(String json)
 		if (configFile)
 		{
 			Serial.println("Config - Datei zum Schreiben geöffnet");
-			StaticJsonDocument<200> testDocument;
+			JsonDocument testDocument;
 			Serial.println("JSON - Daten übergeben");
 			DeserializationError error = deserializeJson(testDocument, json);
 			// Test if parsing succeeds.

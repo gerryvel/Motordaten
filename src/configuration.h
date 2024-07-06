@@ -1,6 +1,8 @@
 #ifndef __configuration__H__
 #define __configuration__H__
 
+#include <Arduino.h>
+
 // Configuration N2k
 #define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
 #define ESP32_CAN_RX_PIN GPIO_NUM_5  // Set CAN RX port to 5
@@ -9,11 +11,16 @@ int NodeAddress;                     // To store Last Node Address
 uint8_t chipid[6];
 uint32_t id = 0;
 int i = 0;
+#define TempSendOffset 0
+#define TankSendOffset 40
+#define RPM_SendOffset 80
+#define BatterySendOffset 100
 #define SlowDataUpdatePeriod 1000  // Time between CAN Messages sent
+
 
 //Configuration Web Page 
 #define PAGE_REFRESH 10 // x Sec.
-#define WEB_TITEL "Bootsdaten"
+#define WEB_TITEL "Motordaten"
 
 //Configuration mit Webinterface
 struct Web_Config
@@ -26,20 +33,21 @@ struct Web_Config
 Web_Config tAP_Config;
 
 //Configuration AP 
-#define HostName        "Bootsdaten"
+#define HostName        "Motordaten"
 const int   channel        = 10;                // WiFi Channel number between 1 and 13
 const bool  hide_SSID      = false;             // To disable SSID broadcast -> SSID will not appear in a basic WiFi scan
 const int   max_connection = 4;                 // Maximum simultaneous connected clients on the AP
 
 // Variables for WIFI-AP
-IPAddress IP = IPAddress(192, 168, 15, 20);
-IPAddress Gateway = IPAddress(192, 168, 15, 1);
+IPAddress IP = IPAddress(192, 168, 15, 30);
+IPAddress Gateway = IPAddress(192, 168, 15, 30);
 IPAddress NMask = IPAddress(255, 255, 255, 0);
 IPAddress AP_IP;
-String AP_SSID = "Bootsdaten";
-String AP_PASSWORD  = "12345678";
+String AP_SSID = "";
+String AP_PASSWORD  = "";
 IPAddress CL_IP;
 IPAddress SELF_IP;
+String sAP_Station = "";
 
 //Configuration Client (Network Data Windsensor)
 #define CL_SSID      "NoWa"					//Windmesser
@@ -61,11 +69,21 @@ bool bI2C_Status = 0;
 const int iMaxSonar = 35;			//Analoginput 
 int iDistance = 0;
 
+// Global Data Motordaten
+float FuelLevel = 0;
+float ExhaustTemp = 0;
+float EngineRPM = 0;
+float BordSpannung = 0;
+String sOneWire_Status = "";
+
+// Data wire for teperature (Dallas DS18B20) 
+#define ONE_WIRE_BUS 13			//GPIO 13 on the ESP32
+
 // Variables Website
 float fDrehzahl = 0;
 float fGaugeDrehzahl = 0;
-float fBordspannung = 0;
-float fAbsTief = 0;
+float fBordSpannung = 0;
+float fTemp = 0;
 float fTempOffset = 0;
 String sSTBB = "";
 String sOrient = "";
@@ -84,7 +102,7 @@ double dVWR_WindSpeedms = 0;
 #define DNS_PORT 53
 
 //Variable NMEA 0183 Stream
-const char *udpAddress = "192.168.15.255"; // Set network address for broadcast
+const char *udpAddress = "192.168.30.255"; // Set network address for broadcast
 const int udpPort = 4444;                 // UDP port
 
 #endif  

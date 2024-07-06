@@ -10,12 +10,15 @@
     <meta http-equiv="refresh" content="5">
 </head>
 <body>
-    <p class="label">Bordspannung: %ssBordspannung% V</p>
-    <p  class="label">Motor Temperatur: %sAbsTief% cm</p>
+    <p class="label">Bordspannung: %sBordspannung% V</p>
+    <p class="label">Motor Temperatur: %sTemp% &deg;C</br>
+                    Motor Drehzahl: %sDrehzahl% U &frasl; min</p>
+    <p class="label">Tank Fuellstand: %sFuellstand% %</p>
+    <br>
     <canvas data-type="radial-gauge"
             data-width="300"
             data-height="300"
-            data-units="RPM"
+            data-units="UPM"
             data-title="Drehzahl"
             data-min-value="0"
             data-start-angle="70"
@@ -40,8 +43,41 @@
             data-needle-circle-inner="false"
             data-animation-duration="1500"
             data-animation-rule="linear"
-            data-value-text='%sDrehzahl% RPM'
-            data-value='%sGaugeDrehzahl%'></canvas>
+            data-units="U &frasl; min"
+            data-value-text="%sDrehzahl%"
+            data-value="%sDrehzahl%"></canvas>
+    
+    <canvas data-type="radial-gauge"
+    data-width="300"
+    data-height="300"
+    data-units="V"
+    data-title="Bordspannung"
+    data-min-value="7"
+    data-start-angle="70"
+    data-ticks-angle="220"
+    data-value-box="true"
+    data-max-value="15"
+    data-major-ticks="7,8,9,10,11,12,13,14,15"
+    data-minor-ticks="10"
+    data-stroke-ticks="true"
+    data-highlights='[
+{"from": 7, "to": 11, "color": "rgba(255, 50, 50, .75)"},
+{"from": 11, "to": 13, "color": "rgba(0, 255, 0, .75)"},
+{"from": 13, "to": 15, "color": "rgba(255, 50, 50, .75)"}
+]'
+    data-color-plate="#fff"
+    data-border-shadow-width="0"
+    data-borders="false"
+    data-needle-type="arrow"
+    data-needle-width="2"
+    data-needle-circle-size="7"
+    data-needle-circle-outer="true"
+    data-needle-circle-inner="false"
+    data-animation-duration="1500"
+    data-animation-rule="linear"
+    data-units="V"
+    data-value-text="%sBordspannung% V"
+    data-value="%sBordspannung%"></canvas>
     <ul class="bottomnav">
         <li><a class="active" href="/">Home</a></li>
         <li><a href="settings.html">Setting</a></li>

@@ -8,8 +8,8 @@
 </head>
 <body>
     <br />
-    <p class="label">Temperaturoffset</p>
-    <p class="label">Aktueller Temperatur: %sAbsTief% cm</p>
+    <p class="label">Temperaturoffset: %sTempOffset% &deg;C</br>
+    <br>Aktuelle Temperatur: %sTemp% &deg;C</p>
     %CONFIGPLACEHOLDER%
     <script>
         function formToJson(form) {
@@ -17,13 +17,13 @@
             var SSID = form.SSID.value;
             var IP = form.IP.value;
             var Password = form.Password.value;
-            var KielOffset = form.Temp_Offset.value;
+            var TempOffset = form.TempOffset.value;
 
             var jsonFormInfo = JSON.stringify({
                 SSID: SSID,
                 IP: IP,
                 Password: Password,
-                Temp_Offset: TempOffset
+                TempOffset: TempOffset
             });
 
             xhr.open("POST", "/settings.html?save=" + jsonFormInfo, true);

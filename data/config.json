@@ -1,5 +1,5 @@
-{   "ssid": "Bootsdaten",
-    "IP": "192.168.16.20",
+{   "ssid": "Motordaten",
+    "IP": "192.168.16.30",
     "passwort": "12345678",
-    "Temp_Offset":"50.0"
+    "TempOffset":"0.0"
 }

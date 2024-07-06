@@ -7,8 +7,8 @@
 
 enum LED {
   Red = 25, 
-  Green = 33, 
-  Blue = 26,
+  Green = 26, 
+  Blue = 33,
   LEDBoard = 13 //Adafruit Huzzah32
   };
 
