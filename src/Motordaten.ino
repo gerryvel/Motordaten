@@ -181,7 +181,7 @@ Serial.println("mDNS responder started\n");
   Serial.print("Found device "); // locate devices on the bus
   Serial.print(sensors.getDeviceCount(), DEC);
   sOneWire_Status = String(sensors.getAddress(MotorThermometer, 0));
-  Serial.println("Adresse" + sOneWire_Status);
+  Serial.println(", Adresse " + sOneWire_Status);
 
   // search for devices on the bus and assign based on an index
   if (!sensors.getAddress(MotorThermometer, 0)) Serial.println("Unable to find address for Device 0");
