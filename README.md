@@ -4,18 +4,18 @@ In addition, all data and part of the configuration are displayed as a website.
 According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger.
 
 # Website
-![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/fff9d3df-5b9f-48bb-891e-d0323130bf02)
+![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/050c4df4-9c2e-40e5-965e-1174d0b04372)
 ![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/ce1342ac-c3e8-4249-a0ec-dd7f0d924cec)
 ![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/0a545363-608f-49a5-92c9-220efd976ef4)
 
 # Wiring diagram
-![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/200a603d-1bbc-480a-a8bb-c428463898cd)
+
+![grafik](https://github.com/user-attachments/assets/3e34b79b-600b-46ec-8f39-7aeec70b3e48)
 
 # PCB Layout
-![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/152cf410-2b51-408b-b6c6-68b826d2239b)
-![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/f2e08ff9-fd00-447a-ac95-1913529f3cf8)
-![image](https://github.com/gerryvel/Motordaten/assets/17195231/961056f8-e4fa-480a-8aef-d366a8ed4e61)
-
+![grafik](https://github.com/user-attachments/assets/23302354-f9c6-4d82-b5b5-6188d9216be6)
+![grafik](https://github.com/user-attachments/assets/cad63dee-a283-48bf-8012-41dd0a54c9bb)
+![grafik](https://github.com/user-attachments/assets/bf01b423-9d3f-4fee-8e42-c56bea9e6acb)
 
 The project requires the NMEA2000 and the NMEA2000_esp32 libraries from Timo Lappalainen: https://github.com/ttlappalainen.
 Both libraries have to be downloaded and installed.
@@ -48,24 +48,25 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 - 7			R5	1k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
 - 8			R6	4k7	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
 - 9			R7	2k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
-- 10			D1	B360	D_SMC	1
-- 11			D2	LED_RBKG	PinHeader_1x04_P2.00mm_LED RGB	1
-- 12			D3	PESD1CAN	SOT-23	1
-- 13			D4	ZPD3.3	D_DO-35_SOD27_P10.16mm_Horizontal	1  [Link](https://www.reichelt.de/zenerdiode-3-3-v-0-5-w-do-35-zf-3-3-p23126.html?&trstct=pos_6&nbc=1)
-- 14			D5	1N4148	D_DO-35_SOD27_P7.62mm_Horizontal	1  [Link](https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html?search=1n4148)
-- 15			D6	P4SMAJ26CA	D_SMA_TVS	1
-- 16			U1	TSR_1-2450	Converter_DCDC_TRACO_TSR-1_THT	1   [Link](https://www.reichelt.de/dc-dc-wandler-tsr-1-1-w-5-v-1000-ma-sil-to-220-tsr-1-2450-p116850.html?search=tsr+1-24)
-- 17			U2	ESP32-Huzzah	Adafruit_ESP32	1
-- 18			U3	SN65HVD230	SOIC-8_3.9x4.9mm_P1.27mm	1  [Link](https://www.reichelt.de/high-speed-can-transceiver-1-mbit-s-3-3-v-so-8-sn-65hvd230d-p58427.html?&trstct=pos_0&nbc=1)
-- 19			U4	H11L1	DIP-6_W7.62mm	1  [Link](https://www.reichelt.de/optokoppler-1-mbit-s-dil-6-h11l1m-p219351.html?search=H11-l1)
-- 20			FL1	EPCO B82789C0513	B82789C0113N002	1
-- 21			J2, J3	Conn_01x04_Pin	PinHeader_1x04_P2.54mm_Vertical	2
-- 22			J1	Conn_01x03_Pin	PinHeader_1x03_P2.54mm_Vertical	1
+- 10		D1	B360	D_SMC	1
+- 11		D2	LED_RBKG	PinHeader_1x04_P2.00mm_LED RGB	1
+- 12		D3	PESD1CAN	SOT-23	1
+- 13		D4	ZPD3.3	D_DO-35_SOD27_P10.16mm_Horizontal	1  [Link](https://www.reichelt.de/zenerdiode-3-3-v-0-5-w-do-35-zf-3-3-p23126.html?&trstct=pos_6&nbc=1)
+- 14		D5	1N4148	D_DO-35_SOD27_P7.62mm_Horizontal	1  [Link](https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html?search=1n4148)
+- 15		D6	P4SMAJ26CA	D_SMA_TVS	1
+- 16		U1	TSR_1-2450	Converter_DCDC_TRACO_TSR-1_THT	1   [Link](https://www.reichelt.de/dc-dc-wandler-tsr-1-1-w-5-v-1000-ma-sil-to-220-tsr-1-2450-p116850.html?search=tsr+1-24)
+- 17		U2	ESP32-Huzzah	Adafruit_ESP32	1
+- 18		U3	SN65HVD230	SOIC-8_3.9x4.9mm_P1.27mm	1  [Link](https://www.reichelt.de/high-speed-can-transceiver-1-mbit-s-3-3-v-so-8-sn-65hvd230d-p58427.html?&trstct=pos_0&nbc=1)
+- 19		U4	H11L1	DIP-6_W7.62mm	1  [Link](https://www.reichelt.de/optokoppler-1-mbit-s-dil-6-h11l1m-p219351.html?search=H11-l1)
+- 20		FL1	EPCO B82789C0513	B82789C0113N002	1
+- 21		J2, J3	Conn_01x04_Pin	PinHeader_1x04_P2.54mm_Vertical	2
+- 22		J1	Conn_01x03_Pin	PinHeader_1x03_P2.54mm_Vertical	1
 - Wago-Case: [Link](https://www.wago.com/de/zubehoer/gehaeuse-55-mm/p/789-120)
 
 # Changes
 
 Version 2.0
+- update Website (code and html files)
 - change Hardware layout, add protection's and C's on Voltage input, add protection's for CanBus
 - change Webinterface, add calibration-offset for temperature
   
