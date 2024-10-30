@@ -40,7 +40,8 @@ Preferences preferences;             // Nonvolatile storage on ESP32 - To store 
 
 // Set the information for other bus devices, which messages we support
 const unsigned long TransmitMessages[] PROGMEM = {127505L, // Fluid Level
-                                                  130311L, // Temperature  (or alternatively 130312L or 130316L)
+                                                  127489L, // Engine Data
+                                                  //130316L, // Temperature  (or alternatively 12489L)
                                                   127488L, // Engine Rapid / RPM
                                                   127508L, // Battery Status
                                                   0
@@ -49,7 +50,7 @@ const unsigned long TransmitMessages[] PROGMEM = {127505L, // Fluid Level
 
 // RPM data. Generator RPM is measured on connector "W"
 
-#define RPM_Calibration_Value 1.0 // Translates Generator RPM to Engine RPM 
+#define RPM_Calibration_Value 4.0 // Translates Generator RPM to Engine RPM 
 #define Eingine_RPM_Pin 23  // Engine RPM is measured as interrupt on GPIO 23
 
 volatile uint64_t StartValue = 0;                  // First interrupt value
@@ -101,7 +102,7 @@ void setup() {
   uint32_t id = 0;
   int i = 0;
 
-  Serial.println("Motordaten setup start\n");
+  Serial.printf("Motordaten setup %s start\n", Version);
   // Init USB serial port
   Serial.begin(115200);
 
@@ -132,7 +133,7 @@ void setup() {
 
 	//WiFiServer AP starten
 	WiFi.mode(WIFI_AP_STA);
-	WiFi.softAP(AP_SSID, AP_PASSWORD);
+	WiFi.softAP((const char*)AP_SSID.c_str(), (const char*)AP_PASSWORD.c_str());
 	delay(1000);
 	if (WiFi.softAPConfig(IP, Gateway, NMask))
 		Serial.println("\nIP config success");	
@@ -223,13 +224,13 @@ Serial.println("mDNS responder started\n");
 
 // Create task for core 0, loop() runs on core 1
 //  xTaskCreatePinnedToCore(
-//   GetTemperature, /* Function to implement the task */
-//    "Task1", /* Name of the task */
-//    10000,  /* Stack size in words */
-//    NULL,  /* Task input parameter */
-//    0,  /* Priority of the task */
-//    &Task1,  /* Task handle. */
-//    0); /* Core where the task should run */
+//  GetTemperature, /* Function to implement the task */
+// "Task1", /* Name of the task */
+//  10000,  /* Stack size in words */
+//  NULL,  /* Task input parameter */
+//  0,  /* Priority of the task */
+//  &Task1,  /* Task handle. */
+//  0); /* Core where the task should run */
 
   delay(200);
   
@@ -259,7 +260,7 @@ double ReadRPM() {
   if (millis() > Last_int_time + 200) RPM = 0;       // No signals RPM=0;
   return (RPM);
 }
-
+ 
 
 bool IsTimeToUpdate(unsigned long NextUpdate) {
   return (NextUpdate < millis());
@@ -304,23 +305,25 @@ void SendN2kTankLevel(double level, double capacity) {
 }
 
 
-void SendN2kExhaustTemp(double temp) {
+void SendN2kEngineData(double temp, double RPM) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, TempSendOffset);
   tN2kMsg N2kMsg;
+  tN2kEngineDiscreteStatus1 Status1;
+  tN2kEngineDiscreteStatus2 Status2;
+  Status1.Bits.OverTemperature = temp > 90;         // Übertemperatur
+  Status2.Bits.EngineShuttingDown = RPM < 100;      // Maschine Ein / Aus
 
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Exhaust Temp: %3.1f °C \n", temp);
+    Serial.printf("Engine Temp: %3.1f °C \n", temp);
+    Serial.printf("Engine     : %n  \n", Status2.Bits.EngineShuttingDown);
 
     // Select the right PGN for your MFD and set the PGN value also in "TransmitMessages[]"
-
-    SetN2kEnvironmentalParameters(N2kMsg, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp),           // PGN130311, uncomment the PGN to be used
-                                  N2khs_Undef, N2kDoubleNA, N2kDoubleNA);
-
-    // SetN2kTemperature(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp), N2kDoubleNA);   // PGN130312, uncomment the PGN to be used
-
     // SetN2kTemperatureExt(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature,CToKelvin(temp), N2kDoubleNA); // PGN130316, uncomment the PGN to be used
+
+    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(temp), N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, 
+                              N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, Status1, Status2);
 
     NMEA2000.SendMsg(N2kMsg);
   }
@@ -384,7 +387,7 @@ void loop() {
   // if (FuelLevel>100) FuelLevel=100;
 
   SendN2kTankLevel(FuelLevel, 30);  // Adjust max tank capacity.  Is it 200 ???
-  SendN2kExhaustTemp(ExhaustTemp);
+  SendN2kEngineData(ExhaustTemp, EngineRPM);
   SendN2kEngineRPM(EngineRPM);
   SendN2kBattery (BordSpannung);
 
