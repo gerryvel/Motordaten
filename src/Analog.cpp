@@ -13,7 +13,7 @@ G. Sebb, 24.10.2020
 float analogInScale(int AnalogIN, int InputOGR, int InputUGR, float OutputOGR, float OutputUGR, int& Error)
 {
 	Error = 0;
-	if (InputOGR == InputUGR) {
+	if (InputOGR == InputUGR || InputUGR > InputOGR) {
 		Error = ErrorInputValue;			// Input Value Error
 		return 0;
 	}

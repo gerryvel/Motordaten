@@ -117,7 +117,7 @@ void readConfig(String filename) {
 		{
 			Serial.println("Lese Daten aus Config - Datei");
 			strcpy(tAP_Config.wAP_SSID, testDocument["SSID"] | "Motordaten");
-			strcpy(tAP_Config.wAP_IP, testDocument["IP"] | "192.168.16.1");
+			strcpy(tAP_Config.wAP_IP, testDocument["IP"] | "192.168.15.30");
 			strcpy(tAP_Config.wAP_Password, testDocument["Password"] | "12345678");
 			strcpy(tAP_Config.wTemp_Offset, testDocument["TempOffset"] | "0.0");
 			Serial.println(tAP_Config.wAP_SSID);

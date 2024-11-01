@@ -37,11 +37,19 @@ void LEDflash(int PIN = LED()){
    taskEnd();   
 }
 
-void LEDInit() {
+void LEDInit() {                        // Start Initialisierung
   pinMode(LED(Red),   OUTPUT);
   pinMode(LED(Blue),  OUTPUT);
   pinMode(LED(Green), OUTPUT);
-  pinMode(LED(LEDBoard), OUTPUT);
+  digitalWrite(LED(Red), HIGH);
+  delay(250);
+  digitalWrite(LED(Red), LOW);
+  digitalWrite(LED(Blue), HIGH);
+  delay(250);
+  digitalWrite(LED(Blue), LOW);
+  digitalWrite(LED(Green), HIGH);
+  delay(250);
+  digitalWrite(LED(Green), LOW);
 }
 
 void LEDoff() {

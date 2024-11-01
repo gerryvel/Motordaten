@@ -55,6 +55,7 @@ String replaceVariable(const String& var)
   	if (var == "sCL_Addr")return WiFi.localIP().toString();
   	if (var == "sCL_Status")return String(sCL_Status);
   	if (var == "sOneWire_Status")return String(sOneWire_Status);
+	if (var == "sVersion")return Version;
 	if (var == "CONFIGPLACEHOLDER")return processor(var);
   	return "NoVariable";
 }
@@ -62,6 +63,9 @@ String replaceVariable(const String& var)
 void website() {
 	server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(LittleFS, "/favicon.ico", "image/x-icon");
+	});
+	server.on("/logo80.jpg", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(LittleFS, "/logo80.jpg", "image/jpg");
 	});
 	server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) {
 		request->send(LittleFS, "/index.html", String(), false, replaceVariable);

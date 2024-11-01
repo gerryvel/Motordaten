@@ -2,19 +2,25 @@
 #define __configuration__H__
 
 #include <Arduino.h>
+#include <Preferences.h>
+
+// Versionierung
+#define Version "V2.1 vom 29.10.2024"  // Version
 
 // Configuration N2k
 #define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
 #define ESP32_CAN_RX_PIN GPIO_NUM_5  // Set CAN RX port to 5
 #define N2K_SOURCE 15
 int NodeAddress;                     // To store Last Node Address
+Preferences preferences;             // Nonvolatile storage on ESP32 - To store LastDeviceAddress
 uint8_t chipid[6];
 uint32_t id = 0;
 int i = 0;
-#define TempSendOffset 0
+#define EngineSendOffset 0
 #define TankSendOffset 40
-#define RPM_SendOffset 80
-#define BatterySendOffset 100
+#define RPMSendOffset 80
+#define BatteryDCSendOffset 120
+#define BatteryDCStatusSendOffset 160
 #define SlowDataUpdatePeriod 1000  // Time between CAN Messages sent
 
 
@@ -39,10 +45,9 @@ const bool  hide_SSID      = false;             // To disable SSID broadcast -> 
 const int   max_connection = 4;                 // Maximum simultaneous connected clients on the AP
 
 // Variables for WIFI-AP
-IPAddress IP = IPAddress(192, 168, 15, 30);
 IPAddress Gateway = IPAddress(192, 168, 15, 30);
 IPAddress NMask = IPAddress(255, 255, 255, 0);
-IPAddress AP_IP;
+IPAddress AP_IP = IPAddress(192, 168, 15, 30);
 String AP_SSID = "";
 String AP_PASSWORD  = "";
 IPAddress CL_IP;
@@ -71,10 +76,16 @@ int iDistance = 0;
 
 // Global Data Motordaten
 float FuelLevel = 0;
+float FuelLevelMax = 30;
 float ExhaustTemp = 0;
 float EngineRPM = 0;
 float BordSpannung = 0;
 String sOneWire_Status = "";
+enum EngineStatus { Off = 0,  On = 1, };
+
+// Data Battery
+int Bat1Capacity = 55; 	// Starterbatterie
+int Bat2Capacity = 90;	// Versorgerbatterie
 
 // Data wire for teperature (Dallas DS18B20) 
 #define ONE_WIRE_BUS 13			//GPIO 13 on the ESP32

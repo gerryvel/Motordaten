@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Version 0.9, 30.07.2023, Gerry Sebb
+// V2.1 vom 29.10.2024, Gerry Sebb
 
 #include <Arduino.h>
 #include <Preferences.h>
@@ -29,19 +29,22 @@
 #include <DallasTemperature.h>
 #include "web.h"
 #include <ESPmDNS.h>
+#include <arpa/inet.h>
+#include "Analog.h"
+#include "uptime.h"
+#include "hourmeter.h"
 
 #define ENABLE_DEBUG_LOG 0 // Debug log
 
 #define ADC_Calibration_Value1 250.0 // For resistor measure 5 Volt and 180 Ohm equals 100% plus 1K resistor.
-#define ADC_Calibration_Value2 17.9  // The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3
+#define ADC_Calibration_Value2 19.0  // The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3
 
-
-Preferences preferences;             // Nonvolatile storage on ESP32 - To store LastDeviceAddress
 
 // Set the information for other bus devices, which messages we support
-const unsigned long TransmitMessages[] PROGMEM = {127505L, // Fluid Level
-                                                  130311L, // Temperature  (or alternatively 130312L or 130316L)
-                                                  127488L, // Engine Rapid / RPM
+const unsigned long TransmitMessages[] PROGMEM = {127488L, // Engine Rapid / RPM
+                                                  127489L, // Engine parameters dynamic 
+                                                  127505L, // Fluid Level  
+                                                  127506L, // Battery
                                                   127508L, // Battery Status
                                                   0
                                                  };
@@ -117,6 +120,7 @@ void setup() {
   	listDir(LittleFS, "/", 3);
 	// file exists, reading and loading config file
 	readConfig("/config.json");
+  AP_IP = inet_addr(tAP_Config.wAP_IP);
 	AP_SSID = tAP_Config.wAP_SSID;
 	AP_PASSWORD = tAP_Config.wAP_Password;
 	fTempOffset = atof(tAP_Config.wTemp_Offset);
@@ -134,7 +138,7 @@ void setup() {
 	WiFi.mode(WIFI_AP_STA);
 	WiFi.softAP(AP_SSID, AP_PASSWORD);
 	delay(1000);
-	if (WiFi.softAPConfig(IP, Gateway, NMask))
+	if (WiFi.softAPConfig(AP_IP, Gateway, NMask))
 		Serial.println("\nIP config success");	
 	else
 		Serial.println("IP config not success");	
@@ -183,7 +187,7 @@ Serial.println("mDNS responder started\n");
   sOneWire_Status = String(sensors.getAddress(MotorThermometer, 0));
   Serial.println(", Adresse " + sOneWire_Status);
 
-  // search for devices on the bus and assign based on an index
+// search for devices on the bus and assign based on an index
   if (!sensors.getAddress(MotorThermometer, 0)) Serial.println("Unable to find address for Device 0");
 
 // Reserve enough buffer for sending all messages. This does not work on small memory devices like Uno or Mega
@@ -194,21 +198,21 @@ Serial.println("mDNS responder started\n");
   esp_efuse_mac_get_default(chipid);
   for (i = 0; i < 6; i++) id += (chipid[i] << (7 * i));
 
-  // Set product information
+// Set product information
   NMEA2000.SetProductInformation("MD01", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
                                  "MD Sensor Module",  // Manufacturer's Model ID
                                  "2.0.0.0 (2024-06-07)",  // Manufacturer's Software version code
                                  "1.0.2.0 (2023-05-30)" // Manufacturer's Model version
                                 );
-  // Set device information
+// Set device information
   NMEA2000.SetDeviceInformation(id, // Unique number. Use e.g. Serial number.
                                 132, // Device function=Analog to NMEA 2000 Gateway. See codes on http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
                                 25, // Device class=Inter/Intranetwork Device. See codes on  http://www.nmea.org/Assets/20120726%20nmea%202000%20class%20&%20function%20codes%20v%202.00.pdf
                                 2046 // Just choosen free from code list on http://www.nmea.org/Assets/20121020%20nmea%202000%20registration%20list.pdf
                                );
 
-  // If you also want to see all traffic on the bus use N2km_ListenAndNode instead of N2km_NodeOnly below
+// If you also want to see all traffic on the bus use N2km_ListenAndNode instead of N2km_NodeOnly below
 
   NMEA2000.SetForwardType(tNMEA2000::fwdt_Text); // Show in clear text. Leave uncommented for default Actisense format.
 
@@ -221,18 +225,18 @@ Serial.println("mDNS responder started\n");
   NMEA2000.ExtendTransmitMessages(TransmitMessages);
   NMEA2000.Open();
 
-// Create task for core 0, loop() runs on core 1
-//  xTaskCreatePinnedToCore(
-//   GetTemperature, /* Function to implement the task */
-//    "Task1", /* Name of the task */
-//    10000,  /* Stack size in words */
-//    NULL,  /* Task input parameter */
-//    0,  /* Priority of the task */
-//    &Task1,  /* Task handle. */
-//    0); /* Core where the task should run */
+ xTaskCreatePinnedToCore(
+    GetTemperature, /* Function to implement the task */
+    "Task1", /* Name of the task */
+    10000,  /* Stack size in words */
+    NULL,  /* Task input parameter */
+    0,  /* Priority of the task */
+    &Task1,  /* Task handle. */
+    0); /* Core where the task should run */
 
   delay(200);
-  
+
+  printf("Setup end\n");
 }
 
 // This task runs isolated on core 0 because sensors.requestTemperatures() is slow and blocking for about 750 ms
@@ -241,7 +245,7 @@ void GetTemperature( void * parameter) {
   for (;;) {
     sensors.requestTemperatures(); // Send the command to get temperatures
     vTaskDelay(100);
-    tmp = sensors.getTempCByIndex(0);
+    tmp = sensors.getTempCByIndex(0) + fTempOffset;
     if (tmp != -127) ExhaustTemp = tmp;
     vTaskDelay(100);
   }
@@ -274,8 +278,24 @@ void SetNextUpdate(unsigned long &NextUpdate, unsigned long Period) {
 
 // n2k Datenfunktionen 
 
+void SendN2kDCStatus(double BatteryVoltage, double SoC, double BatCapacity) {
+  static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, BatteryDCStatusSendOffset);
+  tN2kMsg N2kMsg;
+
+  if ( IsTimeToUpdate(SlowDataUpdated) ) {
+    SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
+
+    Serial.printf("Voltage     : %3.1f V\n", BatteryVoltage);
+    Serial.printf("SoC         : %3.1f %\n", SoC);
+    Serial.printf("Capacity    : %3.1f Ah\n", BatCapacity);
+    // SetN2kDCStatus(N2kMsg,1,1,N2kDCt_Battery,56,92,38500,0.012, AhToCoulomb(420));
+    SetN2kDCStatus(N2kMsg, 1, 2, N2kDCt_Battery, SoC, 0,  N2kDoubleNA, BatteryVoltage, AhToCoulomb(55));
+    NMEA2000.SendMsg(N2kMsg);
+  }
+}
+
 void SendN2kBattery(double BatteryVoltage) {
-  static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, BatterySendOffset);
+  static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, BatteryDCSendOffset);
   tN2kMsg N2kMsg;
 
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
@@ -283,11 +303,10 @@ void SendN2kBattery(double BatteryVoltage) {
 
     Serial.printf("Voltage     : %3.1f V\n", BatteryVoltage);
 
-    SetN2kDCBatStatus(N2kMsg, 0, BatteryVoltage, N2kDoubleNA, N2kDoubleNA, 1);
+    SetN2kDCBatStatus(N2kMsg, 2, BatteryVoltage, N2kDoubleNA, N2kDoubleNA, 1);
     NMEA2000.SendMsg(N2kMsg);
   }
 }
-
 
 void SendN2kTankLevel(double level, double capacity) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, TankSendOffset);
@@ -303,32 +322,30 @@ void SendN2kTankLevel(double level, double capacity) {
   }
 }
 
-
-void SendN2kExhaustTemp(double temp) {
-  static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, TempSendOffset);
+void SendN2kExhaustTemp(double temp, double rpm, double hours) {
+  static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, EngineSendOffset);
   tN2kMsg N2kMsg;
+  tN2kEngineDiscreteStatus1 Status1;
+  tN2kEngineDiscreteStatus2 Status2;
+  Status1.Bits.OverTemperature = temp > 90;         // Übertemperatur
+  Status2.Bits.EngineShuttingDown = rpm < 100;      // Maschine Ein / Aus
 
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Exhaust Temp: %3.1f °C \n", temp);
+    Serial.printf("Engine Temp: %3.1f °C \n", temp);
+    Serial.printf("Engine Off  : %s  \n", Status2.Bits.EngineShuttingDown ? "Ja" : "Nein");
 
-    // Select the right PGN for your MFD and set the PGN value also in "TransmitMessages[]"
+    // SetN2kTemperatureExt(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp), N2kDoubleNA);   // PGN130312, uncomment the PGN to be used
 
-    SetN2kEnvironmentalParameters(N2kMsg, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp),           // PGN130311, uncomment the PGN to be used
-                                  N2khs_Undef, N2kDoubleNA, N2kDoubleNA);
-
-    // SetN2kTemperature(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp), N2kDoubleNA);   // PGN130312, uncomment the PGN to be used
-
-    // SetN2kTemperatureExt(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature,CToKelvin(temp), N2kDoubleNA); // PGN130316, uncomment the PGN to be used
+    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(temp), N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, hours ,N2kDoubleNA ,N2kDoubleNA, N2kInt8NA, N2kInt8NA, Status1, Status2);
 
     NMEA2000.SendMsg(N2kMsg);
   }
 }
 
-
 void SendN2kEngineRPM(double RPM) {
-  static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, RPM_SendOffset);
+  static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, RPMSendOffset);
   tN2kMsg N2kMsg;
 
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
@@ -336,12 +353,11 @@ void SendN2kEngineRPM(double RPM) {
 
     Serial.printf("Engine RPM  :%4.0f RPM \n", RPM);
 
-    SetN2kEngineParamRapid(N2kMsg, 0, RPM, N2kDoubleNA, N2kInt8NA);
+    SetN2kEngineParamRapid(N2kMsg, 0, RPM, N2kDoubleNA,  N2kInt8NA);
 
     NMEA2000.SendMsg(N2kMsg);
   }
 }
-
 
 // ReadVoltage is used to improve the linearity of the ESP32 ADC see: https://github.com/G6EJD/ESP32-ADC-Accuracy-Improvement-function
 
@@ -352,27 +368,20 @@ double ReadVoltage(byte pin) {
   return (-0.000000000000016 * pow(reading, 4) + 0.000000000118171 * pow(reading, 3) - 0.000000301211691 * pow(reading, 2) + 0.001109019271794 * reading + 0.034143524634089) * 1000;
 } // Added an improved polynomial, use either, comment out as required
 
-
 /************************************ Loop ***********************************/
 void loop() {
 
   // LED
   LEDflash(LED(Green)); // flash for loop run
 
-  if (!sensors.getAddress(MotorThermometer, 0)) LEDflash(LED(Red));  // search for device on the bus and unable to find
-  sensors.requestTemperatures(); // Send the command to get temperatures
-  ExhaustTemp = sensors.getTempCByIndex(0) + fTempOffset;
-
+  // if (!sensors.getAddress(MotorThermometer, 0)) LEDflash(LED(Red));  // search for device on the bus and unable to find
+  // sensors.requestTemperatures(); // Send the command to get temperatures
+  // ExhaustTemp = sensors.getTempCByIndex(0) + fTempOffset;
 
   //Wifi variables
 	bConnect_CL = WiFi.status() == WL_CONNECTED ? 1 : 0;
 
-  // Status AP 
-  // Serial.printf("Stationen mit AP verbunden = %d\n", WiFi.softAPgetStationNum());
-  // Serial.printf("Soft-AP IP address = %s\n", WiFi.softAPIP().toString());
-
-
-  unsigned int size;
+  // unsigned int size;
 
   BordSpannung = ((BordSpannung * 15) + (ReadVoltage(ADCpin2) * ADC_Calibration_Value2 / 4096)) / 16; // This implements a low pass filter to eliminate spike for ADC readings
 
@@ -380,13 +389,20 @@ void loop() {
 
   EngineRPM = ((EngineRPM * 5) + ReadRPM() * RPM_Calibration_Value) / 6 ; // This implements a low pass filter to eliminate spike for RPM measurements
 
+  int SoCError = 0;
+  float BatSoC = (BordSpannung - 10.5) * (100.0 - 0.0) / (14.9 - 10.5) + 0.0;
+  // float BatSoC = analogInScale(BordSpannung, 15, 10, 100.0, 0.0, SoCError);
 
-  // if (FuelLevel>100) FuelLevel=100;
-
-  SendN2kTankLevel(FuelLevel, 30);  // Adjust max tank capacity.  Is it 200 ???
-  SendN2kExhaustTemp(ExhaustTemp);
+  bool EngineOn = EngineRPM < 100.0;
+  // Serial.printf("Engine On   : %s  \n", EngineOn ? "Yes" : "No");
+  
+  CounterSeconds(EngineOn);
+  
+  SendN2kTankLevel(FuelLevel, FuelLevelMax);  // Adjust max tank capacity.  Is it 200 ???
+  SendN2kExhaustTemp(ExhaustTemp, EngineRPM, Counter);
   SendN2kEngineRPM(EngineRPM);
-  SendN2kBattery (BordSpannung);
+  SendN2kBattery(BordSpannung);
+  SendN2kDCStatus(BordSpannung, BatSoC, Bat1Capacity);
 
   NMEA2000.ParseMessages();
   int SourceAddress = NMEA2000.GetN2kSource();
