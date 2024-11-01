@@ -7,6 +7,9 @@
 // Versionierung
 #define Version "V2.1 vom 29.10.2024"  // Version
 
+// Versionierung
+#define Version "V2.0 vom 06.07.2024"  // Version
+
 // Configuration N2k
 #define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
 #define ESP32_CAN_RX_PIN GPIO_NUM_5  // Set CAN RX port to 5
@@ -40,6 +43,8 @@ Web_Config tAP_Config;
 
 //Configuration AP 
 #define HostName        "Motordaten"
+String AP_SSID     =    "Motordaten"; // SSID Name
+String AP_PASSWORD =    "12345678";  // SSID Password - Set to NULL to have an open AP
 const int   channel        = 10;                // WiFi Channel number between 1 and 13
 const bool  hide_SSID      = false;             // To disable SSID broadcast -> SSID will not appear in a basic WiFi scan
 const int   max_connection = 4;                 // Maximum simultaneous connected clients on the AP

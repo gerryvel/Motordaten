@@ -52,7 +52,7 @@ const unsigned long TransmitMessages[] PROGMEM = {127488L, // Engine Rapid / RPM
 
 // RPM data. Generator RPM is measured on connector "W"
 
-#define RPM_Calibration_Value 1.0 // Translates Generator RPM to Engine RPM 
+#define RPM_Calibration_Value 4.0 // Translates Generator RPM to Engine RPM 
 #define Eingine_RPM_Pin 23  // Engine RPM is measured as interrupt on GPIO 23
 
 volatile uint64_t StartValue = 0;                  // First interrupt value
@@ -104,7 +104,7 @@ void setup() {
   uint32_t id = 0;
   int i = 0;
 
-  Serial.println("Motordaten setup start\n");
+  Serial.printf("Motordaten setup %s start\n", Version);
   // Init USB serial port
   Serial.begin(115200);
 
@@ -136,7 +136,7 @@ void setup() {
 
 	//WiFiServer AP starten
 	WiFi.mode(WIFI_AP_STA);
-	WiFi.softAP(AP_SSID, AP_PASSWORD);
+	WiFi.softAP((const char*)AP_SSID.c_str(), (const char*)AP_PASSWORD.c_str());
 	delay(1000);
 	if (WiFi.softAPConfig(AP_IP, Gateway, NMask))
 		Serial.println("\nIP config success");	
@@ -263,7 +263,7 @@ double ReadRPM() {
   if (millis() > Last_int_time + 200) RPM = 0;       // No signals RPM=0;
   return (RPM);
 }
-
+ 
 
 bool IsTimeToUpdate(unsigned long NextUpdate) {
   return (NextUpdate < millis());
@@ -339,6 +339,9 @@ void SendN2kExhaustTemp(double temp, double rpm, double hours) {
     // SetN2kTemperatureExt(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp), N2kDoubleNA);   // PGN130312, uncomment the PGN to be used
 
     SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(temp), N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, hours ,N2kDoubleNA ,N2kDoubleNA, N2kInt8NA, N2kInt8NA, Status1, Status2);
+
+    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(temp), N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, 
+                              N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, Status1, Status2);
 
     NMEA2000.SendMsg(N2kMsg);
   }

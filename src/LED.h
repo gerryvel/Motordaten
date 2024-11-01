@@ -37,6 +37,15 @@ void LEDflash(int PIN = LED()){
    taskEnd();   
 }
 
+void flashLED(int PIN = LED()) {
+  if (millis() % 1000 > 500) {
+    digitalWrite(PIN, HIGH);
+  } else {
+    digitalWrite(PIN, LOW);
+  }
+}
+
+
 void LEDInit() {                        // Start Initialisierung
   pinMode(LED(Red),   OUTPUT);
   pinMode(LED(Blue),  OUTPUT);
