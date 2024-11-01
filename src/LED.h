@@ -61,9 +61,17 @@ void LEDInit() {                        // Start Initialisierung
   digitalWrite(LED(Green), LOW);
 }
 
-void LEDoff() {
-  digitalWrite(LED(Blue), 0);
-  digitalWrite(LED(Green), 0);
-  digitalWrite(LED(Red), 0);
+void LEDon(int PIN = LED()) {
+  digitalWrite(PIN, HIGH);    
+}
+
+void LEDoff(int PIN = LED()) {
+  digitalWrite(PIN, LOW);
+}
+
+void LEDoff_RGB() {
+  digitalWrite(LED(Blue), LOW);
+  digitalWrite(LED(Green),LOW);
+  digitalWrite(LED(Red), LOW);
 }
 

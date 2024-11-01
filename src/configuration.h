@@ -5,7 +5,7 @@
 #include <Preferences.h>
 
 // Versionierung
-#define Version "V2.1 vom 29.10.2024"  // Version
+#define Version "V2.2 vom 01.11.2024"  // Version
 
 // Configuration N2k
 #define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
@@ -70,7 +70,7 @@ float fbmp_pressure = 0;
 float fbmp_altitude = 0;
 String sI2C_Status = "";
 bool bI2C_Status = 0;
-
+// Global Data Sonar
 const int iMaxSonar = 35;			//Analoginput 
 int iDistance = 0;
 
@@ -81,11 +81,14 @@ float ExhaustTemp = 0;
 float EngineRPM = 0;
 float BordSpannung = 0;
 String sOneWire_Status = "";
+bool EngineOn = false;
 enum EngineStatus { Off = 0,  On = 1, };
 
-// Data Battery
+// Global Data Battery
 int Bat1Capacity = 55; 	// Starterbatterie
 int Bat2Capacity = 90;	// Versorgerbatterie
+int SoCError = 0;
+float BatSoC = 0;
 
 // Data wire for teperature (Dallas DS18B20) 
 #define ONE_WIRE_BUS 13			//GPIO 13 on the ESP32

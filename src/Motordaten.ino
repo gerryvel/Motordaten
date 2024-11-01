@@ -124,6 +124,7 @@ void setup() {
 	AP_SSID = tAP_Config.wAP_SSID;
 	AP_PASSWORD = tAP_Config.wAP_Password;
 	fTempOffset = atof(tAP_Config.wTemp_Offset);
+    Serial.println("Configdata :\n AP IP: " + String(AP_IP) + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , TempOffset: " + fTempOffset);
 
   // LED
   LEDInit();
@@ -137,7 +138,11 @@ void setup() {
 	//WiFiServer AP starten
 	WiFi.mode(WIFI_AP_STA);
 	WiFi.softAP((const char*)AP_SSID.c_str(), (const char*)AP_PASSWORD.c_str());
-	delay(1000);
+    Serial.println("");
+    Serial.println("Network " + String(AP_SSID) + " running");
+    LEDon(LED(Green));
+    delay(1000);
+
 	if (WiFi.softAPConfig(AP_IP, Gateway, NMask))
 		Serial.println("\nIP config success");	
 	else
@@ -148,7 +153,7 @@ void setup() {
 	Serial.println(myIP);
 	
   if (WiFi.setHostname(HostName))
-		Serial.println("\nSet Hostname success");
+		Serial.println("\nSet Hostname" + String(HostName) + " success");
 	else
 		Serial.println("\nSet Hostname not success");
 
@@ -327,21 +332,21 @@ void SendN2kExhaustTemp(double temp, double rpm, double hours) {
   tN2kMsg N2kMsg;
   tN2kEngineDiscreteStatus1 Status1;
   tN2kEngineDiscreteStatus2 Status2;
-  Status1.Bits.OverTemperature = temp > 90;         // Übertemperatur
-  Status2.Bits.EngineShuttingDown = rpm < 100;      // Maschine Ein / Aus
+  Status1.Bits.OverTemperature = temp > 90;         // Alarm Übertemperatur
+  Status2.Bits.EngineShuttingDown = rpm < 100;      // Alarm Maschine Aus
+  EngineOn = !Status2.Bits.EngineShuttingDown;
 
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Engine Temp: %3.1f °C \n", temp);
-    Serial.printf("Engine Off  : %s  \n", Status2.Bits.EngineShuttingDown ? "Ja" : "Nein");
+    Serial.printf("Engine Temp : %3.1f °C \n", temp);
+    Serial.printf("Engine Hours: %3.1f hrs \n", hours);
+    Serial.printf("Over Temp   : %s  \n", Status1.Bits.OverTemperature ? "Yes" : "No");
+    Serial.printf("Engine Off  : %s  \n", Status2.Bits.EngineShuttingDown ? "Yes" : "No");
 
     // SetN2kTemperatureExt(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp), N2kDoubleNA);   // PGN130312, uncomment the PGN to be used
 
     SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(temp), N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, hours ,N2kDoubleNA ,N2kDoubleNA, N2kInt8NA, N2kInt8NA, Status1, Status2);
-
-    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(temp), N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, 
-                              N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, Status1, Status2);
 
     NMEA2000.SendMsg(N2kMsg);
   }
@@ -354,7 +359,7 @@ void SendN2kEngineRPM(double RPM) {
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Engine RPM  :%4.0f RPM \n", RPM);
+    Serial.printf("Engine RPM  : %4.0f RPM \n", RPM);
 
     SetN2kEngineParamRapid(N2kMsg, 0, RPM, N2kDoubleNA,  N2kInt8NA);
 
@@ -392,14 +397,10 @@ void loop() {
 
   EngineRPM = ((EngineRPM * 5) + ReadRPM() * RPM_Calibration_Value) / 6 ; // This implements a low pass filter to eliminate spike for RPM measurements
 
-  int SoCError = 0;
-  float BatSoC = (BordSpannung - 10.5) * (100.0 - 0.0) / (14.9 - 10.5) + 0.0;
+  BatSoC = (BordSpannung - 10.5) * (100.0 - 0.0) / (14.9 - 10.5) + 0.0;
   // float BatSoC = analogInScale(BordSpannung, 15, 10, 100.0, 0.0, SoCError);
-
-  bool EngineOn = EngineRPM < 100.0;
-  // Serial.printf("Engine On   : %s  \n", EngineOn ? "Yes" : "No");
   
-  CounterSeconds(EngineOn);
+  EngineHours(EngineOn);
   
   SendN2kTankLevel(FuelLevel, FuelLevelMax);  // Adjust max tank capacity.  Is it 200 ???
   SendN2kExhaustTemp(ExhaustTemp, EngineRPM, Counter);

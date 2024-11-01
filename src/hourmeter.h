@@ -10,7 +10,7 @@ static unsigned long lastRun, Counter, CounterOld, milliRest;
 int state1 = LOW;
 int laststate1 = LOW;
 
-unsigned long CounterSeconds(bool CountOn = 0){
+unsigned long EngineHours(bool CountOn = 0){
     {
     long now = millis();
     milliRest += now - lastRun;
