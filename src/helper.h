@@ -233,9 +233,4 @@ String sWifiStatus(int Status)
   }
 }
 
-enum EngineStatus {
-  On = 0, 
-  Off = 1,
-  };
-
-#endif 
+#endif  
