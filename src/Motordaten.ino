@@ -124,7 +124,7 @@ void setup() {
 	AP_SSID = tAP_Config.wAP_SSID;
 	AP_PASSWORD = tAP_Config.wAP_Password;
 	fTempOffset = atof(tAP_Config.wTemp_Offset);
-    Serial.println("Configdata :\n AP IP: " + String(AP_IP) + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , TempOffset: " + fTempOffset);
+  Serial.println("Configdata :\n AP IP: " + AP_IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , TempOffset: " + fTempOffset);
 
   // LED
   LEDInit();
@@ -139,21 +139,17 @@ void setup() {
 	WiFi.mode(WIFI_AP_STA);
 	WiFi.softAP((const char*)AP_SSID.c_str(), (const char*)AP_PASSWORD.c_str());
     Serial.println("");
-    Serial.println("Network " + String(AP_SSID) + " running");
+    Serial.println("Network " + WiFi.softAPSSID() + " running");
     LEDon(LED(Green));
     delay(1000);
 
 	if (WiFi.softAPConfig(AP_IP, Gateway, NMask))
-		Serial.println("\nIP config success");	
+		Serial.println("\nIP config with " +WiFi.softAPIP().toString() + " success");	
 	else
 		Serial.println("IP config not success");	
-
-	IPAddress myIP = WiFi.softAPIP();
-	Serial.print("AP IP configured with address: ");
-	Serial.println(myIP);
 	
   if (WiFi.setHostname(HostName))
-		Serial.println("\nSet Hostname" + String(HostName) + " success");
+		Serial.println("\nSet Hostname " + String(WiFi.softAPgetHostname()) + " success");
 	else
 		Serial.println("\nSet Hostname not success");
 
@@ -165,6 +161,7 @@ void setup() {
 	}
 Serial.println("mDNS responder started\n");
 
+WiFiDiag();
 
  // Start TCP (HTTP) server
 	server.begin();

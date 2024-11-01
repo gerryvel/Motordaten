@@ -48,8 +48,8 @@ const int   max_connection = 4;                 // Maximum simultaneous connecte
 IPAddress Gateway = IPAddress(192, 168, 15, 30);
 IPAddress NMask = IPAddress(255, 255, 255, 0);
 IPAddress AP_IP = IPAddress(192, 168, 15, 30);
-String AP_SSID = "";
-String AP_PASSWORD  = "";
+String AP_SSID = "Motordaten";
+String AP_PASSWORD  = "12345678";
 IPAddress CL_IP;
 IPAddress SELF_IP;
 String sAP_Station = "";
