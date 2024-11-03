@@ -6,7 +6,7 @@
 
 Preferences bsz1;
 
-static unsigned long lastRun, Counter, CounterOld, milliRest;
+static unsigned long lastRun, CounterOld, milliRest;
 int state1 = LOW;
 int laststate1 = LOW;
 

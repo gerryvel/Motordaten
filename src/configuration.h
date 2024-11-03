@@ -83,6 +83,7 @@ float EngineRPM = 0;
 float BordSpannung = 0;
 String sOneWire_Status = "";
 bool EngineOn = false;
+static unsigned long Counter;			// Enginehours
 enum EngineStatus { Off = 0,  On = 1, };
 
 // Global Data Battery

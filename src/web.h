@@ -57,6 +57,7 @@ String replaceVariable(const String& var)
   	if (var == "sCL_Status")return String(sCL_Status);
   	if (var == "sOneWire_Status")return String(sOneWire_Status);
 	if (var == "sVersion")return Version;
+	if (var == "sCounter")return String(Counter);
 	if (var == "CONFIGPLACEHOLDER")return processor(var);
   	return "NoVariable";
 }
