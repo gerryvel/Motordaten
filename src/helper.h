@@ -34,7 +34,8 @@ void WiFiDiag(void) {
   Serial.println("\nWifi-Diag:");
   AP_IP = WiFi.softAPIP();
   CL_IP = WiFi.localIP();
-  Serial.printf("AP IP address: %s", WiFi.softAPIP());
+  Serial.print("AP IP address: ");
+  Serial.println(AP_IP.toString());
   Serial.print("Client IP address: ");
   Serial.println(CL_IP.toString());
   WiFi.printDiag(Serial);
@@ -231,6 +232,17 @@ String sWifiStatus(int Status)
     case WL_DISCONNECTED:return "Nicht verbunden";
     default:return "unbekannt";
   }
+}
+
+// Convert string to char
+char* toChar(String command){
+    if(command.length()!=0){
+        char *p = const_cast<char*>(command.c_str());
+        return p;
+    }
+    else{
+      return 0;
+    }
 }
 
 #endif  

@@ -42,14 +42,15 @@ Web_Config tAP_Config;
 #define HostName        "Motordaten"
 const int   channel        = 10;                // WiFi Channel number between 1 and 13
 const bool  hide_SSID      = false;             // To disable SSID broadcast -> SSID will not appear in a basic WiFi scan
-const int   max_connection = 4;                 // Maximum simultaneous connected clients on the AP
+const int   max_connection = 2;                 // Maximum simultaneous connected clients on the AP
 
 // Variables for WIFI-AP
+IPAddress IP = IPAddress(192, 168, 15, 30);
 IPAddress Gateway = IPAddress(192, 168, 15, 30);
 IPAddress NMask = IPAddress(255, 255, 255, 0);
-IPAddress AP_IP = IPAddress(192, 168, 15, 30);
-String AP_SSID = "Motordaten";
-String AP_PASSWORD  = "12345678";
+const char* AP_SSID = "Motordaten";
+const char* AP_PASSWORD  = "12345678";
+IPAddress AP_IP;
 IPAddress CL_IP;
 IPAddress SELF_IP;
 String sAP_Station = "";

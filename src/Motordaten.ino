@@ -104,9 +104,10 @@ void setup() {
   uint32_t id = 0;
   int i = 0;
 
-  Serial.printf("Motordaten setup %s start\n", Version);
   // Init USB serial port
   Serial.begin(115200);
+
+  Serial.printf("Motordaten setup %s start\n", Version);
 
   //Filesystem prepare for Webfiles
 	if (!LittleFS.begin(true)) {
@@ -120,11 +121,11 @@ void setup() {
   	listDir(LittleFS, "/", 3);
 	// file exists, reading and loading config file
 	readConfig("/config.json");
-  AP_IP = inet_addr(tAP_Config.wAP_IP);
+  IP = inet_addr(tAP_Config.wAP_IP);
 	AP_SSID = tAP_Config.wAP_SSID;
 	AP_PASSWORD = tAP_Config.wAP_Password;
 	fTempOffset = atof(tAP_Config.wTemp_Offset);
-  Serial.println("Configdata :\n AP IP: " + AP_IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , TempOffset: " + fTempOffset);
+  Serial.println("Configdata :\n AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , TempOffset: " + fTempOffset);
 
   // LED
   LEDInit();
@@ -133,35 +134,38 @@ void setup() {
   sBoardInfo = boardInfo.ShowChipIDtoString();
 
   //WIFI
-  WiFi.softAPdisconnect(); // alle Clients trennen
+  // WiFi.softAPdisconnect(); // alle Clients trennen
 
-	//WiFiServer AP starten
-	WiFi.mode(WIFI_AP_STA);
-	WiFi.softAP((const char*)AP_SSID.c_str(), (const char*)AP_PASSWORD.c_str());
-    Serial.println("");
-    Serial.println("Network " + WiFi.softAPSSID() + " running");
+	//Wifi
+  WiFi.mode(WIFI_AP_STA);
+  WiFi.softAPdisconnect();
+  if(WiFi.softAP(AP_SSID, AP_PASSWORD, channel, hide_SSID, max_connection)){
+    WiFi.softAPConfig(IP, Gateway, NMask);
+    Serial.println("\nNetwork " + String(AP_SSID) + " running");
+    Serial.println("\nNetwork IP " + IP.toString() + " ,GW: " + Gateway.toString() + " ,Mask: " + NMask.toString() + " set");
     LEDon(LED(Green));
     delay(1000);
+  } else {
+      Serial.println("Starting AP failed.");
+      LEDoff(LED(Green));
+      LEDon(LED(Red));  
+      delay(1000); 
+      ESP.restart();
+  }
+  
+  WiFi.setHostname(HostName);
+  Serial.println("Set Hostname with: " + String(WiFi.getHostname()) + " done");
 
-	if (WiFi.softAPConfig(AP_IP, Gateway, NMask))
-		Serial.println("\nIP config with " +WiFi.softAPIP().toString() + " success");	
-	else
-		Serial.println("IP config not success");	
-	
-  if (WiFi.setHostname(HostName))
-		Serial.println("\nSet Hostname " + String(WiFi.softAPgetHostname()) + " success");
-	else
-		Serial.println("\nSet Hostname not success");
+  delay(1000);
+  WiFiDiag();
 
-	if (!MDNS.begin(HostName)) {
+	if (!MDNS.begin(AP_SSID)) {
 		Serial.println("Error setting up MDNS responder!");
 		while (1) {
 			delay(1000);
 		}
 	}
 Serial.println("mDNS responder started\n");
-
-WiFiDiag();
 
  // Start TCP (HTTP) server
 	server.begin();

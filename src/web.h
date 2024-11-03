@@ -11,6 +11,7 @@ AsyncWebServer server(80);
 // Info Board for HTML-Output
 String sBoardInfo;
 BoardInfo boardInfo;
+bool IsRebootRequired = false;
 
 String processor(const String& var)
 {
@@ -78,6 +79,10 @@ void website() {
 	});
 	server.on("/ueber.html", HTTP_GET, [](AsyncWebServerRequest* request) {
 		request->send(LittleFS, "/ueber.html", String(), false, replaceVariable);
+	});
+	server.on("/reboot", HTTP_GET, [](AsyncWebServerRequest * request) {
+    	request->send(LittleFS, "/reboot.html", String(), false, processor);
+		IsRebootRequired = true;
 	});
 	server.on("/gauge.min.js", HTTP_GET, [](AsyncWebServerRequest* request) {
 		request->send(LittleFS, "/gauge.min.js");
