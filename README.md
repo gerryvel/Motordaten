@@ -1,5 +1,12 @@
 # MotorData N2k
-This repository shows how to measure the Battery Voltage, Engine RPM, Fuel Level and the Exhaust Temeperature and send it as NNMEA2000 meassage.
+This repository shows how to measure the 
+- Battery Voltage
+- Engine RPM
+- Fuel Level
+- Oil Temeperature
+- Alarms engine Stop and tempertur high
+- Enginehours
+and send it as NNMEA2000 meassage.
 In addition, all data and part of the configuration are displayed as a website. 
 According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger.
 
