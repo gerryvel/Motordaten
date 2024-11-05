@@ -48,18 +48,18 @@ from /data directory.
   
 Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13480525/MD.N2k__Assembly.pdf)
 
-- 1			C1	10µ	CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder	1
-- 2			C2	22µ	CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder	1
+- 1			C1	10µ	    CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder	1
+- 2			C2	22µ	    CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder	1
 - 3			R1	100k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
-- 4			R2	27k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 4			R2	27k	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
 - 5			R3	300R	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
-- 6			R4	10k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
-- 7			R5	1k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
-- 8			R6	4k7	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
-- 9			R7	2k	R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
-- 10		D1	B360	D_SMC	1
-- 11		D2	LED_RBKG	PinHeader_1x04_P2.00mm_LED RGB	1
-- 12		D3	PESD1CAN	SOT-23	1
+- 6			R4	10k	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 7			R5	1k	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 8			R6	4k7	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 9			R7	2k	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 10		D1	B360	B 360 F Schottkydiode, 60 V, 3 A, DO-214AB/SMC     	1
+- 11		D2	LED_RBKG	RGB LED Kingbright     	1
+- 12		D3	PESD1CAN	SOT-23 Dual bidirectional TVS diode	1
 - 13		D4	ZPD3.3	D_DO-35_SOD27_P10.16mm_Horizontal	1  [Link](https://www.reichelt.de/zenerdiode-3-3-v-0-5-w-do-35-zf-3-3-p23126.html?&trstct=pos_6&nbc=1)
 - 14		D5	1N4148	D_DO-35_SOD27_P7.62mm_Horizontal	1  [Link](https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html?search=1n4148)
 - 15		D6	P4SMAJ26CA	D_SMA_TVS	1
@@ -70,7 +70,7 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 - 20		FL1	EPCO B82789C0513	B82789C0113N002	1
 - 21		J2, J3	Conn_01x04_Pin	PinHeader_1x04_P2.54mm_Vertical	2
 - 22		J1	Conn_01x03_Pin	PinHeader_1x03_P2.54mm_Vertical	1
-- Wago-Case: [Link](https://www.wago.com/de/zubehoer/gehaeuse-55-mm/p/789-120)
+- 23        Wago-Case: [Link](https://www.wago.com/de/zubehoer/gehaeuse-55-mm/p/789-120)
 
 # Changes
 
