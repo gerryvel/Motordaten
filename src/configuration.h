@@ -85,6 +85,8 @@ String sOneWire_Status = "";
 bool EngineOn = false;
 static unsigned long Counter;			// Enginehours
 enum EngineStatus { Off = 0,  On = 1, };
+#define RPM_Calibration_Value 4.0 // Translates Generator RPM to Engine RPM 
+#define Eingine_RPM_Pin 19  // Engine RPM is measured as interrupt on GPIO 23
 
 // Global Data Battery
 int Bat1Capacity = 55; 	// Starterbatterie
@@ -93,7 +95,7 @@ int SoCError = 0;
 float BatSoC = 0;
 
 // Data wire for teperature (Dallas DS18B20) 
-#define ONE_WIRE_BUS 13			//GPIO 13 on the ESP32
+#define ONE_WIRE_BUS 13			// Data wire for teperature (Dallas DS18B20) is plugged into GPIO 13
 
 // Variables Website
 float fDrehzahl = 0;
