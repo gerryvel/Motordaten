@@ -24,7 +24,6 @@
 #include <ESPAsyncWebServer.h>
 #include "LED.h"
 #include <NMEA2000_CAN.h>  // This will automatically choose right CAN library and create suitable NMEA2000 object
-#include <memory>
 #include <N2kMessages.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -326,12 +325,13 @@ void SendN2kTankLevel(double level, double capacity) {
   }
 }
 
-void SendN2kExhaustTemp(double temp, double rpm, double hours) {
+void SendN2kExhaustTemp(double temp, double rpm, double hours, double voltage) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, EngineSendOffset);
   tN2kMsg N2kMsg;
   tN2kEngineDiscreteStatus1 Status1;
   tN2kEngineDiscreteStatus2 Status2;
   Status1.Bits.OverTemperature = temp > 90;         // Alarm Übertemperatur
+  Status1.Bits.LowSystemVoltage = voltage < 11;
   Status2.Bits.EngineShuttingDown = rpm < 100;      // Alarm Maschine Aus
   EngineOn = !Status2.Bits.EngineShuttingDown;
 
@@ -402,7 +402,7 @@ void loop() {
   EngineHours(EngineOn);
   
   SendN2kTankLevel(FuelLevel, FuelLevelMax);  // Adjust max tank capacity.  Is it 200 ???
-  SendN2kExhaustTemp(ExhaustTemp, EngineRPM, Counter);
+  SendN2kExhaustTemp(ExhaustTemp, EngineRPM, Counter, BordSpannung);
   SendN2kEngineRPM(EngineRPM);
   SendN2kBattery(BordSpannung);
   SendN2kDCStatus(BordSpannung, BatSoC, Bat1Capacity);
