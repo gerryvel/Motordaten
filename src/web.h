@@ -50,7 +50,8 @@ String replaceVariable(const String& var)
 	if (var == "sTempOffset")return String(fTempOffset);
 	if (var == "sSTBB")return sSTBB;
 	if (var == "sBoardInfo")return sBoardInfo;
-	if (var == "sFS_Space")return String(LittleFS.usedBytes());
+	if (var == "sFS_USpace")return String(LittleFS.usedBytes());
+	if (var == "sFS_TSpace")return String(LittleFS.usedBytes());
 	if (var == "sAP_IP")return WiFi.softAPIP().toString();
   	if (var == "sAP_Clients")return String(sAP_Station);
   	if (var == "sCL_Addr")return WiFi.localIP().toString();
