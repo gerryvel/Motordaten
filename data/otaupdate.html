@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <br />
+    <p class="label">OTA Update</p>
+    
+    <h2>ESP32 WEB SERVER</h2>
+        <div class="content">
+            <div class="card-grid">
+            <div class="card">
+                <p><i class="fas fa-lightbulb fa-2x" style="color:#c81919;"></i>     
+                    <strong>GPIO2</strong></p>
+                <p>GPIO state: 
+                    <strong> %GPIO_STATE%</strong></p>
+                <p>
+                <a href="/led2on"><button class="button">ON</button></a>
+                <a href="/led2off"><button class="button">OFF</button></a>
+                </p>
+            </div>
+            </div>
+        </div>
+
+    <p class="label">Nach &Auml;nderungen neu starten!</p>
+    
+
+    <button class="button" onclick="reboot_handler()">Neustart</button>
+        </p>
+
+    <p id="status"></p>
+    <script>
+        function reboot_handler() 
+        {
+        document.getElementById("status").innerHTML = "Invoking Reboot ...";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/reboot", true);
+        xhr.send();
+        setTimeout(function(){ window.open("/reboot","_self"); }, 500);
+        }
+    </script>
+
+
+    <ul class="bottomnav">
+        <li><a href="/">Home</a></li>
+        <li><a class="active" href="settings.html">Settings</a></li>
+        <li><a href="system.html">System</a></li>
+        <li class="right"><a href="ueber.html">About</a></li>
+    </ul>
+</body>
+</html >
