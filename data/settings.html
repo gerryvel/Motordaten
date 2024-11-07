@@ -18,12 +18,14 @@
             var IP = form.IP.value;
             var Password = form.Password.value;
             var TempOffset = form.TempOffset.value;
+            var Fuellstandmax = form.Fuellstandmax.value;
 
             var jsonFormInfo = JSON.stringify({
                 SSID: SSID,
                 IP: IP,
                 Password: Password,
-                TempOffset: TempOffset
+                TempOffset: TempOffset,
+                Fuellstandmax: Fuellstandmax
             });
 
             xhr.open("POST", "/settings.html?save=" + jsonFormInfo, true);
@@ -43,7 +45,7 @@
     <script>
         function reboot_handler() 
         {
-        document.getElementById("status").innerHTML = "Invoking Reboot ...";
+        document.getElementById("status").innerHTML = "Starte Reboot ...";
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/reboot", true);
         xhr.send();
@@ -54,6 +56,7 @@
 
     <ul class="bottomnav">
         <li><a href="/">Home</a></li>
+        <li><a href="werte.html">Werte</a></li>
         <li><a class="active" href="settings.html">Settings</a></li>
         <li><a href="system.html">System</a></li>
         <li class="right"><a href="ueber.html">About</a></li>

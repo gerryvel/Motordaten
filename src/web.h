@@ -28,9 +28,12 @@ String processor(const String& var)
 		buttons += "<p class=\"CInput\"><label>Password </label><input type = \"text\" name = \"Password\" value=\"";
 		buttons += tAP_Config.wAP_Password;
 		buttons += "\"/></p>";
-		buttons += "<p class=\"CInput\"><label>TempOffset </label><input type = \"text\" name = \"TempOffset\" value=\"";
+		buttons += "<p class=\"CInput\"><label>Temp. Offset </label><input type = \"text\" name = \"TempOffset\" value=\"";
 		buttons += tAP_Config.wTemp_Offset;
 		buttons += "\"/> &deg;C</p>";
+		buttons += "<p class=\"CInput\"><label>max. F&uuml;llstand </label><input type = \"text\" name = \"Fuellstandmax\" value=\"";
+		buttons += tAP_Config.wFuellstandmax;
+		buttons += "\"/> l</p>";
 		buttons += "<p><input type=\"submit\" value=\"Speichern\"></p>";
 		buttons += "</form>";
 		return buttons;
@@ -45,13 +48,14 @@ String replaceVariable(const String& var)
 {
 	if (var == "sDrehzahl")return String(fDrehzahl,1);
 	if (var == "sFuellstand")return String(FuelLevel,1);
+	if (var == "sFuellstandmax")return String(FuelLevelMax,1);
 	if (var == "sBordspannung")return String(fBordSpannung,1);
 	if (var == "sTemp")return String(fTemp,1);
 	if (var == "sTempOffset")return String(fTempOffset);
 	if (var == "sSTBB")return sSTBB;
 	if (var == "sBoardInfo")return sBoardInfo;
 	if (var == "sFS_USpace")return String(LittleFS.usedBytes());
-	if (var == "sFS_TSpace")return String(LittleFS.usedBytes());
+	if (var == "sFS_TSpace")return String(LittleFS.totalBytes());
 	if (var == "sAP_IP")return WiFi.softAPIP().toString();
   	if (var == "sAP_Clients")return String(sAP_Station);
   	if (var == "sCL_Addr")return WiFi.localIP().toString();
@@ -78,6 +82,9 @@ void website() {
 	});
 	server.on("/settings.html", HTTP_GET, [](AsyncWebServerRequest* request) {
 		request->send(LittleFS, "/settings.html", String(), false, replaceVariable);
+	});
+	server.on("/werte.html", HTTP_GET, [](AsyncWebServerRequest* request) {
+		request->send(LittleFS, "/werte.html", String(), false, replaceVariable);
 	});
 	server.on("/ueber.html", HTTP_GET, [](AsyncWebServerRequest* request) {
 		request->send(LittleFS, "/ueber.html", String(), false, replaceVariable);

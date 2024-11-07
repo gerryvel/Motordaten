@@ -121,6 +121,7 @@ void readConfig(String filename) {
 			strcpy(tAP_Config.wAP_IP, testDocument["IP"] | "192.168.15.30");
 			strcpy(tAP_Config.wAP_Password, testDocument["Password"] | "12345678");
 			strcpy(tAP_Config.wTemp_Offset, testDocument["TempOffset"] | "0.0");
+      strcpy(tAP_Config.wFuellstandmax, testDocument["Fuellstandmax"] | "0.0");
 			Serial.println(tAP_Config.wAP_SSID);
 		}
 		configFile.close();

@@ -122,6 +122,7 @@ void setup() {
 	AP_SSID = tAP_Config.wAP_SSID;
 	AP_PASSWORD = tAP_Config.wAP_Password;
 	fTempOffset = atof(tAP_Config.wTemp_Offset);
+  FuelLevelMax = atof(tAP_Config.wFuellstandmax);
   Serial.println("Configdata :\n AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , TempOffset: " + fTempOffset);
 
   // LED
@@ -239,6 +240,35 @@ Serial.println("mDNS responder started\n");
 
   delay(200);
 
+// Start OTA
+  ArduinoOTA
+    .onStart([]() {
+      String type;
+      if (ArduinoOTA.getCommand() == U_FLASH)
+        type = "sketch";
+      else // U_SPIFFS
+        type = "filesystem";
+
+      // NOTE: if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
+      Serial.println("Start updating " + type);
+    })
+    .onEnd([]() {
+      Serial.println("\nEnd");
+    })
+    .onProgress([](unsigned int progress, unsigned int total) {
+      Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+    })
+    .onError([](ota_error_t error) {
+      Serial.printf("Error[%u]: ", error);
+      if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+      else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+      else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+      else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+      else if (error == OTA_END_ERROR) Serial.println("End Failed");
+    });
+
+  ArduinoOTA.begin();
+
   printf("Setup end\n");
 }
 
@@ -318,7 +348,8 @@ void SendN2kTankLevel(double level, double capacity) {
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Fuel Level  : %3.1f %\n", level);
+    Serial.printf("Fuel Level   : %3.1f %\n", level);
+    Serial.printf("Fuel Capacity: %3.1f %\n", capacity);
 
     SetN2kFluidLevel(N2kMsg, 0, N2kft_Fuel, level, capacity );
     NMEA2000.SendMsg(N2kMsg);
@@ -401,7 +432,7 @@ void loop() {
   
   EngineHours(EngineOn);
   
-  SendN2kTankLevel(FuelLevel, FuelLevelMax);  // Adjust max tank capacity.  Is it 200 ???
+  SendN2kTankLevel(FuelLevel, FuelLevelMax);  // Adjust max tank capacity
   SendN2kExhaustTemp(ExhaustTemp, EngineRPM, Counter, BordSpannung);
   SendN2kEngineRPM(EngineRPM);
   SendN2kBattery(BordSpannung);

@@ -1,5 +1,6 @@
 {   "ssid": "Motordaten",
     "IP": "192.168.15.30",
     "passwort": "12345678",
-    "TempOffset":"0.0"
+    "TempOffset":"0.0",
+    "Fuellstandmax": "0.0"
 }

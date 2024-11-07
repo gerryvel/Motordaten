@@ -5,7 +5,7 @@
 #include <Preferences.h>
 
 // Versionierung
-#define Version "V2.2 vom 01.11.2024"  // Version
+#define Version "V2.2 vom 07.11.2024"  // Version
 
 // Configuration N2k
 #define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
@@ -35,6 +35,7 @@ struct Web_Config
 	char wAP_SSID[64];
 	char wAP_Password[12];
 	char wTemp_Offset[5];
+	char wFuellstandmax[3];
 };
 Web_Config tAP_Config;
 
