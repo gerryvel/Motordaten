@@ -25,7 +25,6 @@
 #include "LED.h"
 #include <NMEA2000_CAN.h>  // This will automatically choose right CAN library and create suitable NMEA2000 object
 #include <N2kMessages.h>
-#include <OneWire.h>
 #include <DallasTemperature.h>
 #include "web.h"
 #include <ESPmDNS.h>
