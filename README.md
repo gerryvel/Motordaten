@@ -3,7 +3,7 @@ This repository shows how to measure the
 - Battery Voltage
 - Engine RPM
 - Fuel Level
-- Oil Temeperature
+- Oil and Motor Temeperature
 - Alarms engine stop and tempertur high
 - Enginehours
 
