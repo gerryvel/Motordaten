@@ -5,7 +5,7 @@
 #include <Preferences.h>
 
 // Versionierung
-#define Version "V2.2 vom 07.11.2024"  // Version
+#define Version "V2.3 vom 18.11.2024"  // Version
 
 // Configuration N2k
 #define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
@@ -24,7 +24,7 @@ int i = 0;
 #define SlowDataUpdatePeriod 1000  // Time between CAN Messages sent
 
 
-//Configuration Web Page 
+//Configuration Website
 #define PAGE_REFRESH 10 // x Sec.
 #define WEB_TITEL "Motordaten"
 
@@ -76,13 +76,13 @@ bool bI2C_Status = 0;
 const int iMaxSonar = 35;			//Analoginput 
 int iDistance = 0;
 
-// Global Data Motordaten
+// Global Data Motordata Sensor
 float FuelLevel = 0;
 float FuelLevelMax = 30;
-float ExhaustTemp = 0;
+float OilTemp = 0;
+float MotTemp = 0;
 float EngineRPM = 0;
 float BordSpannung = 0;
-String sOneWire_Status = "";
 bool EngineOn = false;
 static unsigned long Counter;			// Enginehours
 enum EngineStatus { Off = 0,  On = 1, };
@@ -97,12 +97,14 @@ float BatSoC = 0;
 
 // Data wire for teperature (Dallas DS18B20) 
 #define ONE_WIRE_BUS 13			// Data wire for teperature (Dallas DS18B20) is plugged into GPIO 13
+String sOneWire_Status = "";
 
 // Variables Website
 float fDrehzahl = 0;
 float fGaugeDrehzahl = 0;
 float fBordSpannung = 0;
-float fTemp = 0;
+float fOilTemp = 0;
+float fMotTemp = 0;
 float fTempOffset = 0;
 String sSTBB = "";
 String sOrient = "";

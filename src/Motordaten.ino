@@ -12,23 +12,24 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// V2.1 vom 29.10.2024, Gerry Sebb
+// V2.3 vom 18.11.2024, Gerry Sebb
 
 #include <Arduino.h>
+#include "configuration.h"
 #include <Preferences.h>
 #include <ArduinoOTA.h>
-#include "BoardInfo.h"
-#include "configuration.h"
-#include "helper.h"
+#include <OneWire.h>
+#include <DallasTemperature.h>
 #include <ESP_WiFi.h>
 #include <ESPAsyncWebServer.h>
-#include "LED.h"
 #include <NMEA2000_CAN.h>  // This will automatically choose right CAN library and create suitable NMEA2000 object
 #include <N2kMessages.h>
-#include <DallasTemperature.h>
-#include "web.h"
 #include <ESPmDNS.h>
 #include <arpa/inet.h>
+#include "BoardInfo.h"
+#include "helper.h"
+#include "LED.h"
+#include "web.h"
 #include "Analog.h"
 #include "uptime.h"
 #include "hourmeter.h"
@@ -59,10 +60,10 @@ portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;  // synchs between maon cose an
 
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
 OneWire oneWire(ONE_WIRE_BUS);
-// Pass our oneWire reference to Dallas Temperature.
-DallasTemperature sensors(&oneWire);
-// arrays to hold device addresses
-DeviceAddress MotorThermometer;
+DallasTemperature sensors(&oneWire); // Pass our oneWire reference to Dallas Temperature.
+// DeviceAddress MotorThermometer;  // arrays to hold device addresses
+uint8_t MotorCoolant[8] = { 0x28, 0xD3, 0x81, 0xCF, 0x0F, 0x0, 0x0, 0x79 }; // Coolant
+uint8_t MotorOil[8] = { 0x28, 0xB0, 0x3C, 0x1A, 0xF, 0x0, 0x0, 0xC0 };  // Engine Oil
 
 const int ADCpin2 = 35; // Voltage measure is connected GPIO 35 (Analog ADC1_CH7)
 const int ADCpin1 = 34; // Tank fluid level measure is connected GPIO 34 (Analog ADC1_CH6)
@@ -96,10 +97,6 @@ void IRAM_ATTR handleInterrupt()
 /******************************************* Setup *******************************************************/
 void setup() {
 
-  uint8_t chipid[6];
-  uint32_t id = 0;
-  int i = 0;
-
   // Init USB serial port
   Serial.begin(115200);
 
@@ -110,7 +107,7 @@ void setup() {
 		Serial.println("An Error has occurred while mounting LittleFS");
 		return;
 	}
-	Serial.println("Speicher LittleFS benutzt:");
+	Serial.println("Bytes LittleFS used:");
 	Serial.println(LittleFS.usedBytes());
 
 	File root = LittleFS.open("/");
@@ -185,13 +182,34 @@ Serial.println("mDNS responder started\n");
 
 // Start OneWire
   sensors.begin();
-  Serial.print("Found device "); // locate devices on the bus
-  Serial.print(sensors.getDeviceCount(), DEC);
-  sOneWire_Status = String(sensors.getAddress(MotorThermometer, 0));
-  Serial.println(", Adresse " + sOneWire_Status);
-
+  oneWire.reset();
+    Serial.print("Found ");
+    Serial.print(sensors.getDeviceCount(), DEC);
+    Serial.println(" devices.");
+    Serial.print("Parasite power is: ");
+  if (sensors.isParasitePowerMode()) Serial.println("ON");
+    else Serial.println("OFF");
+  sOneWire_Status = String(sensors.getDeviceCount(), DEC);
+  
+byte ow;
+  byte addr[8];
+  
+  if (!oneWire.search(addr)) {
+    Serial.println(" No more OneWire addresses.");
+    Serial.println();
+    oneWire.reset_search();
+    delay(250);
+    return;
+  }
+  Serial.print(" ROM =");
+  for (ow = 0; ow < 8; ow++) {
+    Serial.write(' ');
+    Serial.print(addr[ow], HEX);
+  }
+  Serial.print("\n");
 // search for devices on the bus and assign based on an index
-  if (!sensors.getAddress(MotorThermometer, 0)) Serial.println("Unable to find address for Device 0");
+  if (!sensors.getAddress(MotorOil, 0)) Serial.println("Unable to find address for Device 0");
+  if (!sensors.getAddress(MotorCoolant, 1)) Serial.println("Unable to find address for Device 1");
 
 // Reserve enough buffer for sending all messages. This does not work on small memory devices like Uno or Mega
   NMEA2000.SetN2kCANMsgBufSize(8);
@@ -267,18 +285,22 @@ Serial.println("mDNS responder started\n");
     });
 
   ArduinoOTA.begin();
-
+ 
   printf("Setup end\n");
 }
 
 // This task runs isolated on core 0 because sensors.requestTemperatures() is slow and blocking for about 750 ms
 void GetTemperature( void * parameter) {
-  float tmp = 0;
+  float tmp0 = 0;
+  float tmp1 = 0;
   for (;;) {
     sensors.requestTemperatures(); // Send the command to get temperatures
     vTaskDelay(100);
-    tmp = sensors.getTempCByIndex(0) + fTempOffset;
-    if (tmp != -127) ExhaustTemp = tmp;
+    tmp0 = sensors.getTempCByIndex(0) + fTempOffset;
+    if (tmp0 != -127) OilTemp = tmp0;
+    vTaskDelay(100);
+    tmp1 = sensors.getTempCByIndex(1) + fTempOffset;
+    if (tmp1 != -127) MotTemp = tmp1;
     vTaskDelay(100);
   }
 }
@@ -348,19 +370,19 @@ void SendN2kTankLevel(double level, double capacity) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
     Serial.printf("Fuel Level   : %3.1f %\n", level);
-    Serial.printf("Fuel Capacity: %3.1f %\n", capacity);
+    Serial.printf("Fuel Capacity: %3.1f l\n", capacity);
 
     SetN2kFluidLevel(N2kMsg, 0, N2kft_Fuel, level, capacity );
     NMEA2000.SendMsg(N2kMsg);
   }
 }
 
-void SendN2kExhaustTemp(double temp, double rpm, double hours, double voltage) {
+void SendN2kEngineData(double Otemp, double Wtemp, double rpm, double hours, double voltage) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, EngineSendOffset);
   tN2kMsg N2kMsg;
   tN2kEngineDiscreteStatus1 Status1;
   tN2kEngineDiscreteStatus2 Status2;
-  Status1.Bits.OverTemperature = temp > 90;         // Alarm Übertemperatur
+  Status1.Bits.OverTemperature = Otemp || Wtemp > 90;         // Alarm Übertemperatur
   Status1.Bits.LowSystemVoltage = voltage < 11;
   Status2.Bits.EngineShuttingDown = rpm < 100;      // Alarm Maschine Aus
   EngineOn = !Status2.Bits.EngineShuttingDown;
@@ -368,14 +390,15 @@ void SendN2kExhaustTemp(double temp, double rpm, double hours, double voltage) {
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Engine Temp : %3.1f °C \n", temp);
+    Serial.printf("Oil Temp : %3.1f °C \n", Otemp);
+    Serial.printf("Coolant Temp : %3.1f °C \n", Wtemp);
     Serial.printf("Engine Hours: %3.1f hrs \n", hours);
     Serial.printf("Over Temp   : %s  \n", Status1.Bits.OverTemperature ? "Yes" : "No");
     Serial.printf("Engine Off  : %s  \n", Status2.Bits.EngineShuttingDown ? "Yes" : "No");
 
     // SetN2kTemperatureExt(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp), N2kDoubleNA);   // PGN130312, uncomment the PGN to be used
 
-    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(temp), N2kDoubleNA, N2kDoubleNA, N2kDoubleNA, hours ,N2kDoubleNA ,N2kDoubleNA, N2kInt8NA, N2kInt8NA, Status1, Status2);
+    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(Otemp), CToKelvin(Wtemp), N2kDoubleNA, N2kDoubleNA, hours ,N2kDoubleNA ,N2kDoubleNA, N2kInt8NA, N2kInt8NA, Status1, Status2);
 
     NMEA2000.SendMsg(N2kMsg);
   }
@@ -432,7 +455,7 @@ void loop() {
   EngineHours(EngineOn);
   
   SendN2kTankLevel(FuelLevel, FuelLevelMax);  // Adjust max tank capacity
-  SendN2kExhaustTemp(ExhaustTemp, EngineRPM, Counter, BordSpannung);
+  SendN2kEngineData(OilTemp, MotTemp, EngineRPM, Counter, BordSpannung);
   SendN2kEngineRPM(EngineRPM);
   SendN2kBattery(BordSpannung);
   SendN2kDCStatus(BordSpannung, BatSoC, Bat1Capacity);
@@ -458,7 +481,8 @@ freeHeapSpace();
 	ArduinoOTA.handle();
 
 // WebsiteData
-fTemp = ExhaustTemp;
+fOilTemp = OilTemp;
+fMotTemp = MotTemp;
 fBordSpannung = BordSpannung;
 fDrehzahl = EngineRPM;
 sCL_Status = sWifiStatus(WiFi.status());
