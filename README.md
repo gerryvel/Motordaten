@@ -12,7 +12,7 @@ In addition, all data and part of the configuration are displayed as a website.
 According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger.
 
 # Website
-![grafik](https://github.com/gerryvel/Motordaten/assets/17195231/050c4df4-9c2e-40e5-965e-1174d0b04372)
+![grafik](https://github.com/user-attachments/assets/7f13e1f1-09d9-42a5-9052-dfacef8e9292)
 ![image](https://github.com/user-attachments/assets/4d11fd86-e9fe-4c44-b1cc-f28d394c459d)
 ![image](https://github.com/user-attachments/assets/d411a3b5-a224-4e32-aaeb-6584f961373d)
 ![image](https://github.com/user-attachments/assets/f9324a00-f561-4dc3-9403-f6259f3293ef)
