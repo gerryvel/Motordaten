@@ -118,5 +118,13 @@ void website() {
 		}
 		request->send(200, "text/plain", "Daten gespeichert");
 	});
+
+if (IsRebootRequired) {
+		Serial.println("Rebooting ESP32: "); 
+		delay(1000); // give time for reboot page to load
+		ESP.restart();
+		}
+
+
 }
 

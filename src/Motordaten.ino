@@ -377,28 +377,29 @@ void SendN2kTankLevel(double level, double capacity) {
   }
 }
 
-void SendN2kEngineData(double Otemp, double Wtemp, double rpm, double hours, double voltage) {
+void SendN2kEngineData(double Oiltemp, double Watertemp, double rpm, double hours, double voltage) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, EngineSendOffset);
   tN2kMsg N2kMsg;
   tN2kEngineDiscreteStatus1 Status1;
   tN2kEngineDiscreteStatus2 Status2;
-  Status1.Bits.OverTemperature = Otemp || Wtemp > 90;         // Alarm Übertemperatur
+  Status1.Bits.OverTemperature = Oiltemp > 90;      // Alarm Motor over temp
+  Status1.Bits.LowCoolantLevel = Watertemp > 90;    // Alarm low cooling
   Status1.Bits.LowSystemVoltage = voltage < 11;
-  Status2.Bits.EngineShuttingDown = rpm < 100;      // Alarm Maschine Aus
+  Status2.Bits.EngineShuttingDown = rpm < 100;      // Alarm Motor off
   EngineOn = !Status2.Bits.EngineShuttingDown;
 
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Oil Temp : %3.1f °C \n", Otemp);
-    Serial.printf("Coolant Temp : %3.1f °C \n", Wtemp);
+    Serial.printf("Oil Temp : %3.1f °C \n", Oiltemp);
+    Serial.printf("Coolant Temp : %3.1f °C \n", Watertemp);
     Serial.printf("Engine Hours: %3.1f hrs \n", hours);
     Serial.printf("Over Temp   : %s  \n", Status1.Bits.OverTemperature ? "Yes" : "No");
     Serial.printf("Engine Off  : %s  \n", Status2.Bits.EngineShuttingDown ? "Yes" : "No");
 
     // SetN2kTemperatureExt(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp), N2kDoubleNA);   // PGN130312, uncomment the PGN to be used
 
-    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(Otemp), CToKelvin(Wtemp), N2kDoubleNA, N2kDoubleNA, hours ,N2kDoubleNA ,N2kDoubleNA, N2kInt8NA, N2kInt8NA, Status1, Status2);
+    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(Oiltemp), CToKelvin(Watertemp), N2kDoubleNA, N2kDoubleNA, hours ,N2kDoubleNA ,N2kDoubleNA, N2kInt8NA, N2kInt8NA, Status1, Status2);
 
     NMEA2000.SendMsg(N2kMsg);
   }
@@ -488,10 +489,5 @@ fDrehzahl = EngineRPM;
 sCL_Status = sWifiStatus(WiFi.status());
 sAP_Station = WiFi.softAPgetStationNum();
 
-if (IsRebootRequired) {
-		Serial.println("Rebooting ESP32: "); 
-		delay(1000); // give time for reboot page to load
-		ESP.restart();
-		}
 
 }
