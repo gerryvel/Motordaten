@@ -16,6 +16,8 @@ According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger
 ![image](https://github.com/user-attachments/assets/4d11fd86-e9fe-4c44-b1cc-f28d394c459d)
 ![image](https://github.com/user-attachments/assets/d411a3b5-a224-4e32-aaeb-6584f961373d)
 ![image](https://github.com/user-attachments/assets/f9324a00-f561-4dc3-9403-f6259f3293ef)
+![image](https://github.com/user-attachments/assets/19a4b7fd-f4e0-4ad4-b478-bb63acd92f85)
+
 
 # Wiring diagram
 
