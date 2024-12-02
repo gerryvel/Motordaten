@@ -1,0 +1,26 @@
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# Required
+version: 2
+
+# Set the OS, Python version, and other tools you might need
+build:
+  os: ubuntu-24.04
+  tools:
+    # Specify the language and version your project requires,
+    # by uncommenting one of the following tools.
+    #
+    # python: "3.13"
+    # ruby: "3.3"
+    # nodejs: "22"
+    # rust: "1.82"
+    # golang: "1.23"
+
+  commands:
+    # Write down your commands here to:
+    #
+    #  - Install the dependencies of your project
+    #  - Build the documentation
+    #  - Save the generated files in $READTHEDOCS_OUTPUT/html
+        
