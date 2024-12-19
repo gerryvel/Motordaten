@@ -19,5 +19,8 @@
         "type_traits": "cpp",
         "utility": "cpp"
     },
-    "cmake.options.statusBarVisibility": "icon"
+    "cmake.options.statusBarVisibility": "icon",
+    "idf.flashType": "UART",
+    "idf.espIdfPathWin": "C:\\Users\\gerryadmin\\esp\\v5.3.1\\esp-idf",
+    "idf.toolsPathWin": "C:\\Users\\gerryadmin\\.espressif"
 }
