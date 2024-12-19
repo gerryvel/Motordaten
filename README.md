@@ -3,19 +3,28 @@ This repository shows how to measure the
 - Battery Voltage
 - Engine RPM
 - Fuel Level
-- Oil and Motor Temeperature
+- Oil and Motor Temperature
 - Alarms engine stop and tempertur high
 - Enginehours
 
 and send it as NNMEA2000 meassage.
+- PGN 127488 // Engine Rapid / RPM
+- PGN 127489 // Engine parameters dynamic 
+- PGN 127505 // Fluid Level  
+- PGN 127506 // Battery
+- PGN 127508 // Battery Status
+
 In addition, all data and part of the configuration are displayed as a website. 
 According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger.
 
 # Website
 ![grafik](https://github.com/user-attachments/assets/7f13e1f1-09d9-42a5-9052-dfacef8e9292)
-![image](https://github.com/user-attachments/assets/4d11fd86-e9fe-4c44-b1cc-f28d394c459d)
+![Screenshot 2024-12-19 151743](https://github.com/user-attachments/assets/d9abed23-e122-496f-a01f-ed4d1dcb28b5)
+![Screenshot 2024-12-19 151649](https://github.com/user-attachments/assets/7ff8e1d7-4fa3-4c46-8a98-a2bf19aed3a5)
 ![image](https://github.com/user-attachments/assets/d411a3b5-a224-4e32-aaeb-6584f961373d)
 ![image](https://github.com/user-attachments/assets/f9324a00-f561-4dc3-9403-f6259f3293ef)
+![image](https://github.com/user-attachments/assets/19a4b7fd-f4e0-4ad4-b478-bb63acd92f85)
+
 
 # Wiring diagram
 
