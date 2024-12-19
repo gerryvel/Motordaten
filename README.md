@@ -8,11 +8,11 @@ This repository shows how to measure the
 - Enginehours
 
 and send it as NNMEA2000 meassage.
-127488 // Engine Rapid / RPM
-127489 // Engine parameters dynamic 
-127505 // Fluid Level  
-127506 // Battery
-127508 // Battery Status
+- 127488 // Engine Rapid / RPM
+- 127489 // Engine parameters dynamic 
+- 127505 // Fluid Level  
+- 127506 // Battery
+- 127508 // Battery Status
 
 In addition, all data and part of the configuration are displayed as a website. 
 According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger.
