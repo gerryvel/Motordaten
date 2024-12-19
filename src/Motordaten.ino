@@ -107,36 +107,32 @@ void setup() {
 		Serial.println("An Error has occurred while mounting LittleFS");
 		return;
 	}
-	Serial.println("Bytes LittleFS used:");
-	Serial.println(LittleFS.usedBytes());
+	Serial.println("Bytes LittleFS used:" + LittleFS.usedBytes());
 
 	File root = LittleFS.open("/");
-  	listDir(LittleFS, "/", 3);
+  listDir(LittleFS, "/", 3);
 	// file exists, reading and loading config file
-	readConfig("/config.json");
-  IP = inet_addr(tAP_Config.wAP_IP);
-	AP_SSID = tAP_Config.wAP_SSID;
-	AP_PASSWORD = tAP_Config.wAP_Password;
-	fTempOffset = atof(tAP_Config.wTemp_Offset);
-  FuelLevelMax = atof(tAP_Config.wFuellstandmax);
-  Serial.println("Configdata :\n AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , TempOffset: " + fTempOffset);
+  readConfig("/config.json");
+    IP = inet_addr(tAP_Config.wAP_IP);
+    AP_SSID = tAP_Config.wAP_SSID;
+    AP_PASSWORD = tAP_Config.wAP_Password;
+    fTempOffset = atof(tAP_Config.wTemp_Offset);
+    FuelLevelMax = atof(tAP_Config.wFuellstandmax);
+    Serial.println("\nConfigdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , TempOffset: " + fTempOffset + "read from file");
 
   // LED
   LEDInit();
 
   // Boardinfo	
-  sBoardInfo = boardInfo.ShowChipIDtoString();
-
-  //WIFI
-  // WiFi.softAPdisconnect(); // alle Clients trennen
+    sBoardInfo = boardInfo.ShowChipIDtoString();
 
 	//Wifi
   WiFi.mode(WIFI_AP_STA);
   WiFi.softAPdisconnect();
   if(WiFi.softAP(AP_SSID, AP_PASSWORD, channel, hide_SSID, max_connection)){
     WiFi.softAPConfig(IP, Gateway, NMask);
-    Serial.println("\nNetwork " + String(AP_SSID) + " running");
-    Serial.println("\nNetwork IP " + IP.toString() + " ,GW: " + Gateway.toString() + " ,Mask: " + NMask.toString() + " set");
+    Serial.println("\nAccesspoint " + String(AP_SSID) + " running");
+    Serial.println("\nSet IP " + IP.toString() + " ,Gateway: " + Gateway.toString() + " ,NetMask: " + NMask.toString() + " ready");
     LEDon(LED(Green));
     delay(1000);
   } else {
@@ -183,7 +179,7 @@ Serial.println("mDNS responder started\n");
 // Start OneWire
   sensors.begin();
   oneWire.reset();
-    Serial.print("Found ");
+    Serial.print("OneWire: Found ");
     Serial.print(sensors.getDeviceCount(), DEC);
     Serial.println(" devices.");
     Serial.print("Parasite power is: ");
@@ -195,13 +191,13 @@ byte ow;
   byte addr[8];
   
   if (!oneWire.search(addr)) {
-    Serial.println(" No more OneWire addresses.");
+    Serial.println("No more OneWire addresses.");
     Serial.println();
     oneWire.reset_search();
     delay(250);
     return;
   }
-  Serial.print(" ROM =");
+  Serial.print("ROM =");
   for (ow = 0; ow < 8; ow++) {
     Serial.write(' ');
     Serial.print(addr[ow], HEX);
