@@ -107,7 +107,7 @@ void setup() {
 		Serial.println("An Error has occurred while mounting LittleFS");
 		return;
 	}
-	Serial.println("Bytes LittleFS used:" + LittleFS.usedBytes());
+	Serial.println("Bytes LittleFS used:" + String(LittleFS.usedBytes()));
 
 	File root = LittleFS.open("/");
   listDir(LittleFS, "/", 3);
@@ -144,7 +144,7 @@ void setup() {
   }
   
   WiFi.setHostname(HostName);
-  Serial.println("Set Hostname with: " + String(WiFi.getHostname()) + " done");
+  Serial.println("Set Hostname " + String(WiFi.getHostname()) + " done\n");
 
   delay(1000);
   WiFiDiag();
@@ -219,7 +219,7 @@ byte ow;
   NMEA2000.SetProductInformation("MD01", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
                                  "MD Sensor Module",  // Manufacturer's Model ID
-                                 "2.0.0.0 (2024-06-07)",  // Manufacturer's Software version code
+                                 "2.3.0.0 (2024-12-07)",  // Manufacturer's Software version code
                                  "1.0.2.0 (2023-05-30)" // Manufacturer's Model version
                                 );
 // Set device information
