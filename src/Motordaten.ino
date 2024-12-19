@@ -107,7 +107,7 @@ void setup() {
 		Serial.println("An Error has occurred while mounting LittleFS");
 		return;
 	}
-	Serial.println("Bytes LittleFS used:" + String(LittleFS.usedBytes()));
+	Serial.println("\nBytes LittleFS used:" + String(LittleFS.usedBytes()));
 
 	File root = LittleFS.open("/");
   listDir(LittleFS, "/", 3);
