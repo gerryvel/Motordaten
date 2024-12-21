@@ -366,7 +366,7 @@ void SendN2kTankLevel(double level, double capacity) {
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Fuel Level   : %3.1f %\n", level);
+    Serial.printf("Fuel Level   : %3.1f %%\n", level);
     Serial.printf("Fuel Capacity: %3.1f l\n", capacity);
 
     SetN2kFluidLevel(N2kMsg, 0, N2kft_Fuel, level, capacity );
