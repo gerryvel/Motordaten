@@ -388,10 +388,11 @@ void SendN2kEngineData(double Oiltemp, double Watertemp, double rpm, double hour
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
-    Serial.printf("Oil Temp : %3.1f °C \n", Oiltemp);
-    Serial.printf("Coolant Temp : %3.1f °C \n", Watertemp);
+    Serial.printf("Oil Temp    : %3.1f °C \n", Oiltemp);
+    Serial.printf("Coolant Temp: %3.1f °C \n", Watertemp);
     Serial.printf("Engine Hours: %3.1f hrs \n", hours);
     Serial.printf("Over Temp   : %s  \n", Status1.Bits.OverTemperature ? "Yes" : "No");
+    Serial.printf("Over Temp   : %s  \n", Status1.Bits.LowCoolantLevel ? "Yes" : "No");
     Serial.printf("Engine Off  : %s  \n", Status2.Bits.EngineShuttingDown ? "Yes" : "No");
 
     // SetN2kTemperatureExt(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp), N2kDoubleNA);   // PGN130312, uncomment the PGN to be used
