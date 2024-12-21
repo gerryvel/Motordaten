@@ -5,7 +5,7 @@
 #include <Preferences.h>
 
 // Versionierung
-#define Version "V2.3 vom 18.11.2024"  // Version
+#define Version "V2.3 vom 21.12.2024"  // Version
 
 // Configuration N2k
 #define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 

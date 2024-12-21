@@ -12,7 +12,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// V2.3 vom 18.11.2024, Gerry Sebb
+// V2.3 vom 21.12.2024, Gerry Sebb
 
 #include <Arduino.h>
 #include "configuration.h"
@@ -486,5 +486,12 @@ void loop() {
     sCL_Status = sWifiStatus(WiFi.status());
     sAP_Station = WiFi.softAPgetStationNum();
     freeHeapSpace();
+    
+  if (IsRebootRequired) {
+      Serial.println("Rebooting ESP32: "); 
+      delay(1000); // give time for reboot page to load
+      ESP.restart();
+      }
+
 
 }

@@ -28,10 +28,10 @@ String processor(const String& var)
 		buttons += "<p class=\"CInput\"><label>Password </label><input type = \"text\" name = \"Password\" value=\"";
 		buttons += tAP_Config.wAP_Password;
 		buttons += "\"/></p>";
-		buttons += "<p class=\"CInput\"><label>Temp1. Offset </label><input type = \"text\" name = \"Temp1Offset\" value=\"";
+		buttons += "<p class=\"CInput\"><label>Oil Offset </label><input type = \"text\" name = \"Temp1Offset\" value=\"";
 		buttons += tAP_Config.wTemp1_Offset;
 		buttons += "\"/> &deg;C</p>";
-		buttons += "<p class=\"CInput\"><label>Temp2. Offset </label><input type = \"text\" name = \"Temp2Offset\" value=\"";
+		buttons += "<p class=\"CInput\"><label>Mot Offset </label><input type = \"text\" name = \"Temp2Offset\" value=\"";
 		buttons += tAP_Config.wTemp2_Offset;
 		buttons += "\"/> &deg;C</p>";
 		buttons += "<p class=\"CInput\"><label>max. F&uuml;llstand </label><input type = \"text\" name = \"Fuellstandmax\" value=\"";
@@ -121,13 +121,6 @@ void website() {
 		}
 		request->send(200, "text/plain", "Daten gespeichert");
 	});
-
-if (IsRebootRequired) {
-		Serial.println("Rebooting ESP32: "); 
-		delay(1000); // give time for reboot page to load
-		ESP.restart();
-		}
-
 
 }
 
