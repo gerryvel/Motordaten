@@ -220,8 +220,8 @@ Serial.println("mDNS responder started\n");
   NMEA2000.SetProductInformation("MD01", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
                                  "MD Sensor Module",  // Manufacturer's Model ID
-                                 "2.3.0.0 (2024-12-07)",  // Manufacturer's Software version code
-                                 "1.0.2.0 (2023-05-30)" // Manufacturer's Model version
+                                 "2.3.0.0 (2024-12-20)",  // Manufacturer's Software version code
+                                 "2.0.0.0 (2023-05-30)" // Manufacturer's Model version
                                 );
 // Set device information
   NMEA2000.SetDeviceInformation(id, // Unique number. Use e.g. Serial number.

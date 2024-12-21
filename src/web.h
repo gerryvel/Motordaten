@@ -54,7 +54,7 @@ String replaceVariable(const String& var)
 	if (var == "sFuellstandmax")return String(FuelLevelMax,1);
 	if (var == "sBordspannung")return String(fBordSpannung,1);
 	if (var == "sOilTemp1")return String(fOilTemp1,1);
-	if (var == "sMotTemp1")return String(fMotTemp2,1);
+	if (var == "sMotTemp2")return String(fMotTemp2,1);
 	if (var == "sTemp1Offset")return String(fTemp1Offset);
 	if (var == "sTemp2Offset")return String(fTemp2Offset);
 	if (var == "sBoardInfo")return sBoardInfo;
