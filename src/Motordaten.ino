@@ -116,9 +116,10 @@ void setup() {
     IP = inet_addr(tAP_Config.wAP_IP);
     AP_SSID = tAP_Config.wAP_SSID;
     AP_PASSWORD = tAP_Config.wAP_Password;
-    fTempOffset = atof(tAP_Config.wTemp_Offset);
+    fTemp1Offset = atof(tAP_Config.wTemp1_Offset);
+    fTemp2Offset = atof(tAP_Config.wTemp2_Offset);
     FuelLevelMax = atof(tAP_Config.wFuellstandmax);
-    Serial.println("\nConfigdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , TempOffset: " + fTempOffset + "read from file");
+    Serial.println("\nConfigdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , Temp1Offset: " + fTemp1Offset + " , Temp2Offset: " + fTemp2Offset + "read from file");
 
   // LED
   LEDInit();
@@ -187,7 +188,7 @@ Serial.println("mDNS responder started\n");
     else Serial.println("OFF");
   sOneWire_Status = String(sensors.getDeviceCount(), DEC);
   
-byte ow;
+  byte ow;
   byte addr[8];
   
   if (!oneWire.search(addr)) {
@@ -292,10 +293,10 @@ void GetTemperature( void * parameter) {
   for (;;) {
     sensors.requestTemperatures(); // Send the command to get temperatures
     vTaskDelay(100);
-    tmp0 = sensors.getTempCByIndex(0) + fTempOffset;
+    tmp0 = sensors.getTempCByIndex(0) + fTemp1Offset;
     if (tmp0 != -127) OilTemp = tmp0;
     vTaskDelay(100);
-    tmp1 = sensors.getTempCByIndex(1) + fTempOffset;
+    tmp1 = sensors.getTempCByIndex(1) + fTemp2Offset;
     if (tmp1 != -127) MotTemp = tmp1;
     vTaskDelay(100);
   }
@@ -471,19 +472,18 @@ void loop() {
   if ( Serial.available() ) {
     Serial.read();
   }
-
-freeHeapSpace();	
+	
 
 // OTA	
 	ArduinoOTA.handle();
 
 // WebsiteData
-fOilTemp = OilTemp;
-fMotTemp = MotTemp;
-fBordSpannung = BordSpannung;
-fDrehzahl = EngineRPM;
-sCL_Status = sWifiStatus(WiFi.status());
-sAP_Station = WiFi.softAPgetStationNum();
-
+    fOilTemp1 = OilTemp;
+    fMotTemp2 = MotTemp;
+    fBordSpannung = BordSpannung;
+    fDrehzahl = EngineRPM;
+    sCL_Status = sWifiStatus(WiFi.status());
+    sAP_Station = WiFi.softAPgetStationNum();
+    freeHeapSpace();
 
 }

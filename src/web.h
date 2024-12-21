@@ -28,8 +28,11 @@ String processor(const String& var)
 		buttons += "<p class=\"CInput\"><label>Password </label><input type = \"text\" name = \"Password\" value=\"";
 		buttons += tAP_Config.wAP_Password;
 		buttons += "\"/></p>";
-		buttons += "<p class=\"CInput\"><label>Temp. Offset </label><input type = \"text\" name = \"TempOffset\" value=\"";
-		buttons += tAP_Config.wTemp_Offset;
+		buttons += "<p class=\"CInput\"><label>Temp1. Offset </label><input type = \"text\" name = \"Temp1Offset\" value=\"";
+		buttons += tAP_Config.wTemp1_Offset;
+		buttons += "\"/> &deg;C</p>";
+		buttons += "<p class=\"CInput\"><label>Temp2. Offset </label><input type = \"text\" name = \"Temp2Offset\" value=\"";
+		buttons += tAP_Config.wTemp2_Offset;
 		buttons += "\"/> &deg;C</p>";
 		buttons += "<p class=\"CInput\"><label>max. F&uuml;llstand </label><input type = \"text\" name = \"Fuellstandmax\" value=\"";
 		buttons += tAP_Config.wFuellstandmax;
@@ -50,10 +53,10 @@ String replaceVariable(const String& var)
 	if (var == "sFuellstand")return String(FuelLevel,1);
 	if (var == "sFuellstandmax")return String(FuelLevelMax,1);
 	if (var == "sBordspannung")return String(fBordSpannung,1);
-	if (var == "sOilTemp")return String(fOilTemp,1);
-	if (var == "sMotTemp")return String(fMotTemp,1);
-	if (var == "sTempOffset")return String(fTempOffset);
-	if (var == "sSTBB")return sSTBB;
+	if (var == "sOilTemp1")return String(fOilTemp1,1);
+	if (var == "sMotTemp1")return String(fMotTemp2,1);
+	if (var == "sTemp1Offset")return String(fTemp1Offset);
+	if (var == "sTemp2Offset")return String(fTemp2Offset);
 	if (var == "sBoardInfo")return sBoardInfo;
 	if (var == "sFS_USpace")return String(LittleFS.usedBytes());
 	if (var == "sFS_TSpace")return String(LittleFS.totalBytes());

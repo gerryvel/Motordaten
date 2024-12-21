@@ -34,7 +34,8 @@ struct Web_Config
 	char wAP_IP[20];
 	char wAP_SSID[64];
 	char wAP_Password[12];
-	char wTemp_Offset[5];
+	char wTemp1_Offset[5];
+	char wTemp2_Offset[5];
 	char wFuellstandmax[3];
 };
 Web_Config tAP_Config;
@@ -103,9 +104,10 @@ String sOneWire_Status = "";
 float fDrehzahl = 0;
 float fGaugeDrehzahl = 0;
 float fBordSpannung = 0;
-float fOilTemp = 0;
-float fMotTemp = 0;
-float fTempOffset = 0;
+float fOilTemp1 = 0;
+float fMotTemp2 = 0;
+float fTemp1Offset = 0;
+float fTemp2Offset = 0;
 String sSTBB = "";
 String sOrient = "";
 
