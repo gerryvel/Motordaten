@@ -119,7 +119,7 @@ void setup() {
     fTemp1Offset = atof(tAP_Config.wTemp1_Offset);
     fTemp2Offset = atof(tAP_Config.wTemp2_Offset);
     FuelLevelMax = atof(tAP_Config.wFuellstandmax);
-    Serial.println("\nConfigdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , Temp1Offset: " + fTemp1Offset + " , Temp2Offset: " + fTemp2Offset + "read from file");
+    Serial.println("\nConfigdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , Temp1Offset: " + fTemp1Offset + " , Temp2Offset: " + fTemp2Offset + " read from file");
 
   // LED
   LEDInit();
