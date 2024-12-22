@@ -19,10 +19,11 @@ According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger
 
 # Website
 ![grafik](https://github.com/user-attachments/assets/7f13e1f1-09d9-42a5-9052-dfacef8e9292)
-![Screenshot 2024-12-19 151743](https://github.com/user-attachments/assets/d9abed23-e122-496f-a01f-ed4d1dcb28b5)
-![Screenshot 2024-12-19 151649](https://github.com/user-attachments/assets/7ff8e1d7-4fa3-4c46-8a98-a2bf19aed3a5)
-![image](https://github.com/user-attachments/assets/d411a3b5-a224-4e32-aaeb-6584f961373d)
-![image](https://github.com/user-attachments/assets/f9324a00-f561-4dc3-9403-f6259f3293ef)
+![Screenshot 2024-12-23 005610](https://github.com/user-attachments/assets/a093962c-62a2-446a-813d-38cb818b8de0)
+![Screenshot 2024-12-23 005626](https://github.com/user-attachments/assets/9139f854-f28e-4d1d-b924-b2e1e9c9c179)
+![Screenshot 2024-12-23 005528](https://github.com/user-attachments/assets/ff8c5bd1-63ca-4ba9-b23a-eec77886b783)
+![Screenshot 2024-12-23 005643](https://github.com/user-attachments/assets/614e239a-4707-4759-a179-f3f3933c439a)
+
 ![image](https://github.com/user-attachments/assets/19a4b7fd-f4e0-4ad4-b478-bb63acd92f85)
 
 
