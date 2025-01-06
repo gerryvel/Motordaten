@@ -15,7 +15,13 @@ and send it as NNMEA2000 meassage.
 - PGN 127508 // Battery Status
 
 In addition, all data and part of the configuration are displayed as a website. 
-According to the idea of  [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger.
+
+# Based on the work of
+
+    [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger
+    [Timo Lappalainen](https://github.com/ttlappalainen/NMEA2000) @https://github.com/ttlappalainen
+
+This project is part of [OpenBoatProject](shttps://open-boat-projects.org/de/).
 
 # Website
 ![grafik](https://github.com/user-attachments/assets/7f13e1f1-09d9-42a5-9052-dfacef8e9292)
