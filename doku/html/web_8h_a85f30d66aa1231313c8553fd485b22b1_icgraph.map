@@ -1,0 +1,8 @@
+<map id="server" name="server">
+<area shape="rect" id="Node000001" title=" " alt="" coords="221,5,278,32"/>
+<area shape="rect" id="Node000002" href="$_motordaten_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,59,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,21,59,21,59,16,206,16"/>
+<area shape="rect" id="Node000003" href="$web_8h.html#afc6194946e42820a3c43949432809f88" title=" " alt="" coords="107,31,173,57"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,31,174,39,173,34,205,26"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="91,35,59,28,60,22,92,30"/>
+</map>

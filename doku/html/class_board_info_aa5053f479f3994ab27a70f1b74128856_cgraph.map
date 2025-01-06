@@ -1,0 +1,5 @@
+<map id="BoardInfo::ShowChipTemperature" name="BoardInfo::ShowChipTemperature">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,223,32"/>
+<area shape="rect" id="Node000002" href="$_board_info_8cpp.html#a2188b2e5ed72e93782e0a6d59111a180" title=" " alt="" coords="271,5,421,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,16,255,16,255,21,223,21"/>
+</map>

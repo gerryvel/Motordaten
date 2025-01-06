@@ -1,0 +1,17 @@
+<map id="src/configuration.h" name="src/configuration.h">
+<area shape="rect" id="Node000001" title="Konfiguration für GPIO und Variable." alt="" coords="209,5,337,32"/>
+<area shape="rect" id="Node000002" href="$_motordaten_8ino.html" title="Motordaten NMEA2000." alt="" coords="183,229,313,256"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,31,90,50,47,64,21,82,13,94,9,106,13,129,30,151,57,171,90,188,127,203,198,226,197,231,125,208,88,193,54,175,26,155,8,132,4,106,8,92,17,78,45,59,89,44,193,25"/>
+<area shape="rect" id="Node000003" href="$_n_m_e_a0183_telegram_8h.html" title="NMEA0183 Telegrame senden." alt="" coords="30,80,204,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,41,146,82,144,77,231,36"/>
+<area shape="rect" id="Node000004" href="$helper_8h.html" title="Hilfsfunktionen." alt="" coords="229,80,318,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="276,48,276,80,271,80,271,48"/>
+<area shape="rect" id="Node000005" href="$web_8h.html" title="Webseite Variablen lesen und schreiben, Webseiten erstellen." alt="" coords="247,155,326,181"/>
+<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="305,40,321,58,333,79,336,101,328,122,303,156,299,152,324,120,330,100,328,81,316,61,301,44"/>
+<area shape="rect" id="Node000006" href="$hourmeter_8h.html" title="Betriebstundenzähler." alt="" coords="350,155,463,181"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="307,39,353,78,382,118,403,153,398,156,378,121,349,82,303,43"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="256,120,239,155,236,175,237,195,246,228,240,229,232,195,230,175,233,154,251,118"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="281,122,287,154,282,155,276,123"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="275,196,257,230,252,228,270,194"/>
+<area shape="poly" id="edge8_Node000006_Node000002" title=" " alt="" coords="366,191,277,231,275,226,364,186"/>
+</map>

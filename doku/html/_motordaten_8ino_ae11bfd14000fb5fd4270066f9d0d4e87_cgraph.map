@@ -1,0 +1,9 @@
+<map id="SendN2kBattery" name="SendN2kBattery">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,123,83"/>
+<area shape="rect" id="Node000002" href="$_motordaten_8ino.html#a78d913e1374a6bd06ba1de8800c3956d" title=" " alt="" coords="175,5,284,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,53,168,35,170,40,111,58"/>
+<area shape="rect" id="Node000003" href="$_motordaten_8ino.html#accb9a3a9943bed495d95a5eb28db70f1" title=" " alt="" coords="171,56,288,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="123,67,155,67,155,72,123,72"/>
+<area shape="rect" id="Node000004" href="$_motordaten_8ino.html#a5eaf51305a4bb7821fe257f0ce1863a1" title=" " alt="" coords="174,107,285,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="111,81,170,99,168,104,109,86"/>
+</map>

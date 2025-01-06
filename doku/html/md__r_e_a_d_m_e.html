@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Motordaten: MotorData N2k</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo80.jpg"/></td>
+  <td id="projectalign">
+   <div id="projectname">Motordaten<span id="projectnumber">&#160;V 2.3</span>
+   </div>
+   <div id="projectbrief">Sensor Motordaten NMEA2000</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Erzeugt von Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Suchen',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('md__r_e_a_d_m_e.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Lade ...</div>
+<div class="SRStatus" id="Searching">Suche ...</div>
+<div class="SRStatus" id="NoMatches">Keine Treffer</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">MotorData N2k</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
+<p>This repository shows how to measure the</p><ul>
+<li>Battery Voltage</li>
+<li>Engine RPM</li>
+<li>Fuel Level</li>
+<li>Oil and Motor Temperature</li>
+<li>Alarms engine stop and tempertur high</li>
+<li>Enginehours</li>
+</ul>
+<p>and send it as NNMEA2000 meassage.</p><ul>
+<li>PGN 127488 // Engine Rapid / RPM</li>
+<li>PGN 127489 // Engine parameters dynamic</li>
+<li>PGN 127505 // Fluid Level <br  />
+</li>
+<li>PGN 127506 // Battery</li>
+<li>PGN 127508 // Battery Status</li>
+</ul>
+<p>In addition, all data and part of the configuration are displayed as a website. According to the idea of <a href="https://github.com/AK-Homberger/NMEA2000-Data-Sender">NMEA2000-Data-Sender</a> @AK-Homberger.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Website</h1>
+<p><img src="https://github.com/user-attachments/assets/7f13e1f1-09d9-42a5-9052-dfacef8e9292" alt="grafik" class="inline"/> <img src="https://github.com/user-attachments/assets/a093962c-62a2-446a-813d-38cb818b8de0" alt="Screenshot 2024-12-23 005610" class="inline"/> <img src="https://github.com/user-attachments/assets/9139f854-f28e-4d1d-b924-b2e1e9c9c179" alt="Screenshot 2024-12-23 005626" class="inline"/> <img src="https://github.com/user-attachments/assets/ff8c5bd1-63ca-4ba9-b23a-eec77886b783" alt="Screenshot 2024-12-23 005528" class="inline"/> <img src="https://github.com/user-attachments/assets/614e239a-4707-4759-a179-f3f3933c439a" alt="Screenshot 2024-12-23 005643" class="inline"/></p>
+<p><img src="https://github.com/user-attachments/assets/19a4b7fd-f4e0-4ad4-b478-bb63acd92f85" alt="image" class="inline"/></p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Wiring diagram</h1>
+<p><img src="https://github.com/user-attachments/assets/3e34b79b-600b-46ec-8f39-7aeec70b3e48" alt="grafik" class="inline"/></p>
+<h1><a class="anchor" id="autotoc_md3"></a>
+PCB Layout</h1>
+<p><img src="https://github.com/user-attachments/assets/23302354-f9c6-4d82-b5b5-6188d9216be6" alt="grafik" class="inline"/> <img src="https://github.com/user-attachments/assets/cad63dee-a283-48bf-8012-41dd0a54c9bb" alt="grafik" class="inline"/> <img src="https://github.com/user-attachments/assets/bf01b423-9d3f-4fee-8e42-c56bea9e6acb" alt="grafik" class="inline"/></p>
+<p>The project requires the NMEA2000 and the NMEA2000_esp32 libraries from Timo Lappalainen: <a href="https://github.com/ttlappalainen">https://github.com/ttlappalainen</a>. Both libraries have to be downloaded and installed.</p>
+<p>The ESP32 in this project is an Adafruit Huzzah! ESP32. Pin layout for other ESP32 devices might differ.</p>
+<p>For the ESP32 CAN bus, I used the "SN65HVD230 Chip from TI" as transceiver. It works well with the ESP32. The correct GPIO ports are defined in the main sketch. For this project, I use the pins GPIO4 for CAN RX and GPIO5 for CAN TX.</p>
+<p>The 12 Volt is reduced to 5 Volt with a DC Step-Down_Converter. 12V DC comes from the N2k Bus Connector with the M12 Connector.</p>
+<p>The Website use LittleFS Filesystem. You must use Partition Schemes "Minimal SPIFFS with APPS and OTA". The HTML Data upload separately with</p><ul>
+<li>"ESP 32 Skcetch Data upload" (Arduino IDE) or</li>
+<li>PlatformIO &gt; Build Filesystem and Upload Filesystem Image (PlatformIO) from /data directory.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Partlist:</h1>
+<ul>
+<li>PCB by Aisler <a href="https://aisler.net/p/JCQLQVHC">Link</a></li>
+</ul>
+<p>Assembly: <a href="https://github.com/gerryvel/Motordaten/files/13480525/MD.N2k__Assembly.pdf">MD N2k__Assembly.pdf</a></p>
+<ul>
+<li>1 C1 10µ CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder 1</li>
+<li>2 C2 22µ CP_EIA-7343-15_Kemet-W_Pad2.25x2.55mm_HandSolder 1</li>
+<li>3 R1 100k R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal 1</li>
+<li>4 R2 27k R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal 1</li>
+<li>5 R3 300R R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal 1</li>
+<li>6 R4 10k R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal 1</li>
+<li>7 R5 1k R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal 1</li>
+<li>8 R6 4k7 R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal 1</li>
+<li>9 R7 2k R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal 1</li>
+<li>10 D1 B360 B 360 F Schottkydiode, 60 V, 3 A, DO-214AB/SMC 1</li>
+<li>11 D2 LED_RBKG RGB LED Kingbright 1</li>
+<li>12 D3 PESD1CAN SOT-23 Dual bidirectional TVS diode 1</li>
+<li>13 D4 ZPD3.3 D_DO-35_SOD27_P10.16mm_Horizontal 1 <a href="https://www.reichelt.de/zenerdiode-3-3-v-0-5-w-do-35-zf-3-3-p23126.html?&amp;trstct=pos_6&amp;nbc=1">Link</a></li>
+<li>14 D5 1N4148 D_DO-35_SOD27_P7.62mm_Horizontal 1 <a href="https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html?search=1n4148">Link</a></li>
+<li>15 D6 P4SMAJ26CA D_SMA_TVS 1</li>
+<li>16 U1 TSR_1-2450 Converter_DCDC_TRACO_TSR-1_THT 1 <a href="https://www.reichelt.de/dc-dc-wandler-tsr-1-1-w-5-v-1000-ma-sil-to-220-tsr-1-2450-p116850.html?search=tsr+1-24">Link</a></li>
+<li>17 U2 ESP32-Huzzah Adafruit_ESP32 1</li>
+<li>18 U3 SN65HVD230 SOIC-8_3.9x4.9mm_P1.27mm 1 <a href="https://www.reichelt.de/high-speed-can-transceiver-1-mbit-s-3-3-v-so-8-sn-65hvd230d-p58427.html?&amp;trstct=pos_0&amp;nbc=1">Link</a></li>
+<li>19 U4 H11L1 DIP-6_W7.62mm 1 <a href="https://www.reichelt.de/optokoppler-1-mbit-s-dil-6-h11l1m-p219351.html?search=H11-l1">Link</a></li>
+<li>20 FL1 EPCO B82789C0513 B82789C0113N002 1</li>
+<li>21 J2, J3 Conn_01x04_Pin PinHeader_1x04_P2.54mm_Vertical 2</li>
+<li>22 J1 Conn_01x03_Pin PinHeader_1x03_P2.54mm_Vertical 1</li>
+<li>23 Wago-Case: <a href="https://www.wago.com/de/zubehoer/gehaeuse-55-mm/p/789-120">Link</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Changes</h1>
+<ul>
+<li>Version 2.3 add Temperatur: Motor(Water)temp and OilTemp (2x OneWire), add Alarm Watertemp</li>
+<li>Version 2.2 add Motorparameter: EngineHours and Alarms (Oiltemp max / Engine Stop)</li>
+<li>Version 2.1 Minor updates website, change Engine Parameter to PGN127489 (Oil Temp)</li>
+<li>Version 2.0<ul>
+<li>update Website (code and html files)</li>
+<li>change Hardware layout, add protection's and C's on Voltage input, add protection's for CanBus</li>
+<li>change Webinterface, add calibration-offset for temperature </li>
+</ul>
+</li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Erzeugt von <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

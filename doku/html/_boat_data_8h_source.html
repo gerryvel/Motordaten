@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Motordaten: src/BoatData.h Quellcode</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo80.jpg"/></td>
+  <td id="projectalign">
+   <div id="projectname">Motordaten<span id="projectnumber">&#160;V 2.3</span>
+   </div>
+   <div id="projectbrief">Sensor Motordaten NMEA2000</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Erzeugt von Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Suchen',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_boat_data_8h_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Lade ...</div>
+<div class="SRStatus" id="Searching">Suche ...</div>
+<div class="SRStatus" id="NoMatches">Keine Treffer</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">BoatData.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_boat_data_8h.html">gehe zur Dokumentation dieser Datei</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef _BoatData_H_</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define _BoatData_H_</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="foldopen" id="foldopen00004" data-start="{" data-end="};">
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="structt_boat_data.html">    4</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structt_boat_data.html">tBoatData</a> {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="structt_boat_data.html#ac45752cdef0c0c65ceb6822fcd85cd8b">    5</a></span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="structt_boat_data.html#ac45752cdef0c0c65ceb6822fcd85cd8b">DaysSince1970</a>;   <span class="comment">// Days since 1970-01-01</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>  </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="structt_boat_data.html#a257cf3829afbd4d44fc61d250d83a4c4">    7</a></span>  <span class="keywordtype">double</span> <a class="code hl_variable" href="structt_boat_data.html#a701076ad7a84a377b37ccb89a4916851">TrueHeading</a>,<a class="code hl_variable" href="structt_boat_data.html#ac0931c6e49538829be6768131054ec16">SOG</a>,<a class="code hl_variable" href="structt_boat_data.html#a257cf3829afbd4d44fc61d250d83a4c4">COG</a>,<a class="code hl_variable" href="structt_boat_data.html#ae58283f949c2bb9a80fc0c23b5d10fdc">Variation</a>,</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structt_boat_data.html#a81a6f4bef1128027c243246d73310646">    8</a></span>         <a class="code hl_variable" href="structt_boat_data.html#a81a6f4bef1128027c243246d73310646">GPSTime</a>,<span class="comment">// Secs since midnight,</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structt_boat_data.html#af0dd7134520509a95a0221937a94b166">    9</a></span>         <a class="code hl_variable" href="structt_boat_data.html#a41952ea96348c9809d8e453546a0e102">Latitude</a>, <a class="code hl_variable" href="structt_boat_data.html#a548863e4bd93f102418d351b215d1043">Longitude</a>, <a class="code hl_variable" href="structt_boat_data.html#af0dd7134520509a95a0221937a94b166">Altitude</a>, <a class="code hl_variable" href="structt_boat_data.html#a6a682a21436ca5fae479acb38b15d5e3">HDOP</a>, <a class="code hl_variable" href="structt_boat_data.html#a8c0408979921ad495f851f8fd836e3df">GeoidalSeparation</a>, <a class="code hl_variable" href="structt_boat_data.html#a16a68b263dde7631cc9638b14de936e6">DGPSAge</a>,</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structt_boat_data.html#a6629fc291570877b4b1a0595761580c6">   10</a></span>         <a class="code hl_variable" href="structt_boat_data.html#a1ebf16168e2461fd83e11b6b1fbe9770">WaterTemperature</a>, <a class="code hl_variable" href="structt_boat_data.html#ab5f2e0098d3d66e3cf8e872c204bd10a">WaterDepth</a>, <a class="code hl_variable" href="structt_boat_data.html#a6629fc291570877b4b1a0595761580c6">Offset</a>,</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structt_boat_data.html#ac262853a2528290d6b58aecb67c667f6">   11</a></span>         <a class="code hl_variable" href="structt_boat_data.html#adafa37271b38762be9b10ed69b8a8be9">WindDirectionT</a>, <a class="code hl_variable" href="structt_boat_data.html#ac262853a2528290d6b58aecb67c667f6">WindDirectionM</a>, <a class="code hl_variable" href="structt_boat_data.html#ac9e3ba719b90be4156e18e3483f41074">WindSpeedK</a>, <a class="code hl_variable" href="structt_boat_data.html#a1b4e6461fd59998ec8bf60c8f3140505">WindSpeedM</a>,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="structt_boat_data.html#a7f0a7daffb32fec392f120fb4fcc6a6b">   12</a></span>         <a class="code hl_variable" href="structt_boat_data.html#a7f0a7daffb32fec392f120fb4fcc6a6b">WindAngle</a> ;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="structt_boat_data.html#a8ebc154f190ef77e256c15cdb60d00cc">   13</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="structt_boat_data.html#af2e7358b0d69579f4a9122086d27633e">GPSQualityIndicator</a>, <a class="code hl_variable" href="structt_boat_data.html#ad05c2b57e11ff5f396182a7906e2cddc">SatelliteCount</a>, <a class="code hl_variable" href="structt_boat_data.html#a8ebc154f190ef77e256c15cdb60d00cc">DGPSReferenceStationID</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structt_boat_data.html#a6e6e7a7a2ee80eed9f255a3cd18fc3fa">   14</a></span>  <span class="keywordtype">bool</span> <a class="code hl_variable" href="structt_boat_data.html#a6e6e7a7a2ee80eed9f255a3cd18fc3fa">MOBActivated</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="structt_boat_data.html#afbe202c78ee75a8944eb1e62a01837df">   15</a></span>  <span class="keywordtype">char</span> <a class="code hl_variable" href="structt_boat_data.html#afbe202c78ee75a8944eb1e62a01837df">Status</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structt_boat_data.html#a5c586b8d8040f528d1f992fd8236949b">   18</a></span>  <a class="code hl_function" href="structt_boat_data.html#a5c586b8d8040f528d1f992fd8236949b">tBoatData</a>() {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_variable" href="structt_boat_data.html#a701076ad7a84a377b37ccb89a4916851">TrueHeading</a>=0;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_variable" href="structt_boat_data.html#ac0931c6e49538829be6768131054ec16">SOG</a>=0;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_variable" href="structt_boat_data.html#a257cf3829afbd4d44fc61d250d83a4c4">COG</a>=0; </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_variable" href="structt_boat_data.html#ae58283f949c2bb9a80fc0c23b5d10fdc">Variation</a>=7.0;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_variable" href="structt_boat_data.html#a81a6f4bef1128027c243246d73310646">GPSTime</a>=0;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_variable" href="structt_boat_data.html#a41952ea96348c9809d8e453546a0e102">Latitude</a> = 0;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_variable" href="structt_boat_data.html#a548863e4bd93f102418d351b215d1043">Longitude</a> = 0;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_variable" href="structt_boat_data.html#af0dd7134520509a95a0221937a94b166">Altitude</a>=0;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_variable" href="structt_boat_data.html#a6a682a21436ca5fae479acb38b15d5e3">HDOP</a>=100000;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_variable" href="structt_boat_data.html#a16a68b263dde7631cc9638b14de936e6">DGPSAge</a>=100000;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_variable" href="structt_boat_data.html#a1ebf16168e2461fd83e11b6b1fbe9770">WaterTemperature</a> = 0;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_variable" href="structt_boat_data.html#ac45752cdef0c0c65ceb6822fcd85cd8b">DaysSince1970</a>=0; </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_variable" href="structt_boat_data.html#a6e6e7a7a2ee80eed9f255a3cd18fc3fa">MOBActivated</a>=<span class="keyword">false</span>; </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_variable" href="structt_boat_data.html#ad05c2b57e11ff5f396182a7906e2cddc">SatelliteCount</a>=0; </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_variable" href="structt_boat_data.html#a8ebc154f190ef77e256c15cdb60d00cc">DGPSReferenceStationID</a>=0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  };</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#endif </span><span class="comment">// _BoatData_H_</span></div>
+<div class="ttc" id="astructt_boat_data_html"><div class="ttname"><a href="structt_boat_data.html">tBoatData</a></div><div class="ttdef"><b>Definition</b> <a href="#l00004">BoatData.h:4</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a16a68b263dde7631cc9638b14de936e6"><div class="ttname"><a href="structt_boat_data.html#a16a68b263dde7631cc9638b14de936e6">tBoatData::DGPSAge</a></div><div class="ttdeci">double DGPSAge</div><div class="ttdef"><b>Definition</b> <a href="#l00009">BoatData.h:9</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a1b4e6461fd59998ec8bf60c8f3140505"><div class="ttname"><a href="structt_boat_data.html#a1b4e6461fd59998ec8bf60c8f3140505">tBoatData::WindSpeedM</a></div><div class="ttdeci">double WindSpeedM</div><div class="ttdef"><b>Definition</b> <a href="#l00011">BoatData.h:11</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a1ebf16168e2461fd83e11b6b1fbe9770"><div class="ttname"><a href="structt_boat_data.html#a1ebf16168e2461fd83e11b6b1fbe9770">tBoatData::WaterTemperature</a></div><div class="ttdeci">double WaterTemperature</div><div class="ttdef"><b>Definition</b> <a href="#l00010">BoatData.h:10</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a257cf3829afbd4d44fc61d250d83a4c4"><div class="ttname"><a href="structt_boat_data.html#a257cf3829afbd4d44fc61d250d83a4c4">tBoatData::COG</a></div><div class="ttdeci">double COG</div><div class="ttdef"><b>Definition</b> <a href="#l00007">BoatData.h:7</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a41952ea96348c9809d8e453546a0e102"><div class="ttname"><a href="structt_boat_data.html#a41952ea96348c9809d8e453546a0e102">tBoatData::Latitude</a></div><div class="ttdeci">double Latitude</div><div class="ttdef"><b>Definition</b> <a href="#l00009">BoatData.h:9</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a548863e4bd93f102418d351b215d1043"><div class="ttname"><a href="structt_boat_data.html#a548863e4bd93f102418d351b215d1043">tBoatData::Longitude</a></div><div class="ttdeci">double Longitude</div><div class="ttdef"><b>Definition</b> <a href="#l00009">BoatData.h:9</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a5c586b8d8040f528d1f992fd8236949b"><div class="ttname"><a href="structt_boat_data.html#a5c586b8d8040f528d1f992fd8236949b">tBoatData::tBoatData</a></div><div class="ttdeci">tBoatData()</div><div class="ttdef"><b>Definition</b> <a href="#l00018">BoatData.h:18</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a6629fc291570877b4b1a0595761580c6"><div class="ttname"><a href="structt_boat_data.html#a6629fc291570877b4b1a0595761580c6">tBoatData::Offset</a></div><div class="ttdeci">double Offset</div><div class="ttdef"><b>Definition</b> <a href="#l00010">BoatData.h:10</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a6a682a21436ca5fae479acb38b15d5e3"><div class="ttname"><a href="structt_boat_data.html#a6a682a21436ca5fae479acb38b15d5e3">tBoatData::HDOP</a></div><div class="ttdeci">double HDOP</div><div class="ttdef"><b>Definition</b> <a href="#l00009">BoatData.h:9</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a6e6e7a7a2ee80eed9f255a3cd18fc3fa"><div class="ttname"><a href="structt_boat_data.html#a6e6e7a7a2ee80eed9f255a3cd18fc3fa">tBoatData::MOBActivated</a></div><div class="ttdeci">bool MOBActivated</div><div class="ttdef"><b>Definition</b> <a href="#l00014">BoatData.h:14</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a701076ad7a84a377b37ccb89a4916851"><div class="ttname"><a href="structt_boat_data.html#a701076ad7a84a377b37ccb89a4916851">tBoatData::TrueHeading</a></div><div class="ttdeci">double TrueHeading</div><div class="ttdef"><b>Definition</b> <a href="#l00007">BoatData.h:7</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a7f0a7daffb32fec392f120fb4fcc6a6b"><div class="ttname"><a href="structt_boat_data.html#a7f0a7daffb32fec392f120fb4fcc6a6b">tBoatData::WindAngle</a></div><div class="ttdeci">double WindAngle</div><div class="ttdef"><b>Definition</b> <a href="#l00012">BoatData.h:12</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a81a6f4bef1128027c243246d73310646"><div class="ttname"><a href="structt_boat_data.html#a81a6f4bef1128027c243246d73310646">tBoatData::GPSTime</a></div><div class="ttdeci">double GPSTime</div><div class="ttdef"><b>Definition</b> <a href="#l00008">BoatData.h:8</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a8c0408979921ad495f851f8fd836e3df"><div class="ttname"><a href="structt_boat_data.html#a8c0408979921ad495f851f8fd836e3df">tBoatData::GeoidalSeparation</a></div><div class="ttdeci">double GeoidalSeparation</div><div class="ttdef"><b>Definition</b> <a href="#l00009">BoatData.h:9</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_a8ebc154f190ef77e256c15cdb60d00cc"><div class="ttname"><a href="structt_boat_data.html#a8ebc154f190ef77e256c15cdb60d00cc">tBoatData::DGPSReferenceStationID</a></div><div class="ttdeci">int DGPSReferenceStationID</div><div class="ttdef"><b>Definition</b> <a href="#l00013">BoatData.h:13</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_ab5f2e0098d3d66e3cf8e872c204bd10a"><div class="ttname"><a href="structt_boat_data.html#ab5f2e0098d3d66e3cf8e872c204bd10a">tBoatData::WaterDepth</a></div><div class="ttdeci">double WaterDepth</div><div class="ttdef"><b>Definition</b> <a href="#l00010">BoatData.h:10</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_ac0931c6e49538829be6768131054ec16"><div class="ttname"><a href="structt_boat_data.html#ac0931c6e49538829be6768131054ec16">tBoatData::SOG</a></div><div class="ttdeci">double SOG</div><div class="ttdef"><b>Definition</b> <a href="#l00007">BoatData.h:7</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_ac262853a2528290d6b58aecb67c667f6"><div class="ttname"><a href="structt_boat_data.html#ac262853a2528290d6b58aecb67c667f6">tBoatData::WindDirectionM</a></div><div class="ttdeci">double WindDirectionM</div><div class="ttdef"><b>Definition</b> <a href="#l00011">BoatData.h:11</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_ac45752cdef0c0c65ceb6822fcd85cd8b"><div class="ttname"><a href="structt_boat_data.html#ac45752cdef0c0c65ceb6822fcd85cd8b">tBoatData::DaysSince1970</a></div><div class="ttdeci">unsigned long DaysSince1970</div><div class="ttdef"><b>Definition</b> <a href="#l00005">BoatData.h:5</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_ac9e3ba719b90be4156e18e3483f41074"><div class="ttname"><a href="structt_boat_data.html#ac9e3ba719b90be4156e18e3483f41074">tBoatData::WindSpeedK</a></div><div class="ttdeci">double WindSpeedK</div><div class="ttdef"><b>Definition</b> <a href="#l00011">BoatData.h:11</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_ad05c2b57e11ff5f396182a7906e2cddc"><div class="ttname"><a href="structt_boat_data.html#ad05c2b57e11ff5f396182a7906e2cddc">tBoatData::SatelliteCount</a></div><div class="ttdeci">int SatelliteCount</div><div class="ttdef"><b>Definition</b> <a href="#l00013">BoatData.h:13</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_adafa37271b38762be9b10ed69b8a8be9"><div class="ttname"><a href="structt_boat_data.html#adafa37271b38762be9b10ed69b8a8be9">tBoatData::WindDirectionT</a></div><div class="ttdeci">double WindDirectionT</div><div class="ttdef"><b>Definition</b> <a href="#l00011">BoatData.h:11</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_ae58283f949c2bb9a80fc0c23b5d10fdc"><div class="ttname"><a href="structt_boat_data.html#ae58283f949c2bb9a80fc0c23b5d10fdc">tBoatData::Variation</a></div><div class="ttdeci">double Variation</div><div class="ttdef"><b>Definition</b> <a href="#l00007">BoatData.h:7</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_af0dd7134520509a95a0221937a94b166"><div class="ttname"><a href="structt_boat_data.html#af0dd7134520509a95a0221937a94b166">tBoatData::Altitude</a></div><div class="ttdeci">double Altitude</div><div class="ttdef"><b>Definition</b> <a href="#l00009">BoatData.h:9</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_af2e7358b0d69579f4a9122086d27633e"><div class="ttname"><a href="structt_boat_data.html#af2e7358b0d69579f4a9122086d27633e">tBoatData::GPSQualityIndicator</a></div><div class="ttdeci">int GPSQualityIndicator</div><div class="ttdef"><b>Definition</b> <a href="#l00013">BoatData.h:13</a></div></div>
+<div class="ttc" id="astructt_boat_data_html_afbe202c78ee75a8944eb1e62a01837df"><div class="ttname"><a href="structt_boat_data.html#afbe202c78ee75a8944eb1e62a01837df">tBoatData::Status</a></div><div class="ttdeci">char Status</div><div class="ttdef"><b>Definition</b> <a href="#l00015">BoatData.h:15</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_boat_data_8h.html">BoatData.h</a></li>
+    <li class="footer">Erzeugt von <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

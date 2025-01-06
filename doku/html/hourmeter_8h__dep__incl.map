@@ -1,0 +1,5 @@
+<map id="src/hourmeter.h" name="src/hourmeter.h">
+<area shape="rect" id="Node000001" title="Betriebstundenzähler." alt="" coords="14,5,126,32"/>
+<area shape="rect" id="Node000002" href="$_motordaten_8ino.html" title="Motordaten NMEA2000." alt="" coords="5,80,135,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,48,73,80,67,80,67,48"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="src/BoardInfo.h" name="src/BoardInfo.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="112,5,223,32"/>
+<area shape="rect" id="Node000002" href="$_board_info_8cpp.html" title="Boardinfo." alt="" coords="5,80,130,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,43,87,82,83,77,136,39"/>
+<area shape="rect" id="Node000003" href="$_motordaten_8ino.html" title="Motordaten NMEA2000." alt="" coords="140,155,270,181"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,46,204,154,199,155,172,48"/>
+<area shape="rect" id="Node000004" href="$web_8h.html" title="Webseite Variablen lesen und schreiben, Webseiten erstellen." alt="" coords="204,80,283,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="193,41,232,78,229,82,190,45"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="232,122,214,156,209,153,227,119"/>
+</map>

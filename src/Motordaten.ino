@@ -40,7 +40,6 @@
 #include "helper.h"
 #include "LED.h"
 #include "web.h"
-#include "Analog.h"
 #include "hourmeter.h"
 
 #define ENABLE_DEBUG_LOG 0 // Debug log

@@ -1,0 +1,7 @@
+<map id="src/configuration.h" name="src/configuration.h">
+<area shape="rect" id="Node000001" title="Konfiguration für GPIO und Variable." alt="" coords="35,5,164,32"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,80,82,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,34,64,69,60,66,88,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="106,80,208,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="112,31,140,66,135,69,107,34"/>
+</map>

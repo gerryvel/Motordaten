@@ -1,0 +1,9 @@
+<map id="SendN2kEngineRPM" name="SendN2kEngineRPM">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,151,83"/>
+<area shape="rect" id="Node000002" href="$_motordaten_8ino.html#a78d913e1374a6bd06ba1de8800c3956d" title=" " alt="" coords="203,5,312,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,53,192,34,194,39,129,58"/>
+<area shape="rect" id="Node000003" href="$_motordaten_8ino.html#accb9a3a9943bed495d95a5eb28db70f1" title=" " alt="" coords="199,56,316,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="151,67,183,67,183,72,151,72"/>
+<area shape="rect" id="Node000004" href="$_motordaten_8ino.html#a5eaf51305a4bb7821fe257f0ce1863a1" title=" " alt="" coords="202,107,313,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="129,81,194,99,192,105,127,86"/>
+</map>

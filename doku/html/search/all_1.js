@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['bat1capacity_0',['Bat1Capacity',['../configuration_8h.html#a815f5544e49657b274bcb6d2522921ba',1,'configuration.h']]],
+  ['bat2capacity_1',['Bat2Capacity',['../configuration_8h.html#a4930d6e41bbb994396b2f2761b9adf63',1,'configuration.h']]],
+  ['batsoc_2',['BatSoC',['../configuration_8h.html#a709ca9c759942b9d28f4ea6f53630956',1,'configuration.h']]],
+  ['batterydcsendoffset_3',['BatteryDCSendOffset',['../configuration_8h.html#ac1a6969ef1162eb8a4af09586512217f',1,'configuration.h']]],
+  ['batterydcstatussendoffset_4',['BatteryDCStatusSendOffset',['../configuration_8h.html#ae2e198b97f21915cab024384fd63f62b',1,'configuration.h']]],
+  ['baudrate_5',['baudrate',['../_motordaten_8ino.html#ad8ea4e31472856ac9fd6efdd7a87f326',1,'Motordaten.ino']]],
+  ['bclientconnected_6',['bClientConnected',['../configuration_8h.html#afcd67c4cc1e47ccacde4866964e9aad9',1,'configuration.h']]],
+  ['bconnect_5fcl_7',['bConnect_CL',['../configuration_8h.html#aea350faadc506e10790a587fefa0bbc9',1,'configuration.h']]],
+  ['bi2c_5fstatus_8',['bI2C_Status',['../configuration_8h.html#aebf1c352ef96f67c0d5f134612690e32',1,'configuration.h']]],
+  ['blue_9',['Blue',['../_l_e_d_8h.html#aadcb6002d2b42fdfe01490f730ab00a6af5e09dd1da4088464f264b7a3118bff8',1,'LED.h']]],
+  ['boardinfo_10',['BoardInfo',['../class_board_info.html',1,'BoardInfo'],['../class_board_info.html#ab0c3dc2cd4e4a594f0ae4702ad45f731',1,'BoardInfo::BoardInfo()']]],
+  ['boardinfo_11',['boardInfo',['../web_8h.html#af4df00210a8dfd8e702cc9e1134c3876',1,'web.h']]],
+  ['boardinfo_2ecpp_12',['BoardInfo.cpp',['../_board_info_8cpp.html',1,'']]],
+  ['boardinfo_2eh_13',['BoardInfo.h',['../_board_info_8h.html',1,'']]],
+  ['boatdata_2eh_14',['BoatData.h',['../_boat_data_8h.html',1,'']]],
+  ['bordspannung_15',['BordSpannung',['../configuration_8h.html#a8f46acc88f32364b03f46807931563b2',1,'configuration.h']]],
+  ['bsz1_16',['bsz1',['../hourmeter_8h.html#a6bedbac65cda3a2a23a53e7fd5856829',1,'hourmeter.h']]],
+  ['buf_17',['BUF',['../_board_info_8cpp.html#a24f52ac52d6e714cb04a5aa01be3bdd0',1,'BoardInfo.cpp']]]
+];
