@@ -18,8 +18,9 @@ In addition, all data and part of the configuration are displayed as a website.
 
 # Based on the work of
 
-[NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger
-[Timo Lappalainen](https://github.com/ttlappalainen/NMEA2000) @https://github.com/ttlappalainen
+[NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger.
+
+[Timo Lappalainen](https://github.com/ttlappalainen/NMEA2000) @ttlappalainen.
 
 This project is part of [OpenBoatProject](shttps://open-boat-projects.org/de/)
 
