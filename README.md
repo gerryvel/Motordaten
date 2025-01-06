@@ -1,6 +1,6 @@
-## MotorData N2k
+# MotorData N2k
 
-# Description
+## Description
 This repository shows how to measure the 
 - Battery Voltage
 - Engine RPM
@@ -18,7 +18,7 @@ and send it as NNMEA2000 meassage.
 
 In addition, all data and part of the configuration are displayed as a website. 
 
-# Based on the work of
+## Based on the work of
 
 [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger.
 
@@ -26,7 +26,7 @@ In addition, all data and part of the configuration are displayed as a website.
 
 This project is part of [OpenBoatProject](shttps://open-boat-projects.org/de/)
 
-# Website
+## Website
 ![grafik](https://github.com/user-attachments/assets/7f13e1f1-09d9-42a5-9052-dfacef8e9292)
 ![Screenshot 2024-12-23 005610](https://github.com/user-attachments/assets/a093962c-62a2-446a-813d-38cb818b8de0)
 ![Screenshot 2024-12-23 005626](https://github.com/user-attachments/assets/9139f854-f28e-4d1d-b924-b2e1e9c9c179)
@@ -36,11 +36,11 @@ This project is part of [OpenBoatProject](shttps://open-boat-projects.org/de/)
 ![image](https://github.com/user-attachments/assets/19a4b7fd-f4e0-4ad4-b478-bb63acd92f85)
 
 
-# Wiring diagram
+## Wiring diagram
 
 ![grafik](https://github.com/user-attachments/assets/3e34b79b-600b-46ec-8f39-7aeec70b3e48)
 
-# PCB Layout
+## PCB Layout
 ![grafik](https://github.com/user-attachments/assets/23302354-f9c6-4d82-b5b5-6188d9216be6)
 ![grafik](https://github.com/user-attachments/assets/cad63dee-a283-48bf-8012-41dd0a54c9bb)
 ![grafik](https://github.com/user-attachments/assets/bf01b423-9d3f-4fee-8e42-c56bea9e6acb)
@@ -61,7 +61,7 @@ The HTML Data upload separately with
 - PlatformIO > Build Filesystem and Upload Filesystem Image (PlatformIO) 
 from /data directory.
 
-# Partlist:
+## Partlist:
 
 - PCB by Aisler [Link](https://aisler.net/p/JCQLQVHC)
   
@@ -91,7 +91,7 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 - 22		J1	Conn_01x03_Pin	PinHeader_1x03_P2.54mm_Vertical	1
 - 23        Wago-Case: [Link](https://www.wago.com/de/zubehoer/gehaeuse-55-mm/p/789-120)
 
-# Changes
+## Changes
 
 - Version 2.4 Doxygen 
 - Version 2.3 add Temperatur: Motor(Water)temp and OilTemp (2x OneWire), add Alarm Watertemp
