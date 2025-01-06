@@ -84,6 +84,7 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 
 # Changes
 
+- Version 2.4 Doxygen 
 - Version 2.3 add Temperatur: Motor(Water)temp and OilTemp (2x OneWire), add Alarm Watertemp
 - Version 2.2 add Motorparameter: EngineHours and Alarms (Oiltemp max / Engine Stop)
 - Version 2.1 Minor updates website, change Engine Parameter to PGN127489 (Oil Temp)
