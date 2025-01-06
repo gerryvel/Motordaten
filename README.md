@@ -24,7 +24,7 @@ Doxygen Documentation [Link](https://github.com/gerryvel/Motordaten/blob/master/
 
 [NMEA2000-Data-Sender](https://github.com/AK-Homberger/NMEA2000-Data-Sender) @AK-Homberger
 
-[Timo Lappalainen](https://github.com/ttlappalainen/NMEA2000) @ttlappalainen
+[NMEA 2000](https://github.com/ttlappalainen/NMEA2000) @ttlappalainen
 
 This project is part of [OpenBoatProject](https://open-boat-projects.org/)
 
