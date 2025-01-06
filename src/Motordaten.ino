@@ -1,3 +1,6 @@
+
+/**@file Motordaten.ino */
+
 /*
   This code is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -12,7 +15,16 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// V2.3 vom 21.12.2024, Gerry Sebb
+/**
+ * @file Motordaten.ino
+ * @author Gerry Sebb
+ * @brief Motordaten NMEA2000
+ * @version 2.3
+ * @date 2025-01-06
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 
 #include <Arduino.h>
 #include "configuration.h"
@@ -31,47 +43,56 @@
 #include "LED.h"
 #include "web.h"
 #include "Analog.h"
-#include "uptime.h"
+//#include "uptime.h"
 #include "hourmeter.h"
 
 #define ENABLE_DEBUG_LOG 0 // Debug log
 
-#define ADC_Calibration_Value1 250.0 // For resistor measure 5 Volt and 180 Ohm equals 100% plus 1K resistor.
-#define ADC_Calibration_Value2 19.0  // The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3
+/**
+ * @brief ADC calibration
+ * Calibration data variable definition for ADC1 and ADC2 Input
+ */
+#define ADC_Calibration_Value1 250.0 /**< For resistor measure 5 Volt and 180 Ohm equals 100% plus 1K resistor. */
+#define ADC_Calibration_Value2 19.0  /**< The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3 */
 
-
-// Set the information for other bus devices, which messages we support
+/**
+ *  Set the information for other bus devices, which PGN messages we support
+ */ 
 const unsigned long TransmitMessages[] PROGMEM = {127488L, // Engine Rapid / RPM
-                                                  127489L, // Engine parameters dynamic 
-                                                  127505L, // Fluid Level  
-                                                  127506L, // Battery
+                                                  127489L, // Engine parameters dynamic
+                                                  127505L, // Fluid Level
+                                                  127506L, // Battery 
                                                   127508L, // Battery Status
                                                   0
                                                  };
 
 
-// RPM data. Generator RPM is measured on connector "W"
+/** 
+ * RPM data. Generator RPM is measured on connector "W"
+*/
 
-volatile uint64_t StartValue = 0;                  // First interrupt value
-volatile uint64_t PeriodCount = 0;                // period in counts of 0.000001 of a second
+volatile uint64_t StartValue = 0;                 /**< First interrupt value */
+volatile uint64_t PeriodCount = 0;                /**< period in counts of 0.000001 of a second */
 unsigned long Last_int_time = 0;
-hw_timer_t * timer = NULL;                        // pointer to a variable of type hw_timer_t
-portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;  // synchs between maon cose and interrupt?
+hw_timer_t * timer = NULL;                        /**< pointer to a variable of type hw_timer_t */
+portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;  /**< synchs between maon cose and interrupt? */
 
-// Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
+/** 
+ *  Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
+ */
 OneWire oneWire(ONE_WIRE_BUS);
-DallasTemperature sensors(&oneWire); // Pass our oneWire reference to Dallas Temperature.
-// DeviceAddress MotorThermometer;  // arrays to hold device addresses
-uint8_t MotorCoolant[8] = { 0x28, 0xD3, 0x81, 0xCF, 0x0F, 0x0, 0x0, 0x79 }; // Coolant
-uint8_t MotorOil[8] = { 0x28, 0xB0, 0x3C, 0x1A, 0xF, 0x0, 0x0, 0xC0 };  // Engine Oil
+DallasTemperature sensors(&oneWire);  /**< Pass our oneWire reference to Dallas Temperature. */
+// DeviceAddress MotorThermometer;    /**< arrays to hold device addresses
+uint8_t MotorCoolant[8] = { 0x28, 0xD3, 0x81, 0xCF, 0x0F, 0x0, 0x0, 0x79 }; /**< DeviceAddress Coolant */
+uint8_t MotorOil[8] = { 0x28, 0xB0, 0x3C, 0x1A, 0xF, 0x0, 0x0, 0xC0 };      /**< DeviceAddress Engine Oil */
 
-const int ADCpin2 = 35; // Voltage measure is connected GPIO 35 (Analog ADC1_CH7)
-const int ADCpin1 = 34; // Tank fluid level measure is connected GPIO 34 (Analog ADC1_CH6)
+const int ADCpin2 = 35; /**< Voltage measure is connected GPIO 35 (Analog ADC1_CH7) */
+const int ADCpin1 = 34; /**< Tank fluid level measure is connected GPIO 34 (Analog ADC1_CH6) */
 
-// Task handle for OneWire read (Core 0 on ESP32)
+/** Task handle for OneWire read (Core 0 on ESP32) */ 
 TaskHandle_t Task1;
 
-// Serial port 2 config (GPIO 16)
+/**  Serial port 2 config (GPIO 16)  */
 const int baudrate = 38400;
 const int rs_config = SERIAL_8N1;
 
@@ -81,8 +102,11 @@ void debug_log(char* str) {
 #endif
 }
 
-// RPM Event Interrupt
-// Enters on falling edge
+/**
+ * @brief RPM Event Interrupt
+ * Enters on falling edge
+ * @return * void 
+ */
 //=======================================
 void IRAM_ATTR handleInterrupt()
 {
@@ -125,6 +149,10 @@ void setup() {
   LEDInit();
 
   // Boardinfo	
+  /**
+   * @brief 
+   * Read Boardinfo for output 
+   */
     sBoardInfo = boardInfo.ShowChipIDtoString();
 
 	//Wifi

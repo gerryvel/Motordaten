@@ -1,14 +1,18 @@
-/*
-Analog input scaling V1.0
-
-Input OGR  / UGR : Values from Input Device e.g. 0-4096
-Output OGR / UGR : Values physical e.g. 0-150°C
-
-G. Sebb, 24.10.2020
-
-*/
 
 #include "Analog.h"
+
+/**
+ * @brief Analog input scaling
+ * Input OGR  / UGR : Values from Input Device e.g. 0-4096
+ * Output OGR / UGR : Values physical e.g. 0-150°C
+ * @param AnalogIN 
+ * @param InputOGR 
+ * @param InputUGR 
+ * @param OutputOGR 
+ * @param OutputUGR 
+ * @param Error 
+ * @return float 
+ */
 
 float analogInScale(int AnalogIN, int InputOGR, int InputUGR, float OutputOGR, float OutputUGR, int& Error)
 {

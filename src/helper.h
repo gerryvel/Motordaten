@@ -1,6 +1,17 @@
 #ifndef _HELPER_H_
 #define _HELPER_H_
 
+/**
+ * @file helper.h
+ * @author Gerry Sebb
+ * @brief Hilfsfunktionen
+ * @version 1.1
+ * @date 2025-01-06
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 
 #include <stdio.h>
 #include <time.h>
@@ -22,6 +33,8 @@ void ShowTime(){
 	printf("Zeit: %s\n", buff);
 }
 
+/** Freie Speichergroesse aller 5s lesen */
+
 void freeHeapSpace(){
 	static unsigned long last = millis();
 	if (millis() - last > 5000) {
@@ -29,6 +42,9 @@ void freeHeapSpace(){
 		Serial.printf("\n[MAIN] Free heap: %d bytes\n", ESP.getFreeHeap());
 	}
 }
+
+/** Ausgabe WIFI Parameter und Netzwerk scannen */
+
 
 void WiFiDiag(void) {
   Serial.println("\nWifi-Diag:");
@@ -67,6 +83,14 @@ void WiFiDiag(void) {
 
 /***************************** Filesystem **************************/
 
+/**
+ * @brief LittleFS, Dateien auflisten
+ * 
+ * @param fs 
+ * @param dirname 
+ * @param levels 
+ */
+
 void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
     Serial.printf("Listing directory: %s\r\n", dirname);
 
@@ -97,6 +121,12 @@ void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
         file = root.openNextFile();
     }
 }
+
+/**
+ * @brief Konfiguration aus Json-Datei lesen
+ * 
+ * @param filename 
+ */
 
 void readConfig(String filename) {
 	JsonDocument testDocument;
@@ -134,6 +164,13 @@ void readConfig(String filename) {
 	}
 }
 
+/**
+ * @brief Webseiten Eingabe in Json-Datei schreiben
+ * 
+ * @param json 
+ * @return true 
+ * @return false 
+ */
 
 bool writeConfig(String json)
 {
@@ -175,6 +212,7 @@ bool writeConfig(String json)
 }
 
 /***************************** I2C Bus **************************/
+/** I2C Bus auslesen, alle Geräte mit Adresse ausgegeben */
 
 void I2C_scan(void){
   byte error, address;
@@ -221,6 +259,13 @@ void I2C_scan(void){
   }
 }
 
+/**
+ * @brief WIFI Status lesen
+ * 
+ * @param Status 
+ * @return String 
+ */
+
 String sWifiStatus(int Status)
 {
   switch(Status){
@@ -235,7 +280,13 @@ String sWifiStatus(int Status)
   }
 }
 
-// Convert string to char
+/**
+ * @brief Convert string to char
+ * 
+ * @param command 
+ * @return char* 
+ */
+
 char* toChar(String command){
     if(command.length()!=0){
         char *p = const_cast<char*>(command.c_str());

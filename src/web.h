@@ -1,3 +1,14 @@
+/**
+ * @file web.h
+ * @author Gerry Sebb
+ * @brief Webseite
+ * Variablen lesen und schreiben, Webseiten ertsellen
+ * @version 0.1
+ * @date 2025-01-06
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 
 #include "helper.h"
 #include "configuration.h"

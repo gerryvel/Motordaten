@@ -1,14 +1,31 @@
 #ifndef _HOURMETER_H_
 #define _HOURMETER_H_
 
+/**
+ * @file hourmeter.h
+ * @author Gerry Sebb
+ * @brief Betriebstundenzähler
+ * @version 1.0
+ * @date 2025-01-06
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #include <Arduino.h>
 #include "configuration.h"
 
 Preferences bsz1;
 
-static unsigned long lastRun, CounterOld, milliRest;
-int state1 = LOW;
-int laststate1 = LOW;
+static unsigned long lastRun, CounterOld, milliRest;    
+int state1 = LOW, laststate1 = LOW;                     
+
+/**
+ * @brief Betriebstundenzähler
+ * Berechnet Betriebstunden, wenn Anlage eingeschaltet ist
+ * @param CountOn 
+ * @return unsigned long 
+ */
 
 unsigned long EngineHours(bool CountOn = 0){
     {
@@ -26,15 +43,15 @@ unsigned long EngineHours(bool CountOn = 0){
             return Counter;
     }
     state1 = CountOn;
-        if (laststate1 == HIGH && state1 == LOW){               // speichern bei Flanke negativ
-            bsz1.begin("bsz", false);                               // NVS nutzen, BSZ erstellen
-            CounterOld = preferences.getUInt("Start", 0);           // Speicher auslesen
-            Counter = CounterOld + Counter;                         // Laufzeit alt + aktuell
-            bsz1.putUInt("Start", Counter);                         // Speicher Schreiben
-            bsz1.end();                                             // Preferences beenden
-            state1 = LOW;                        
-    }
-        
+        if (laststate1 == HIGH && state1 == LOW)
+        {                                                           /**< speichern bei Flanke negativ */
+            bsz1.begin("bsz", false);                               /**< NVS nutzen, BSZ erstellen */
+            CounterOld = preferences.getUInt("Start", 0);           /**< Speicher auslesen */
+            Counter = CounterOld + Counter;                         /**< Laufzeit alt + aktuell */
+            bsz1.putUInt("Start", Counter);                         /**<  Speicher schreiben */
+            bsz1.end();                                             /**<  Preferences beenden */
+            state1 = LOW;                                           
+        }       
 }
 
 #endif   

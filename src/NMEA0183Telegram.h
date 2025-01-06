@@ -36,6 +36,12 @@ Transducer Values
 */
 
 // Send Sensor data
+/**
+ * @brief Send NMEA0183
+ * 
+ * @return String 
+ */
+
 String sendXDR()
 {   
   String HexCheckSum;
