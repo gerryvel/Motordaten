@@ -1,4 +1,13 @@
-
+/**
+ * @file Analog.cpp
+ * @author Gerry Sebb
+ * @brief Analog input scaling
+ * @version 1.1
+ * @date 2025-01-06
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #include "Analog.h"
 
 /**

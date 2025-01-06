@@ -1,9 +1,25 @@
+/**
+ * @file NMEA0183Telegram.h
+ * @author Gerry Sebb
+ * @brief NMEA0183 Telegrame senden
+ * @version 1.0
+ * @date 2025-01-06
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #include <Arduino.h>
 #include <WString.h>        // Needs for structures
 #include "configuration.h"
 
+/**
+ * @brief Checksum calculation for NMEA
+ * 
+ * @param NMEAData 
+ * @return char 
+ */
 
-// Checksum calculation for NMEA
 char CheckSum(String NMEAData) {
   char checksum = 0;
   // Iterate over the string, XOR each byte with the total sum
@@ -35,10 +51,9 @@ Transducer Values
     Kraengung  $IIXDR,A,0,x.x,ROLL*hh<CR><LF>
 */
 
-// Send Sensor data
 /**
  * @brief Send NMEA0183
- * 
+ * Send Sensor data
  * @return String 
  */
 

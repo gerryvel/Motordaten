@@ -1,3 +1,14 @@
+/**
+ * @file LED.h
+ * @author Gerry Sebb
+ * @brief LED Ansteuerung
+ * @version 2.1
+ * @date 2025-01-06
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #include <arduino.h>
 #include "task.h"
 

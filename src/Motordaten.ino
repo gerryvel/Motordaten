@@ -1,6 +1,4 @@
 
-/**@file Motordaten.ino */
-
 /*
   This code is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -43,7 +41,6 @@
 #include "LED.h"
 #include "web.h"
 #include "Analog.h"
-//#include "uptime.h"
 #include "hourmeter.h"
 
 #define ENABLE_DEBUG_LOG 0 // Debug log

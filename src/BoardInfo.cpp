@@ -1,3 +1,15 @@
+/**
+ * @file BoardInfo.cpp
+ * @author Gerry Sebb
+ * @brief Boardinfo
+ * @version 1.0
+ * @date 2025-01-06
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
+
 #include "BoardInfo.h"
 #include <esp_system.h>
 #include <esp_spi_flash.h>
@@ -15,6 +27,11 @@
 uint8_t temprature_sens_read();
 
 #define BUF 255
+
+/**
+ * @brief Construct a new Board Info:: Board Info object
+ * 
+ */
 
 BoardInfo::BoardInfo()
 {
