@@ -1,4 +1,4 @@
-# MotorData N2k
+# MotorData NMEA2000
 
 ## Description
 This repository shows how to measure the 
