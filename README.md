@@ -18,7 +18,7 @@ and send it as NNMEA2000 meassage.
 
 In addition, all data and part of the configuration are displayed as a website. 
 
-Doxygen Documentation https://github.com/gerryvel/Motordaten/blob/master/doku/html/
+[Doxygen Documentation](https://github.com/gerryvel/Motordaten/blob/master/doku/html/)
 
 ## Based on the work of
 
