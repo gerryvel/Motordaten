@@ -2,7 +2,7 @@
  * @file web.h
  * @author Gerry Sebb
  * @brief Webseite
- * Variablen lesen und schreiben, Webseiten ertsellen
+ * Variablen lesen und schreiben, Webseiten erstellen
  * @version 0.1
  * @date 2025-01-06
  * 
