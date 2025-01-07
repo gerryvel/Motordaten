@@ -29,11 +29,12 @@ In addition, all data and part of the configuration are displayed as a website.
 This project is part of [OpenBoatProject](https://open-boat-projects.org/)
 
 ## Website
-![grafik](https://github.com/user-attachments/assets/7f13e1f1-09d9-42a5-9052-dfacef8e9292)
-![Screenshot 2024-12-23 005610](https://github.com/user-attachments/assets/a093962c-62a2-446a-813d-38cb818b8de0)
-![Screenshot 2024-12-23 005626](https://github.com/user-attachments/assets/9139f854-f28e-4d1d-b924-b2e1e9c9c179)
-![Screenshot 2024-12-23 005528](https://github.com/user-attachments/assets/ff8c5bd1-63ca-4ba9-b23a-eec77886b783)
-![Screenshot 2024-12-23 005643](https://github.com/user-attachments/assets/614e239a-4707-4759-a179-f3f3933c439a)
+![image](https://github.com/user-attachments/assets/98eeb906-9427-4598-9980-6eb1d6c301d7)
+![image](https://github.com/user-attachments/assets/c9bc8bce-e4ee-4242-a91a-8d93fb925f27)
+![image](https://github.com/user-attachments/assets/cd3a5efc-0cb4-4e15-8b53-ae91001c7b08)
+![image](https://github.com/user-attachments/assets/19b01f9f-c73d-4d76-8da7-08648b90a1bf)
+![image](https://github.com/user-attachments/assets/d7816c5a-8b96-4199-a261-ee368093d2c0)
+
 
 ![image](https://github.com/user-attachments/assets/19a4b7fd-f4e0-4ad4-b478-bb63acd92f85)
 
