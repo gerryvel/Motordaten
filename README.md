@@ -35,9 +35,8 @@ This project is part of [OpenBoatProject](https://open-boat-projects.org/)
 ![image](https://github.com/user-attachments/assets/19b01f9f-c73d-4d76-8da7-08648b90a1bf)
 ![image](https://github.com/user-attachments/assets/d7816c5a-8b96-4199-a261-ee368093d2c0)
 
-
+## Plotter
 ![image](https://github.com/user-attachments/assets/19a4b7fd-f4e0-4ad4-b478-bb63acd92f85)
-
 
 ## Wiring diagram
 
