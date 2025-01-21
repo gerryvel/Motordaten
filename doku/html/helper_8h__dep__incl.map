@@ -1,8 +1,0 @@
-<map id="src/helper.h" name="src/helper.h">
-<area shape="rect" id="Node000001" title="Hilfsfunktionen." alt="" coords="25,5,115,32"/>
-<area shape="rect" id="Node000002" href="$_motordaten_8ino.html" title="Motordaten NMEA2000." alt="" coords="5,155,135,181"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,47,61,76,61,106,69,154,64,155,55,107,56,75,60,46"/>
-<area shape="rect" id="Node000003" href="$web_8h.html" title="Webseite Variablen lesen und schreiben, Webseiten erstellen." alt="" coords="70,80,148,107"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="86,45,104,78,100,81,82,47"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="97,122,79,156,74,153,92,119"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="src/task.h" name="src/task.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="30,5,110,32"/>
-<area shape="rect" id="Node000002" href="$_l_e_d_8h.html" title="LED Ansteuerung." alt="" coords="30,80,110,107"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,48,73,80,67,80,67,48"/>
-<area shape="rect" id="Node000003" href="$_motordaten_8ino.html" title="Motordaten NMEA2000." alt="" coords="5,155,135,181"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="73,122,73,154,67,154,67,122"/>
-</map>
