@@ -45,7 +45,7 @@ unsigned long EngineHours(bool CountOn = 0){
     state1 = CountOn;
         if (laststate1 == HIGH && state1 == LOW)
         {                                                           /**< speichern bei Flanke negativ */
-            bsz1.begin("bsz", false);                               /**< NVS nutzen, BSZ erstellen */
+            bsz1.begin("bsz", false);                               /**< NVS nutzen, BSZ erstellen, lesen und schreiben (false) */
             CounterOld = preferences.getUInt("Start", 0);           /**< Speicher auslesen */
             Counter = CounterOld + Counter;                         /**< Laufzeit alt + aktuell */
             bsz1.putUInt("Start", Counter);                         /**<  Speicher schreiben */
