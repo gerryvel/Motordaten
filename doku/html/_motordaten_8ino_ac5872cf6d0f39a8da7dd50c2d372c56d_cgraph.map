@@ -1,9 +1,0 @@
-<map id="SendN2kDCStatus" name="SendN2kDCStatus">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,139,83"/>
-<area shape="rect" id="Node000002" href="$_motordaten_8ino.html#a78d913e1374a6bd06ba1de8800c3956d" title=" " alt="" coords="191,5,300,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,53,182,34,183,39,121,58"/>
-<area shape="rect" id="Node000003" href="$_motordaten_8ino.html#accb9a3a9943bed495d95a5eb28db70f1" title=" " alt="" coords="187,56,304,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="139,67,171,67,171,72,139,72"/>
-<area shape="rect" id="Node000004" href="$_motordaten_8ino.html#a5eaf51305a4bb7821fe257f0ce1863a1" title=" " alt="" coords="190,107,301,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="121,81,183,99,182,104,120,86"/>
-</map>
