@@ -16,9 +16,12 @@
 #include <Preferences.h>
 
 // Versionierung
-#define Version "V2.3 vom 21.12.2024"  // Version
+#define Version "V2.4 vom 21.01.2025"  // Version
 
-// Configuration N2k
+/**
+ * @brief Konfig NMEA2000
+ * 
+ */
 #define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
 #define ESP32_CAN_RX_PIN GPIO_NUM_5  // Set CAN RX port to 5
 #define N2K_SOURCE 15

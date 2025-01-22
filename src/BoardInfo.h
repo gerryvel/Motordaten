@@ -1,7 +1,16 @@
 #ifndef _Boardinfo_H_
 #define _Boardinfo_H_
 
-
+/**
+ * @file BoardInfo.h
+ * @author Gerry Sebb
+ * @brief Hardwareinfo from ESP Board
+ * @version 1.0
+ * @date 2024-01-22
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
 #include <Arduino.h>
 
 class BoardInfo

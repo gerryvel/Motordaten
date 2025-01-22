@@ -34,7 +34,6 @@ void ShowTime(){
 }
 
 /** Freie Speichergroesse aller 5s lesen */
-
 void freeHeapSpace(){
 	static unsigned long last = millis();
 	if (millis() - last > 5000) {
@@ -44,8 +43,6 @@ void freeHeapSpace(){
 }
 
 /** Ausgabe WIFI Parameter und Netzwerk scannen */
-
-
 void WiFiDiag(void) {
   Serial.println("\nWifi-Diag:");
   AP_IP = WiFi.softAPIP();

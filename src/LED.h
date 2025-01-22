@@ -56,8 +56,11 @@ void flashLED(int PIN = LED()) {
   }
 }
 
-
-void LEDInit() {                        // Start Initialisierung
+/**
+ * @brief Start Initialisierung
+ * LEDtest
+ */
+void LEDInit() {                        
   pinMode(LED(Red),   OUTPUT);
   pinMode(LED(Blue),  OUTPUT);
   pinMode(LED(Green), OUTPUT);

@@ -122,7 +122,10 @@ void setup() {
 
   Serial.printf("Motordaten setup %s start\n", Version);
 
-  //Filesystem prepare for Webfiles
+  /**
+   * @brief Filesystem prepare for Webfiles
+   * 
+   */
 	if (!LittleFS.begin(true)) {
 		Serial.println("An Error has occurred while mounting LittleFS");
 		return;
@@ -131,7 +134,11 @@ void setup() {
 
 	File root = LittleFS.open("/");
   listDir(LittleFS, "/", 3);
-	// file exists, reading and loading config file
+
+	/**
+	 * @brief file exists, reading and loading config file
+	 * 
+	 */
   readConfig("/config.json");
     IP = inet_addr(tAP_Config.wAP_IP);
     AP_SSID = tAP_Config.wAP_SSID;
@@ -192,7 +199,10 @@ Serial.println("mDNS responder started\n");
 // Webconfig laden
   website();
 
-// Init RPM measure
+/**
+ * @brief Construct a new pin Mode object
+ * 
+ */
   pinMode(Eingine_RPM_Pin, INPUT_PULLUP);                                            // sets pin high
   attachInterrupt(digitalPinToInterrupt(Eingine_RPM_Pin), handleInterrupt, FALLING); // attaches pin to interrupt on Falling Edge
   timer = timerBegin(0, 80, true);                                                // this returns a pointer to the hw_timer_t global variable
@@ -201,7 +211,10 @@ Serial.println("mDNS responder started\n");
   // true - counts up
   timerStart(timer);                                                              // starts the timer
 
-// Start OneWire
+/**
+ * @brief Start OneWire
+ * 
+ */
   sensors.begin();
   oneWire.reset();
     Serial.print("OneWire: Found ");
@@ -240,7 +253,10 @@ Serial.println("mDNS responder started\n");
   esp_efuse_mac_get_default(chipid);
   for (i = 0; i < 6; i++) id += (chipid[i] << (7 * i));
 
-// Set product information
+/**
+ * @brief Set NMEA2000 product information
+ * 
+ */
   NMEA2000.SetProductInformation("MD01", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
                                  "MD Sensor Module",  // Manufacturer's Model ID
@@ -278,7 +294,10 @@ Serial.println("mDNS responder started\n");
 
   delay(200);
 
-// Start OTA
+/**
+ * @brief OTA
+ * 
+ */
   ArduinoOTA
     .onStart([]() {
       String type;
@@ -310,7 +329,11 @@ Serial.println("mDNS responder started\n");
   printf("Setup end\n");
 }
 
-// This task runs isolated on core 0 because sensors.requestTemperatures() is slow and blocking for about 750 ms
+/**
+ * @brief Get the Temperature object
+ * This task runs isolated on core 0 because sensors.requestTemperatures() is slow and blocking for about 750 ms
+ * @param parameter 
+ */
 void GetTemperature( void * parameter) {
   float tmp0 = 0;
   float tmp1 = 0;
@@ -326,7 +349,11 @@ void GetTemperature( void * parameter) {
   }
 }
 
-// Calculate engine RPM from number of interupts per time
+/**
+ * @brief Calculate engine RPM from number of interupts per time
+ * 
+ * @return double 
+ */
 double ReadRPM() {
   double RPM = 0;
 
@@ -351,8 +378,14 @@ void SetNextUpdate(unsigned long &NextUpdate, unsigned long Period) {
   while ( NextUpdate < millis() ) NextUpdate += Period;
 }
 
-// n2k Datenfunktionen 
-
+/************************ n2k Datenfunktionen ***************************/
+/**
+ * @brief Send PGN127506
+ * 
+ * @param BatteryVoltage 
+ * @param SoC 
+ * @param BatCapacity 
+ */
 void SendN2kDCStatus(double BatteryVoltage, double SoC, double BatCapacity) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, BatteryDCStatusSendOffset);
   tN2kMsg N2kMsg;
@@ -369,6 +402,11 @@ void SendN2kDCStatus(double BatteryVoltage, double SoC, double BatCapacity) {
   }
 }
 
+/**
+ * @brief Send PGN127508
+ * 
+ * @param BatteryVoltage 
+ */
 void SendN2kBattery(double BatteryVoltage) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, BatteryDCSendOffset);
   tN2kMsg N2kMsg;
@@ -383,6 +421,12 @@ void SendN2kBattery(double BatteryVoltage) {
   }
 }
 
+/**
+ * @brief Send PGN 127505
+ * 
+ * @param level 
+ * @param capacity 
+ */
 void SendN2kTankLevel(double level, double capacity) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, TankSendOffset);
   tN2kMsg N2kMsg;
@@ -398,6 +442,15 @@ void SendN2kTankLevel(double level, double capacity) {
   }
 }
 
+/**
+ * @brief Send PGN 127489
+ * 
+ * @param Oiltemp 
+ * @param Watertemp 
+ * @param rpm 
+ * @param hours 
+ * @param voltage 
+ */
 void SendN2kEngineData(double Oiltemp, double Watertemp, double rpm, double hours, double voltage) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, EngineSendOffset);
   tN2kMsg N2kMsg;
@@ -427,6 +480,11 @@ void SendN2kEngineData(double Oiltemp, double Watertemp, double rpm, double hour
   }
 }
 
+/**
+ * @brief Send PGN 127488
+ * 
+ * @param RPM 
+ */
 void SendN2kEngineRPM(double RPM) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, RPMSendOffset);
   tN2kMsg N2kMsg;
@@ -442,8 +500,12 @@ void SendN2kEngineRPM(double RPM) {
   }
 }
 
-// ReadVoltage is used to improve the linearity of the ESP32 ADC see: https://github.com/G6EJD/ESP32-ADC-Accuracy-Improvement-function
-
+/**
+ * @brief ReadVoltage is used to improve the linearity of the ESP32 ADC
+ * see: https://github.com/G6EJD/ESP32-ADC-Accuracy-Improvement-function
+ * @param pin 
+ * @return double 
+ */
 double ReadVoltage(byte pin) {
   double reading = analogRead(pin); // Reference voltage is 3v3 so maximum reading is 3v3 = 4095 in range 0 to 4095
   if (reading < 1 || reading > 4095) return 0;
@@ -482,7 +544,7 @@ void loop() {
   SendN2kEngineRPM(EngineRPM);
   SendN2kBattery(BordSpannung);
   SendN2kDCStatus(BordSpannung, BatSoC, Bat1Capacity);
-
+  
   NMEA2000.ParseMessages();
   int SourceAddress = NMEA2000.GetN2kSource();
   if (SourceAddress != NodeAddress) { // Save potentially changed Source Address to NVS memory
@@ -502,7 +564,10 @@ void loop() {
 // OTA	
 	ArduinoOTA.handle();
 
-// WebsiteData
+/**
+ * @brief Actual Website Data
+ * 
+ */
     fOilTemp1 = OilTemp;
     fMotTemp2 = MotTemp;
     fBordSpannung = BordSpannung;
@@ -510,7 +575,10 @@ void loop() {
     sCL_Status = sWifiStatus(WiFi.status());
     sAP_Station = WiFi.softAPgetStationNum();
     freeHeapSpace();
-    
+    /**
+     * @brief Construct a new if object
+     * Reboot from Website
+     */
   if (IsRebootRequired) {
       Serial.println("Rebooting ESP32: "); 
       delay(1000); // give time for reboot page to load
