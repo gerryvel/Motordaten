@@ -19,7 +19,7 @@
 #define Version "V2.4 vom 21.01.2025"  // Version
 
 /**
- * @brief Konfig NMEA2000
+ * @brief Config NMEA2000
  * 
  */
 #define ESP32_CAN_TX_PIN GPIO_NUM_4  // Set CAN TX port to 4 
@@ -134,7 +134,7 @@ double dVWR_WindSpeedkn = 0;
 double dVWR_WindSpeedms = 0;
 
 //Configuration NMEA0183
-#define SERVER_HOST_NAME "192.168.4.1"		//"192.168.76.34"
+#define SERVER_HOST_NAME "192.168.30.15"		//"192.168.76.34"
 #define TCP_PORT 6666						//6666
 #define DNS_PORT 53
 
