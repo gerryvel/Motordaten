@@ -48,7 +48,7 @@ String processor(const String& var)
 		buttons += "<p class=\"CInput\"><label>max. F&uuml;llstand </label><input type = \"text\" name = \"Fuellstandmax\" value=\"";
 		buttons += tAP_Config.wFuellstandmax;
 		buttons += "\"/> l</p>";
-		buttons += "<p><input type=\"submit\" value=\"Speichern\"></p>";
+		buttons += "<p class=\"button\"><input type=\"submit\" value=\"Speichern\"></p>";
 		buttons += "</form>";
 		return buttons;
 	}

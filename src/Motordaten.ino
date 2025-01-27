@@ -187,13 +187,13 @@ void setup() {
 			delay(1000);
 		}
 	}
-Serial.println("mDNS responder started\n");
+  Serial.println("mDNS responder started\n");
 
- // Start TCP (HTTP) server
+// Start TCP (HTTP) server
 	server.begin();
 	Serial.println("TCP server started\n");
 
-	// Add service to MDNS-SD
+// Add service to MDNS-SD
 	MDNS.addService("http", "tcp", 80);
 
 // Webconfig laden
