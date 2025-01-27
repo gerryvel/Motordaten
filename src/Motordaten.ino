@@ -17,7 +17,7 @@
  * @file Motordaten.ino
  * @author Gerry Sebb
  * @brief Motordaten NMEA2000
- * @version 2.3
+ * @version 2.4
  * @date 2025-01-06
  * 
  * @copyright Copyright (c) 2025
