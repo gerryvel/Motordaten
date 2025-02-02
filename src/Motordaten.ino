@@ -355,25 +355,12 @@ void GetTemperature( void * parameter) {
     vTaskDelay(100);
     tmp0 = sensors.getTempCByIndex(0) + fTemp1Offset;
     if (tmp0 != -127) OilTemp = tmp0;
-    if (tmp0 = -127) OilTemp = 0;
     vTaskDelay(100);
     tmp1 = sensors.getTempCByIndex(1) + fTemp2Offset;
     if (tmp1 != -127) MotTemp = tmp1;
-    if (tmp1 = -127) OilTemp = 0;
     vTaskDelay(100);
   }
 
-  if (!sensors.isConnected(MotorOil))
-     {
-        Serial.println("Motor Oil sensor disconnected");
-        OilTemp = 0;
-     }
-
-  if (!sensors.isConnected(MotorCoolant))
-     {
-        Serial.println("Motor Temperatur sensor disconnected");
-        MotTemp = 0;
-     }   
   }
 
 /**
