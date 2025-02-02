@@ -225,25 +225,38 @@ void setup() {
     else Serial.println("OFF");
   sOneWire_Status = String(sensors.getDeviceCount(), DEC);
   
-  byte ow;
+  byte i;
+  byte present = 0;
+  byte data[12];
   byte addr[8];
   
-  if (!oneWire.search(addr)) {
-    Serial.println("No more OneWire addresses.");
-    Serial.println();
-    oneWire.reset_search();
-    delay(250);
-    return;
+  Serial.print("Looking for 1-Wire devices...\n\r");
+  while(oneWire.search(addr)) {
+    Serial.print("\n\rFound \'1-Wire\' device with address:\n\r");
+    for( i = 0; i < 8; i++) {
+      Serial.print("0x");
+      if (addr[i] < 16) {
+        Serial.print('0');
+      }
+      Serial.print(addr[i], HEX);
+      if (i < 7) {
+        Serial.print(", ");
+      }
+    }
+    if ( OneWire::crc8( addr, 7) != addr[7]) {
+        Serial.print("CRC is not valid!\n");
+        return;
+    }
   }
-  Serial.print("ROM =");
-  for (ow = 0; ow < 8; ow++) {
-    Serial.write(' ');
-    Serial.print(addr[ow], HEX);
-  }
-  Serial.print("\n");
+  Serial.print("\n\rNo more sensors!\n\r");
+  oneWire.reset_search();
+  delay(250);
+
 // search for devices on the bus and assign based on an index
   if (!sensors.getAddress(MotorOil, 0)) Serial.println("Unable to find address for Device 0");
   if (!sensors.getAddress(MotorCoolant, 1)) Serial.println("Unable to find address for Device 1");
+
+  
 
 // Reserve enough buffer for sending all messages. This does not work on small memory devices like Uno or Mega
   NMEA2000.SetN2kCANMsgBufSize(8);
@@ -342,12 +355,26 @@ void GetTemperature( void * parameter) {
     vTaskDelay(100);
     tmp0 = sensors.getTempCByIndex(0) + fTemp1Offset;
     if (tmp0 != -127) OilTemp = tmp0;
+    if (tmp0 = -127) OilTemp = 0;
     vTaskDelay(100);
     tmp1 = sensors.getTempCByIndex(1) + fTemp2Offset;
     if (tmp1 != -127) MotTemp = tmp1;
+    if (tmp1 = -127) OilTemp = 0;
     vTaskDelay(100);
   }
-}
+
+  if (!sensors.isConnected(MotorOil))
+     {
+        Serial.println("Motor Oil sensor disconnected");
+        OilTemp = 0;
+     }
+
+  if (!sensors.isConnected(MotorCoolant))
+     {
+        Serial.println("Motor Temperatur sensor disconnected");
+        MotTemp = 0;
+     }   
+  }
 
 /**
  * @brief Calculate engine RPM from number of interupts per time
