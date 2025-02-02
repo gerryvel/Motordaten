@@ -345,6 +345,7 @@ void setup() {
 /**
  * @brief Get the Temperature object
  * This task runs isolated on core 0 because sensors.requestTemperatures() is slow and blocking for about 750 ms
+ * With error on Sensor set output to -5°C
  * @param parameter 
  */
 void GetTemperature( void * parameter) {
@@ -355,12 +356,20 @@ void GetTemperature( void * parameter) {
     vTaskDelay(100);
     tmp0 = sensors.getTempCByIndex(0) + fTemp1Offset;
     if (tmp0 != -127) OilTemp = tmp0;
+    if (tmp0 == -127.00) {
+    Serial.print("Error read OilTemp\n");
+    OilTemp = -5.0;
+    }
     vTaskDelay(100);
     tmp1 = sensors.getTempCByIndex(1) + fTemp2Offset;
     if (tmp1 != -127) MotTemp = tmp1;
+    if (tmp1 == -127.00) {
+    Serial.print("Error read MotTemp\n");
+    MotTemp = -5.0;
+    }
     vTaskDelay(100);
   }
-
+  
   }
 
 /**
