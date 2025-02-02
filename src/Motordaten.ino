@@ -355,17 +355,19 @@ void GetTemperature( void * parameter) {
     sensors.requestTemperatures(); // Send the command to get temperatures
     vTaskDelay(100);
     tmp0 = sensors.getTempCByIndex(0) + fTemp1Offset;
-    if (tmp0 != -127) OilTemp = tmp0;
     if (tmp0 == -127.00) {
     Serial.print("Error read OilTemp\n");
     OilTemp = -5.0;
+    } else {
+        OilTemp = tmp0;
     }
     vTaskDelay(100);
     tmp1 = sensors.getTempCByIndex(1) + fTemp2Offset;
-    if (tmp1 != -127) MotTemp = tmp1;
     if (tmp1 == -127.00) {
     Serial.print("Error read MotTemp\n");
     MotTemp = -5.0;
+    } else {
+        MotTemp = tmp1;
     }
     vTaskDelay(100);
   }
