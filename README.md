@@ -40,7 +40,8 @@ This project is part of [OpenBoatProject](https://open-boat-projects.org/)
 
 ## Wiring diagram
 
-![grafik](https://github.com/user-attachments/assets/3e34b79b-600b-46ec-8f39-7aeec70b3e48)
+![grafik](https://github.com/user-attachments/assets/74a53a25-d76f-4a43-8eb7-e11baf14d16c)
+
 
 ## PCB Layout
 ![grafik](https://github.com/user-attachments/assets/23302354-f9c6-4d82-b5b5-6188d9216be6)
