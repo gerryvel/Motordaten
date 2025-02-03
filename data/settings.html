@@ -8,10 +8,10 @@
 </head>
 <body>
     <br />
-    <p class="label"> Oiltemperatur: %sOilTemp1% &deg;C</br>
-                    Offset: %sTemp1Offset% &deg;C</br>
-                    Motortemperatur: %sMotTemp2% &deg;C</br>
-                    Offset: %sTemp2Offset% &deg;C</p>
+    <p class="label"> K&uuml;hlwassertemperatur: %sCoolantTemp% &deg;C</br>
+                    Offset: %sCoolantOffset% &deg;C</br>
+                    Motortemperatur: %sMotorTemp% &deg;C</br>
+                    Offset: %sMotorOffset% &deg;C</p>
     %CONFIGPLACEHOLDER%
     <script>
         function formToJson(form) {
@@ -19,16 +19,16 @@
             var SSID = form.SSID.value;
             var IP = form.IP.value;
             var Password = form.Password.value;
-            var Temp1Offset = form.Temp1Offset.value;
-            var Temp2Offset = form.Temp2Offset.value;
+            var CoolantOffset = form.CoolantOffset.value;
+            var MotorOffset = form.MotorOffset.value;
             var Fuellstandmax = form.Fuellstandmax.value;
 
             var jsonFormInfo = JSON.stringify({
                 SSID: SSID,
                 IP: IP,
                 Password: Password,
-                Temp1Offset: Temp1Offset,
-                Temp2Offset: Temp2Offset,
+                CoolantOffset: CoolantOffset,
+                MotorOffset: MotorOffset,
                 Fuellstandmax: Fuellstandmax
             });
 

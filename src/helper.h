@@ -147,8 +147,8 @@ void readConfig(String filename) {
 			strcpy(tAP_Config.wAP_SSID, testDocument["SSID"] | "Motordaten");
 			strcpy(tAP_Config.wAP_IP, testDocument["IP"] | "192.168.15.30");
 			strcpy(tAP_Config.wAP_Password, testDocument["Password"] | "12345678");
-			strcpy(tAP_Config.wTemp1_Offset, testDocument["Temp1Offset"] | "0.0");
-      strcpy(tAP_Config.wTemp2_Offset, testDocument["Temp2Offset"] | "0.0");
+			strcpy(tAP_Config.wMotor_Offset, testDocument["MotorOffset"] | "0.0");
+      strcpy(tAP_Config.wCoolant_Offset, testDocument["CoolantOffset"] | "0.0");
       strcpy(tAP_Config.wFuellstandmax, testDocument["Fuellstandmax"] | "0.0");
 		}
 		configFile.close();

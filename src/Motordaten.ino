@@ -143,10 +143,10 @@ void setup() {
     IP = inet_addr(tAP_Config.wAP_IP);
     AP_SSID = tAP_Config.wAP_SSID;
     AP_PASSWORD = tAP_Config.wAP_Password;
-    fTemp1Offset = atof(tAP_Config.wTemp1_Offset);
-    fTemp2Offset = atof(tAP_Config.wTemp2_Offset);
+    fMotorOffset = atof(tAP_Config.wMotor_Offset);
+    fCoolantOffset = atof(tAP_Config.wCoolant_Offset);
     FuelLevelMax = atof(tAP_Config.wFuellstandmax);
-    Serial.println("\nConfigdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , Temp1Offset: " + fTemp1Offset + " , Temp2Offset: " + fTemp2Offset + " read from file");
+    Serial.println("\nConfigdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , MotorTOffset: " + fMotorOffset + " , CoolantTOffset: " + fCoolantOffset + " read from file");
 
   // LED
   LEDInit();
@@ -348,26 +348,27 @@ void setup() {
  * With error on Sensor set output to -5°C
  * @param parameter 
  */
+
 void GetTemperature( void * parameter) {
   float tmp0 = 0;
   float tmp1 = 0;
   for (;;) {
     sensors.requestTemperatures(); // Send the command to get temperatures
     vTaskDelay(100);
-    tmp0 = sensors.getTempCByIndex(0) + fTemp1Offset;
-    if (tmp0 == -127.00) {
-    Serial.print("Error read OilTemp\n");
-    OilTemp = -5.0;
+    tmp0 = sensors.getTempC(MotorOil) + fMotorOffset;
+    if (tmp0 == DEVICE_DISCONNECTED_C) {
+    Serial.print("Error read Motor Temp\n");
+    MotorTemp = -5.0;
     } else {
-        OilTemp = tmp0;
+        MotorTemp = tmp0;
     }
     vTaskDelay(100);
-    tmp1 = sensors.getTempCByIndex(1) + fTemp2Offset;
-    if (tmp1 == -127.00) {
-    Serial.print("Error read MotTemp\n");
-    MotTemp = -5.0;
+    tmp1 = sensors.getTempC(MotorCoolant) + fCoolantOffset;
+    if (tmp1 == DEVICE_DISCONNECTED_C) {
+    Serial.print("Error read Coolant Temp\n");
+    CoolantTemp = -5.0;
     } else {
-        MotTemp = tmp1;
+        CoolantTemp = tmp1;
     }
     vTaskDelay(100);
   }
@@ -471,18 +472,18 @@ void SendN2kTankLevel(double level, double capacity) {
  * @brief Send PGN 127489
  * 
  * @param Oiltemp 
- * @param Watertemp 
+ * @param Coolanttemp 
  * @param rpm 
  * @param hours 
  * @param voltage 
  */
-void SendN2kEngineData(double Oiltemp, double Watertemp, double rpm, double hours, double voltage) {
+void SendN2kEngineData(double Oiltemp, double Coolanttemp, double rpm, double hours, double voltage) {
   static unsigned long SlowDataUpdated = InitNextUpdate(SlowDataUpdatePeriod, EngineSendOffset);
   tN2kMsg N2kMsg;
   tN2kEngineDiscreteStatus1 Status1;
   tN2kEngineDiscreteStatus2 Status2;
   Status1.Bits.OverTemperature = Oiltemp > 90;      // Alarm Motor over temp
-  Status1.Bits.LowCoolantLevel = Watertemp > 90;    // Alarm low cooling
+  Status1.Bits.LowCoolantLevel = Coolanttemp > 90;    // Alarm low cooling
   Status1.Bits.LowSystemVoltage = voltage < 11;
   Status2.Bits.EngineShuttingDown = rpm < 100;      // Alarm Motor off
   EngineOn = !Status2.Bits.EngineShuttingDown;
@@ -491,7 +492,7 @@ void SendN2kEngineData(double Oiltemp, double Watertemp, double rpm, double hour
     SetNextUpdate(SlowDataUpdated, SlowDataUpdatePeriod);
 
     Serial.printf("Oil Temp    : %3.1f °C \n", Oiltemp);
-    Serial.printf("Coolant Temp: %3.1f °C \n", Watertemp);
+    Serial.printf("Coolant Temp: %3.1f °C \n", Coolanttemp);
     Serial.printf("Engine Hours: %3.1f hrs \n", hours);
     Serial.printf("Overtemp Oil: %s  \n", Status1.Bits.OverTemperature ? "Yes" : "No");
     Serial.printf("Overtemp Mot: %s  \n", Status1.Bits.LowCoolantLevel ? "Yes" : "No");
@@ -499,7 +500,7 @@ void SendN2kEngineData(double Oiltemp, double Watertemp, double rpm, double hour
 
     // SetN2kTemperatureExt(N2kMsg, 0, 0, N2kts_ExhaustGasTemperature, CToKelvin(temp), N2kDoubleNA);   // PGN130312, uncomment the PGN to be used
 
-    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(Oiltemp), CToKelvin(Watertemp), N2kDoubleNA, N2kDoubleNA, hours ,N2kDoubleNA ,N2kDoubleNA, N2kInt8NA, N2kInt8NA, Status1, Status2);
+    SetN2kEngineDynamicParam(N2kMsg, 0, N2kDoubleNA, CToKelvin(Oiltemp), CToKelvin(Coolanttemp), N2kDoubleNA, N2kDoubleNA, hours ,N2kDoubleNA ,N2kDoubleNA, N2kInt8NA, N2kInt8NA, Status1, Status2);
 
     NMEA2000.SendMsg(N2kMsg);
   }
@@ -565,7 +566,7 @@ void loop() {
   EngineHours(EngineOn);
   
   SendN2kTankLevel(FuelLevel, FuelLevelMax);  // Adjust max tank capacity
-  SendN2kEngineData(OilTemp, MotTemp, EngineRPM, Counter, BordSpannung);
+  SendN2kEngineData(MotorTemp, CoolantTemp, EngineRPM, Counter, BordSpannung);
   SendN2kEngineRPM(EngineRPM);
   SendN2kBattery(BordSpannung);
   SendN2kDCStatus(BordSpannung, BatSoC, Bat1Capacity);
@@ -593,8 +594,8 @@ void loop() {
  * @brief Actual Website Data
  * 
  */
-    fOilTemp1 = OilTemp;
-    fMotTemp2 = MotTemp;
+    fCoolantTemp = CoolantTemp;
+    fMotorTemp = MotorTemp;
     fBordSpannung = BordSpannung;
     fDrehzahl = EngineRPM;
     sCL_Status = sWifiStatus(WiFi.status());

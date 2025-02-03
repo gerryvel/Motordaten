@@ -48,8 +48,8 @@ struct Web_Config
 	char wAP_IP[20];
 	char wAP_SSID[64];
 	char wAP_Password[12];
-	char wTemp1_Offset[5];
-	char wTemp2_Offset[5];
+	char wMotor_Offset[5];
+	char wCoolant_Offset[5];
 	char wFuellstandmax[3];
 };
 Web_Config tAP_Config;
@@ -94,8 +94,8 @@ int iDistance = 0;
 // Global Data Motordata Sensor
 float FuelLevel = 0;
 float FuelLevelMax = 30;
-float OilTemp = 0;
-float MotTemp = 0;
+float CoolantTemp = 0;
+float MotorTemp = 0;
 float EngineRPM = 0;
 float BordSpannung = 0;
 bool EngineOn = false;
@@ -118,10 +118,10 @@ String sOneWire_Status = "";
 float fDrehzahl = 0;
 float fGaugeDrehzahl = 0;
 float fBordSpannung = 0;
-float fOilTemp1 = 0;
-float fMotTemp2 = 0;
-float fTemp1Offset = 0;
-float fTemp2Offset = 0;
+float fCoolantTemp = 0;
+float fMotorTemp = 0;
+float fCoolantOffset = 0;
+float fMotorOffset = 0;
 String sSTBB = "";
 String sOrient = "";
 
