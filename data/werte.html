@@ -13,11 +13,16 @@
     <p>DC Status</p>
     <p class="label">Bordspannung: %sBordspannung% V</p>
     <p>Maschine</p>
-    <p class="label">K&uuml;hlwasser Temperatur: %sCoolantTemp% &deg;C</br>
-                     Offset: %sCoolantOffset% &deg;C
+    <p id="coolwater" class="label">K&uuml;hlwasser Temperatur: %sCoolantTemp% &deg;C</br>
+                     Offset: %sCoolantOffset% &deg;C</br>
+                     Fehler: %sCoolantError%
                     </p>
+                    <script>
+                        document.getElementById("coolwater").style.color = "blue";
+                      </script>
     <p class="label">Motor Temperatur: %sMotorTemp% &deg;C</br>
-                     Offset: %sMotorOffset% &deg;C
+                     Offset: %sMotorOffset% &deg;</br>
+                     Fehler: %sMotorError%
                     </p>
     <p class="label">Motor Drehzahl: %sDrehzahl% U &frasl; min</p>
     <p class="label">Maschinenstunden: %sCounter% h</p>

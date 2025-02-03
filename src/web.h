@@ -68,6 +68,8 @@ String replaceVariable(const String& var)
 	if (var == "sMotorTemp")return String(fMotorTemp,1);
 	if (var == "sCoolantOffset")return String(fCoolantOffset);
 	if (var == "sMotorOffset")return String(fMotorOffset);
+	if (var == "sMotorError")return String(motorErrorReported);
+	if (var == "sCoolantError")return String(coolantErrorReported);
 	if (var == "sBoardInfo")return sBoardInfo;
 	if (var == "sFS_USpace")return String(LittleFS.usedBytes());
 	if (var == "sFS_TSpace")return String(LittleFS.totalBytes());
