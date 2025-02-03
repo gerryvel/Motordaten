@@ -111,7 +111,7 @@ int SoCError = 0;
 float BatSoC = 0;
 
 // Data wire for teperature (Dallas DS18B20) 
-#define ONE_WIRE_BUS 13			// Data wire for teperature (Dallas DS18B20) is plugged into GPIO 13
+#define ONE_WIRE_BUS 14			// Data wire for teperature (Dallas DS18B20) is plugged into GPIO 13
 String sOneWire_Status = "";
 
 // Variables Website
