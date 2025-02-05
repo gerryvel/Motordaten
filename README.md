@@ -1,6 +1,6 @@
 # MotorData NMEA2000
 
-[(https://img.shields.io/github/release-date/gerryvel/Motordaten?logo=Espressif)]
+[Relaise](https://img.shields.io/github/release-date/gerryvel/Motordaten?logo=Espressif)
 
 
 ## Description
