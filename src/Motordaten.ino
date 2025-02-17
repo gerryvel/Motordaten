@@ -607,6 +607,7 @@ void loop() {
     sCL_Status = sWifiStatus(WiFi.status());
     sAP_Station = WiFi.softAPgetStationNum();
     freeHeapSpace();
+    
     /**
      * @brief Construct a new if object
      * Reboot from Website

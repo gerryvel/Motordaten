@@ -71,6 +71,7 @@ String replaceVariable(const String& var)
 	if (var == "sMotorError")return String(motorErrorReported);
 	if (var == "sCoolantError")return String(coolantErrorReported);
 	if (var == "sBoardInfo")return sBoardInfo;
+	if (var == "sHeapspace")return sHeapspace;
 	if (var == "sFS_USpace")return String(LittleFS.usedBytes());
 	if (var == "sFS_TSpace")return String(LittleFS.totalBytes());
 	if (var == "sAP_IP")return WiFi.softAPIP().toString();

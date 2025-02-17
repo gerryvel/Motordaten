@@ -16,7 +16,7 @@
 #include <Preferences.h>
 
 // Versionierung
-#define Version "V2.5 vom 03.02.2025"  // Version
+#define Version "V2.5 vom 17.02.2025"  // Version
 
 /**
  * @brief Config NMEA2000
@@ -41,6 +41,7 @@ int i = 0;
 //Configuration Website
 #define PAGE_REFRESH 10 // x Sec.
 #define WEB_TITEL "Motordaten"
+String sHeapspace = "";
 
 //Configuration mit Webinterface
 struct Web_Config
