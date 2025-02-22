@@ -359,22 +359,22 @@ void GetTemperature( void * parameter) {
     if (tmp0 == DEVICE_DISCONNECTED_C) {
        if (!motorErrorReported) {                        // Nur einmal melden
         Serial.print("Error read Motor Temp\n");
-        motorErrorReported = true;}
+        motorErrorReported = "Ein";}
     MotorTemp = -5.0;
     } else {
         MotorTemp = tmp0 + fMotorOffset;
-        motorErrorReported = false;                      // Fehler wurde behoben
+        motorErrorReported = "Aus";                      // Fehler wurde behoben
     }
     vTaskDelay(100);
     tmp1 = sensors.getTempC(MotorCoolant);
     if (tmp1 == DEVICE_DISCONNECTED_C) {
        if (!coolantErrorReported) {                      // Nur einmal melden
         Serial.print("Error read Coolant Temp\n");
-        coolantErrorReported = true;}
+        coolantErrorReported = "Ein";}
     CoolantTemp = -5.0;
     } else {
         CoolantTemp = tmp1 + fCoolantOffset;
-        coolantErrorReported = false;                     // Fehler wurde behoben
+        coolantErrorReported = "Aus";                     // Fehler wurde behoben
     }
     vTaskDelay(100);
   }

@@ -100,8 +100,8 @@ float MotorTemp = 0;
 float EngineRPM = 0;
 float BordSpannung = 0;
 bool EngineOn = false;
-bool motorErrorReported = false;
-bool coolantErrorReported = false;
+String motorErrorReported = "";
+String coolantErrorReported = "";
 static unsigned long Counter;			// Enginehours
 enum EngineStatus { Off = 0,  On = 1, };
 #define RPM_Calibration_Value 4.0 // Translates Generator RPM to Engine RPM 
