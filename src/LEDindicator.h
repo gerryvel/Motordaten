@@ -37,13 +37,6 @@ if (!(ErrorOff && ErrorOn)){
       LEDflash(LED(Green));
       LEDflash(LED(Red));
 }
-
-/**
- * @brief WLAN failure
- * switch Blue led
- */
-if (bConnect_CL == 0){
-    LEDblink(LED(Blue));
-} 
 }
+
 #endif   
