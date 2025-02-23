@@ -69,6 +69,9 @@ The HTML Data upload separately with
 - PlatformIO > Build Filesystem and Upload Filesystem Image (PlatformIO) 
 from /data directory.
 
+It's also possible with Unisensor case.
+- UNI sensor [Link](https://github.com/gerryvel/UNI-Sensor)
+
 ## Partlist:
 
 - PCB by Aisler [Link](https://aisler.net/p/JCQLQVHC)
