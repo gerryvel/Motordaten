@@ -551,11 +551,6 @@ void loop() {
 
   LoopIndicator();
 
-  //Wifi variables
-	bConnect_CL = WiFi.status() == WL_CONNECTED ? 1 : 0;
-
-  // unsigned int size;
-
   BordSpannung = ((BordSpannung * 15) + (ReadVoltage(ADCpin2) * ADC_Calibration_Value2 / 4096)) / 16; // This implements a low pass filter to eliminate spike for ADC readings
 
   FuelLevel = ((FuelLevel * 15) + (ReadVoltage(ADCpin1) * ADC_Calibration_Value1 / 4096)) / 16; // This implements a low pass filter to eliminate spike for ADC readings
