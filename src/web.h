@@ -14,10 +14,12 @@
 #include "configuration.h"
 #include "boardinfo.h"
 #include <ESPAsyncWebServer.h>
+#include <WebSocketsServer.h>
 #include <Arduino.h>
 
 // Set web server port number to 80
 AsyncWebServer server(80);
+WebSocketsServer webSocket = WebSocketsServer(81);  // WebSocket server on port 81
 
 // Info Board for HTML-Output
 String sBoardInfo;

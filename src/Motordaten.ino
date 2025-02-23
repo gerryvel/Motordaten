@@ -38,9 +38,9 @@
 #include <arpa/inet.h>
 #include "BoardInfo.h"
 #include "helper.h"
-#include "LED.h"
 #include "web.h"
 #include "hourmeter.h"
+#include "LEDindicator.h"
 
 #define ENABLE_DEBUG_LOG 0 // Debug log
 
@@ -195,6 +195,7 @@ void setup() {
 
 // Add service to MDNS-SD
 	MDNS.addService("http", "tcp", 80);
+  MDNS.addService("ws", "tcp", 81);
 
 // Webconfig laden
   website();
@@ -548,12 +549,7 @@ double ReadVoltage(byte pin) {
 /************************************ Loop ***********************************/
 void loop() {
 
-  // LED
-  LEDflash(LED(Green)); // flash for loop run
-
-  // if (!sensors.getAddress(MotorThermometer, 0)) LEDflash(LED(Red));  // search for device on the bus and unable to find
-  // sensors.requestTemperatures(); // Send the command to get temperatures
-  // ExhaustTemp = sensors.getTempCByIndex(0) + fTempOffset;
+  LoopIndicator();
 
   //Wifi variables
 	bConnect_CL = WiFi.status() == WL_CONNECTED ? 1 : 0;
@@ -600,6 +596,7 @@ void loop() {
  * @brief Actual Website Data
  * 
  */
+    webSocket.loop();
     fCoolantTemp = CoolantTemp;
     fMotorTemp = MotorTemp;
     fBordSpannung = BordSpannung;
