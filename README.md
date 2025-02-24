@@ -34,11 +34,11 @@ In addition, all data and part of the configuration are displayed as a website.
 This project is part of [OpenBoatProject](https://open-boat-projects.org/)
 
 ## Website
-![image](https://github.com/user-attachments/assets/98eeb906-9427-4598-9980-6eb1d6c301d7)
-![image](https://github.com/user-attachments/assets/c9bc8bce-e4ee-4242-a91a-8d93fb925f27)
-![image](https://github.com/user-attachments/assets/cd3a5efc-0cb4-4e15-8b53-ae91001c7b08)
-![image](https://github.com/user-attachments/assets/19b01f9f-c73d-4d76-8da7-08648b90a1bf)
-![image](https://github.com/user-attachments/assets/d7816c5a-8b96-4199-a261-ee368093d2c0)
+![Screenshot 2025-02-24 111314](https://github.com/user-attachments/assets/3162f11a-96d8-4610-90f6-90bf8df040a2)
+![Screenshot 2025-02-24 111351](https://github.com/user-attachments/assets/551b2af7-4f97-4465-9bfd-560e948aefdf)
+![Screenshot 2025-02-24 111407](https://github.com/user-attachments/assets/6fd6c017-4931-4287-bf12-78640a9b5ee8)
+![Screenshot 2025-02-24 111420](https://github.com/user-attachments/assets/56c5f54c-f529-46b0-8f0f-66ab16b7e107)
+![Screenshot 2025-02-24 111710](https://github.com/user-attachments/assets/8836f6ff-2920-4f93-a2bd-4f979dc08238)
 
 ## Plotter
 ![image](https://github.com/user-attachments/assets/19a4b7fd-f4e0-4ad4-b478-bb63acd92f85)
