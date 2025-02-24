@@ -49,9 +49,11 @@ struct Web_Config
 	char wAP_IP[20];
 	char wAP_SSID[64];
 	char wAP_Password[12];
-	char wMotor_Offset[5];
-	char wCoolant_Offset[5];
-	char wFuellstandmax[3];
+	char wMotor_Offset[6];
+	char wCoolant_Offset[6];
+	char wFuellstandmax[6];
+	char wADC1_Cal[6];
+	char wADC2_Cal[6];
 };
 Web_Config tAP_Config;
 
@@ -79,6 +81,10 @@ int iSTA_on = 0;                            // Status STA-Mode
 int bConnect_CL = 0;
 bool bClientConnected = 0;
 
+// Calibration data variable definition for ADC1 and ADC2 Input
+double ADC_Calibration_Value1 = 170.0; /**< For resistor measure 5 Volt and 180 Ohm equals 100% plus 1K resistor. Old Value 250.0 */
+double ADC_Calibration_Value2 = 19.0;  /**< The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3 */
+
 //Confuration Sensors I2C
 #define I2C_SDA 21                      //Standard 21
 #define I2C_SCL 22                      //Standard 22
@@ -88,6 +94,7 @@ float fbmp_pressure = 0;
 float fbmp_altitude = 0;
 String sI2C_Status = "";
 bool bI2C_Status = 0;
+
 // Global Data Sonar
 const int iMaxSonar = 35;			//Analoginput 
 int iDistance = 0;

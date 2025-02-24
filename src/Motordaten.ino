@@ -44,12 +44,6 @@
 
 #define ENABLE_DEBUG_LOG 0 // Debug log
 
-/**
- * @brief ADC calibration
- * Calibration data variable definition for ADC1 and ADC2 Input
- */
-#define ADC_Calibration_Value1 170.0 /**< For resistor measure 5 Volt and 180 Ohm equals 100% plus 1K resistor. Old Value 250.0 */
-#define ADC_Calibration_Value2 19.0  /**< The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3 */
 
 /**
  *  Set the information for other bus devices, which PGN messages we support
@@ -146,6 +140,8 @@ void setup() {
     fMotorOffset = atof(tAP_Config.wMotor_Offset);
     fCoolantOffset = atof(tAP_Config.wCoolant_Offset);
     FuelLevelMax = atof(tAP_Config.wFuellstandmax);
+    ADC_Calibration_Value1 = atof(tAP_Config.wADC1_Cal);
+    ADC_Calibration_Value2 = atof(tAP_Config.wADC2_Cal);
     Serial.println("\nConfigdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , MotorTOffset: " + fMotorOffset + " , CoolantTOffset: " + fCoolantOffset + " read from file");
 
   // LED

@@ -50,6 +50,12 @@ String processor(const String& var)
 		buttons += "<p class=\"CInput\"><label>max. F&uuml;llstand </label><input type = \"text\" name = \"Fuellstandmax\" value=\"";
 		buttons += tAP_Config.wFuellstandmax;
 		buttons += "\"/> l</p>";
+		buttons += "<p class=\"CInput\"><label>ADC1 Kalibrierung </label><input type = \"text\" name = \"ADC1_Cal\" value=\"";
+		buttons += tAP_Config.wADC1_Cal;
+		buttons += "\"/></p>";
+		buttons += "<p class=\"CInput\"><label>ADC2 Kalibrierung </label><input type = \"text\" name = \"ADC2_Cal\" value=\"";
+		buttons += tAP_Config.wADC2_Cal;
+		buttons += "\"/></p>";
 		buttons += "<p class=\"button\"><input type=\"submit\" value=\"Speichern\"></p>";
 		buttons += "</form>";
 		return buttons;
@@ -73,6 +79,8 @@ String replaceVariable(const String& var)
 	if (var == "sMotorError")return motorErrorReported;
 	if (var == "sCoolantError")return coolantErrorReported;
 	if (var == "sBoardInfo")return sBoardInfo;
+	if (var == "sADC1_Cal")return String(ADC_Calibration_Value1);
+	if (var == "sADC2_Cal")return String(ADC_Calibration_Value2);
 	if (var == "sHeapspace")return sHeapspace;
 	if (var == "sFS_USpace")return String(LittleFS.usedBytes());
 	if (var == "sFS_TSpace")return String(LittleFS.totalBytes());

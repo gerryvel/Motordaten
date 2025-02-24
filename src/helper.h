@@ -151,6 +151,8 @@ void readConfig(String filename) {
 			strcpy(tAP_Config.wMotor_Offset, testDocument["MotorOffset"] | "0.0");
       strcpy(tAP_Config.wCoolant_Offset, testDocument["CoolantOffset"] | "0.0");
       strcpy(tAP_Config.wFuellstandmax, testDocument["Fuellstandmax"] | "0.0");
+      strcpy(tAP_Config.wADC1_Cal, testDocument["ADC1_Cal"] | "0.0");
+      strcpy(tAP_Config.wADC2_Cal, testDocument["ADC2_Cal"] | "0.0");
 		}
 		configFile.close();
 		Serial.println("Config - Datei geschlossen");

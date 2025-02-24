@@ -3,5 +3,7 @@
     "passwort": "12345678",
     "MotorOffset":"0.0",
     "CoolantOffset":"0.0",
-    "Fuellstandmax": "0.0"
+    "Fuellstandmax": "0.0",
+    "ADC1_Cal": "0.0",
+    "ADC2_Cal": "0.0"
 }

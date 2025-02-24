@@ -22,6 +22,8 @@
             var CoolantOffset = form.CoolantOffset.value;
             var MotorOffset = form.MotorOffset.value;
             var Fuellstandmax = form.Fuellstandmax.value;
+            var ADC1_Cal = form.ADC1_Cal.value;
+            var ADC2_Cal = form.ADC2_Cal.value;
 
             var jsonFormInfo = JSON.stringify({
                 SSID: SSID,
@@ -29,7 +31,9 @@
                 Password: Password,
                 CoolantOffset: CoolantOffset,
                 MotorOffset: MotorOffset,
-                Fuellstandmax: Fuellstandmax
+                Fuellstandmax: Fuellstandmax,
+                ADC1_Cal: ADC1_Cal,
+                ADC2_Cal: ADC2_Cal
             });
 
             xhr.open("POST", "/settings.html?save=" + jsonFormInfo, true);
@@ -40,10 +44,8 @@
     </script>
 
     <p class="label">Nach &Auml;nderungen neu starten!</p>
-    
 
     <button class="button" onclick="reboot_handler()">Neustart</button>
-        </p>
 
     <p id="status"></p>
     <script>
