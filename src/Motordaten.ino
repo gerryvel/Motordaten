@@ -48,7 +48,7 @@
  * @brief ADC calibration
  * Calibration data variable definition for ADC1 and ADC2 Input
  */
-#define ADC_Calibration_Value1 250.0 /**< For resistor measure 5 Volt and 180 Ohm equals 100% plus 1K resistor. */
+#define ADC_Calibration_Value1 170.0 /**< For resistor measure 5 Volt and 180 Ohm equals 100% plus 1K resistor. Old Value 250.0 */
 #define ADC_Calibration_Value2 19.0  /**< The real value depends on the true resistor values for the ADC input (100K / 27 K). Old value 34.3 */
 
 /**
@@ -271,11 +271,11 @@ void setup() {
  * @brief Set NMEA2000 product information
  * 
  */
-  NMEA2000.SetProductInformation("MD01", // Manufacturer's Model serial code
+  NMEA2000.SetProductInformation("MD01.2501", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
                                  "MD Sensor Module",  // Manufacturer's Model ID
-                                 "2.3.0.0 (2024-12-20)",  // Manufacturer's Software version code
-                                 "2.0.0.0 (2023-05-30)" // Manufacturer's Model version
+                                 "2.5.1.0 (2025-02-20)",  // Manufacturer's Software version code
+                                 "2.0.0.0 (2024-11-30)" // Manufacturer's Model version
                                 );
 // Set device information
   NMEA2000.SetDeviceInformation(id, // Unique number. Use e.g. Serial number.
@@ -557,7 +557,7 @@ void loop() {
 
   EngineRPM = ((EngineRPM * 5) + ReadRPM() * RPM_Calibration_Value) / 6 ; // This implements a low pass filter to eliminate spike for RPM measurements
 
-  BatSoC = (BordSpannung - 10.5) * (100.0 - 0.0) / (14.9 - 10.5) + 0.0;
+  BatSoC = (BordSpannung - 10.5) * (100.0 - 0.0) / (14.9 - 10.5) + 0.0; // PB-Batterie im unbelasteten Zustand über Spannung
   // float BatSoC = analogInScale(BordSpannung, 15, 10, 100.0, 0.0, SoCError);
   
   EngineHours(EngineOn);
