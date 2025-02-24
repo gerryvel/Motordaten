@@ -44,9 +44,7 @@ This project is part of [OpenBoatProject](https://open-boat-projects.org/)
 ![image](https://github.com/user-attachments/assets/19a4b7fd-f4e0-4ad4-b478-bb63acd92f85)
 
 ## Wiring diagram
-
 ![grafik](https://github.com/user-attachments/assets/74a53a25-d76f-4a43-8eb7-e11baf14d16c)
-
 
 ## PCB Layout
 ![grafik](https://github.com/user-attachments/assets/23302354-f9c6-4d82-b5b5-6188d9216be6)
@@ -71,6 +69,10 @@ from /data directory.
 
 It's also possible with Unisensor case.
 - UNI sensor [Link](https://github.com/gerryvel/UNI-Sensor)
+
+Setup: Open Browser, go to Settings an set your max. Tanklevel, ADC1 Calibration and ADC2 Calibration.
+For ADC1 mount 90 Ohm Resistor in the input and set calibration value ca. 170 and control on the Plotter "Fuel" = 50% from max. Adjust.
+For ADC2 measuring voltage with multimeter and set calibration value ca. 17.0 and control the Plotter "Batterie" field. Adjust.
 
 ## Partlist:
 
@@ -104,6 +106,7 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 
 ## Changes
 
+- Version 2.6 Add value for ADC calibration to setting.html
 - Version 2.5 Error handling OneWire-Temperatur (set sensor output to -5°C) and change PIN to GPIO14
 - Version 2.4 add Doxygen 
 - Version 2.3 add Temperatur: Motor(Water)temp and OilTemp (2x OneWire), add Alarm Watertemp
