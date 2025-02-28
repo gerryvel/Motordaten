@@ -51,6 +51,8 @@ This project is part of [OpenBoatProject](https://open-boat-projects.org/)
 ![grafik](https://github.com/user-attachments/assets/cad63dee-a283-48bf-8012-41dd0a54c9bb)
 ![grafik](https://github.com/user-attachments/assets/bf01b423-9d3f-4fee-8e42-c56bea9e6acb)
 
+## Details
+
 The project requires the NMEA2000 and the NMEA2000_esp32 libraries from Timo Lappalainen: https://github.com/ttlappalainen.
 Both libraries have to be downloaded and installed.
 
