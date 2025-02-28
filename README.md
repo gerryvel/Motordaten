@@ -3,7 +3,7 @@
 ![ESP32](https://img.shields.io/badge/ESP32-grey?logo=Espressif)
 ![Relaise](https://img.shields.io/github/release-date/gerryvel/Motordaten?)
 ![lastcommit](https://img.shields.io/github/last-commit/gerryvel/Motordaten)
-![OBP](https://img.shields.io/badge/Sailing_with-OpenBoatsProjects-blue)
+[![OBP](https://img.shields.io/badge/Sailing_with-OpenBoatsProjects-blue)](https://open-boat-projects.org/de/)
 
 ## Description
 This repository shows how to measure the 
