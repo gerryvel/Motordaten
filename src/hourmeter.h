@@ -18,7 +18,6 @@
 Preferences bsz1;
 
 static unsigned long lastRun, CounterOld, milliRest;
-static unsigned long Counter = 0; // Deklariere Counter
 int state1 = LOW, laststate1 = LOW;
 
 /**
