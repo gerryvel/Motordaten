@@ -29,17 +29,17 @@ void LoopIndicator(){
   ErrorOff = false;
   ErrorOn = false;
 
-if (motorErrorReported == "Aus" && coolantErrorReported == "Aus"){
-  LEDflash(LED(Green)); // flash for loop run
+if (MotorTemp != -5.0 && CoolantTemp != -5.0){  
   ErrorOff = true;
 }
-if (motorErrorReported == "Ein" || coolantErrorReported == "Ein"){
-  LEDblink(LED(Red));
+if (MotorTemp == -5.0 || CoolantTemp == -5.0){
   ErrorOn = true;
 }
-if (!(ErrorOff || ErrorOn)){
-      LEDflash(LED(Green));
-      LEDflash(LED(Red));
+if (ErrorOff == true ){
+  LEDflash(LED(Green)); // flash for loop run without temp-failure
+}
+if (ErrorOn == true){
+  LEDblink(LED(Red));
 }
 }
 

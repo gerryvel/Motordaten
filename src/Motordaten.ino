@@ -162,6 +162,7 @@ void setup() {
     Serial.println("\nSet IP " + IP.toString() + " ,Gateway: " + Gateway.toString() + " ,NetMask: " + NMask.toString() + " ready");
     LEDon(LED(Green));
     delay(1000);
+    LEDoff(LED(Green));
   } else {
       Serial.println("Starting AP failed.");
       LEDoff(LED(Green));
@@ -169,7 +170,7 @@ void setup() {
       delay(1000); 
       ESP.restart();
   }
-  
+
   WiFi.setHostname(HostName);
   Serial.println("Set Hostname " + String(WiFi.getHostname()) + " done\n");
 
@@ -220,7 +221,7 @@ void setup() {
   if (sensors.isParasitePowerMode()) Serial.println("ON");
     else Serial.println("OFF");
   sOneWire_Status = String(sensors.getDeviceCount(), DEC);
-  
+
   byte i;
   byte present = 0;
   byte data[12];
@@ -356,7 +357,7 @@ void GetTemperature(void * parameter) {
        if (motorErrorReported == "Aus") {                        // Nur einmal melden
         Serial.print("Error read Motor Temp\n");
         motorErrorReported = "Ein";}
-    MotorTemp = -5.0;
+        MotorTemp = -5.0;
     } else {
         MotorTemp = tmp0 + fMotorOffset;
         motorErrorReported = "Aus";                      // Fehler wurde behoben
@@ -367,7 +368,7 @@ void GetTemperature(void * parameter) {
        if (coolantErrorReported == "Aus") {                      // Nur einmal melden
         Serial.print("Error read Coolant Temp\n");
         coolantErrorReported = "Ein";}
-    CoolantTemp = -5.0;
+        CoolantTemp = -5.0;
     } else {
         CoolantTemp = tmp1 + fCoolantOffset;
         coolantErrorReported = "Aus";                     // Fehler wurde behoben
