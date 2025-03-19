@@ -1,4 +1,3 @@
-
 /*
   This code is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -346,7 +345,7 @@ void setup() {
  * @param parameter 
  */
 
-void GetTemperature( void * parameter) {
+void GetTemperature(void * parameter) {
   float tmp0 = 0;
   float tmp1 = 0;
   for (;;) {
@@ -375,8 +374,7 @@ void GetTemperature( void * parameter) {
     }
     vTaskDelay(100);
   }
-  
-  }
+}
 
 /**
  * @brief Calculate engine RPM from number of interupts per time
