@@ -17,8 +17,9 @@
 
 Preferences bsz1;
 
-static unsigned long lastRun, CounterOld, milliRest;    
-int state1 = LOW, laststate1 = LOW;                     
+static unsigned long lastRun, CounterOld, milliRest;
+static unsigned long Counter = 0; // Deklariere Counter
+int state1 = LOW, laststate1 = LOW;
 
 /**
  * @brief Betriebstundenzähler
@@ -26,32 +27,29 @@ int state1 = LOW, laststate1 = LOW;
  * @param CountOn 
  * @return unsigned long 
  */
-
-unsigned long EngineHours(bool CountOn = 0){
-    {
-    long now = millis();
+unsigned long EngineHours(bool CountOn = 0) {
+    unsigned long now = millis();
     milliRest += now - lastRun;
-        if (CountOn == 1)
-        {
-            while (milliRest>=1000){
-                Counter++;
-                milliRest-=1000;
-            }
+    if (CountOn == 1) {
+        while (milliRest >= 1000) {
+            Counter++;
+            milliRest -= 1000;
         }
-            else milliRest=0;
-            lastRun = now;
-            return Counter;
+    } else {
+        milliRest = 0;
     }
+    lastRun = now;
+
     state1 = CountOn;
-        if (laststate1 == HIGH && state1 == LOW)
-        {                                                           /**< speichern bei Flanke negativ */
-            bsz1.begin("bsz", false);                               /**< NVS nutzen, BSZ erstellen, lesen und schreiben (false) */
-            CounterOld = preferences.getUInt("Start", 0);           /**< Speicher auslesen */
-            Counter = CounterOld + Counter;                         /**< Laufzeit alt + aktuell */
-            bsz1.putUInt("Start", Counter);                         /**<  Speicher schreiben */
-            bsz1.end();                                             /**<  Preferences beenden */
-            state1 = LOW;                                           
-        }       
+    if (laststate1 == HIGH && state1 == LOW) { // speichern bei Flanke negativ
+        bsz1.begin("bsz", false); // NVS nutzen, BSZ erstellen, lesen und schreiben (false)
+        CounterOld = bsz1.getUInt("Start", 0); // Speicher auslesen
+        Counter = CounterOld + Counter; // Laufzeit alt + aktuell
+        bsz1.putUInt("Start", Counter); // Speicher schreiben
+        bsz1.end(); // Preferences beenden
+    }
+    laststate1 = state1; // Aktualisiere laststate1
+    return Counter;
 }
 
-#endif   
+#endif

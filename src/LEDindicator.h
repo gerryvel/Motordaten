@@ -25,6 +25,10 @@ bool ErrorOff = false;
 bool ErrorOn = false;
 
 void LoopIndicator(){
+  // Reset Error flags
+  ErrorOff = false;
+  ErrorOn = false;
+
 if (motorErrorReported == "Aus" && coolantErrorReported == "Aus"){
   LEDflash(LED(Green)); // flash for loop run
   ErrorOff = true;
@@ -33,7 +37,7 @@ if (motorErrorReported == "Ein" || coolantErrorReported == "Ein"){
   LEDblink(LED(Red));
   ErrorOn = true;
 }
-if (!(ErrorOff && ErrorOn)){
+if (!(ErrorOff || ErrorOn)){
       LEDflash(LED(Green));
       LEDflash(LED(Red));
 }
