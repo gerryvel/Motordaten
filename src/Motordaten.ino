@@ -165,7 +165,6 @@ void setup() {
     LEDoff(LED(Green));
   } else {
       Serial.println("Starting AP failed.");
-      LEDoff(LED(Green));
       LEDon(LED(Red));  
       delay(1000); 
       ESP.restart();
