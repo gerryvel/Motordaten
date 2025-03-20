@@ -16,7 +16,7 @@
 #include <Preferences.h>
 
 // Versionierung
-#define Version "V2.6 vom 23.02.2025"  // Version
+#define Version "V2.7 vom 20.03.2025"  // Version
 
 /**
  * @brief Config NMEA2000
@@ -107,8 +107,8 @@ float MotorTemp = 0;
 float EngineRPM = 0;
 float BordSpannung = 0;
 bool EngineOn = false;
-String motorErrorReported = "";
-String coolantErrorReported = "";
+String motorErrorReported = "Aus";
+String coolantErrorReported = "Aus";
 static unsigned long Counter;			// Enginehours
 enum EngineStatus { Off = 0,  On = 1, };
 #define RPM_Calibration_Value 4.0 // Translates Generator RPM to Engine RPM 

@@ -108,6 +108,7 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 
 ## Changes
 
+- Version 2.7 better error display for website and LED
 - Version 2.6 Add value for ADC calibration to setting.html
 - Version 2.5 Error handling OneWire-Temperatur (set sensor output to -5°C) and change PIN to GPIO14
 - Version 2.4 add Doxygen 
