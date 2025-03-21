@@ -11,7 +11,7 @@ This repository shows how to measure the
 - Engine RPM
 - Fuel Level
 - Oil and Motor Temperature
-- Alarms engine stop and tempertur high
+- Alarms engine stop and temperatur high
 - Enginehours
 
 and send it as NNMEA2000 meassage.
