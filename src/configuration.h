@@ -111,7 +111,7 @@ String motorErrorReported = "Aus";
 String coolantErrorReported = "Aus";
 static unsigned long Counter;			// Enginehours
 enum EngineStatus { Off = 0,  On = 1, };
-#define RPM_Calibration_Value 4.0 // Translates Generator RPM to Engine RPM 
+#define RPM_Calibration_Value 7.0 // Translates Generator RPM to Engine RPM 
 #define Eingine_RPM_Pin 19  // Engine RPM is measured as interrupt on GPIO 23
 
 // Global Data Battery

@@ -72,6 +72,8 @@ from /data directory.
 It's also possible with Unisensor case.
 - UNI sensor [Link](https://github.com/gerryvel/UNI-Sensor)
 
+For my Engine Yamaha F9.9 without Generator (only Charging coil) is R7 1,1 kOhm.
+
 Setup: Open Browser, go to Settings an set your max. Tanklevel, ADC1 Calibration and ADC2 Calibration.
 For ADC1 mount 90 Ohm Resistor in the input and set calibration value ca. 170 and control on the Plotter "Fuel" = 50% from max. Adjust.
 For ADC2 measuring voltage with multimeter and set calibration value ca. 17.0 and control the Plotter "Batterie" field. Adjust.
@@ -90,7 +92,7 @@ Assembly: [MD N2k__Assembly.pdf](https://github.com/gerryvel/Motordaten/files/13
 - 6			R4	10k	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
 - 7			R5	1k	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
 - 8			R6	4k7	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
-- 9			R7	2k	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1
+- 9			R7	2k	    R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal	1 or 1k1 (Setup for Yamaha F9.9)
 - 10		D1	B360	B 360 F Schottkydiode, 60 V, 3 A, DO-214AB/SMC     	1
 - 11		D2	LED_RBKG	RGB LED Kingbright     	1
 - 12		D3	PESD1CAN	SOT-23 Dual bidirectional TVS diode	1
