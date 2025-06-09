@@ -120,7 +120,7 @@ void setup() {
    * 
    */
 	if (!LittleFS.begin(true)) {
-		Serial.println("An Error has occurred while mounting LittleFS");
+		Serial.println(F("An Error has occurred while mounting LittleFS"));
 		return;
 	}
 	Serial.println("\nBytes LittleFS used:" + String(LittleFS.usedBytes()));
@@ -164,7 +164,7 @@ void setup() {
     delay(1000);
     LEDoff(LED(Green));
   } else {
-      Serial.println("Starting AP failed.");
+      Serial.println(F("Starting AP failed."));
       LEDon(LED(Red));  
       delay(1000); 
       ESP.restart();
@@ -177,16 +177,16 @@ void setup() {
   WiFiDiag();
 
 	if (!MDNS.begin(AP_SSID)) {
-		Serial.println("Error setting up MDNS responder!");
+		Serial.println(F("Error setting up MDNS responder!"));
 		while (1) {
 			delay(1000);
 		}
 	}
-  Serial.println("mDNS responder started\n");
+  Serial.println(F("mDNS responder started\n"));
 
 // Start TCP (HTTP) server
 	server.begin();
-	Serial.println("TCP server started\n");
+	Serial.println(F("TCP server started\n"));
 
 // Add service to MDNS-SD
 	MDNS.addService("http", "tcp", 80);
