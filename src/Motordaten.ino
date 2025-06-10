@@ -280,7 +280,7 @@ void setup() {
   NMEA2000.SetProductInformation("MD01.2501", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
                                  "MD Sensor Module",  // Manufacturer's Model ID
-                                 "2.7.1.0 (2025-06-09)",  // Manufacturer's Software version code
+                                 "2.8.0.0 (2025-06-09)",  // Manufacturer's Software version code
                                  "2.3.0.0 (2024-11-30)" // Manufacturer's Model version
                                 );
 // Set device information
