@@ -206,61 +206,6 @@ bool writeConfig(String json)
     return true;
 }
 
-/**
- * @brief Webseiten Eingabe in Json-Datei schreiben
- * 
- * @param name 
- * @param value 
- * @return true 
- * @return false 
- */
-
-bool writeConfig(const String& name, const String& value)
-{
-    Serial.println("neue Konfiguration speichern");
-
-    File configFile = LittleFS.open("/config.json", FILE_WRITE);
-    if (configFile)
-    {
-        Serial.println("Config - Datei öffnen");
-        JsonDocument testDocument;
-        DeserializationError error = deserializeJson(testDocument, configFile);
-        if (error)
-        {
-            Serial.print(F("deserializeJson() failed: "));
-            Serial.println(error.f_str());
-            return false;
-        }
-
-        // Update the configuration with the new value
-        testDocument[name] = value;
-
-        // Write the updated configuration back to the file
-        configFile.close();
-        configFile = LittleFS.open("/config.json", FILE_WRITE);
-        if (!configFile)
-        {
-            Serial.println("failed to open config file for writing");
-            return false;
-        }
-
-        serializeJson(testDocument, configFile);
-        Serial.println("Konfiguration geschrieben...");
-
-        // neue Config in Serial ausgeben zur Kontrolle
-        serializeJsonPretty(testDocument, Serial);
-
-        Serial.println("Config - Datei geschlossen");
-        configFile.close();
-    }
-    else
-    {
-        Serial.println("failed to open config file");
-        return false;
-    }
-    return true;
-}
-
 /***************************** I2C Bus **************************/
 /** I2C Bus auslesen, alle Geräte mit Adresse ausgegeben */
 
