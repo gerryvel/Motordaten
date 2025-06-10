@@ -131,7 +131,7 @@ void readConfig(String filename) {
 	File configFile = LittleFS.open(filename);
 	if (configFile)
 	{
-		Serial.println("opened config file");
+		Serial.println("open config file");
 		DeserializationError error = deserializeJson(testDocument, configFile);
 
 		// Test if parsing succeeds.
@@ -144,18 +144,18 @@ void readConfig(String filename) {
 
 		Serial.println("deserializeJson ok");
 		{
-			Serial.println("Lese Daten aus Config - Datei");
-			strcpy(tAP_Config.wAP_SSID, testDocument["SSID"] | "Motordaten");
-			strcpy(tAP_Config.wAP_IP, testDocument["IP"] | "192.168.15.30");
-			strcpy(tAP_Config.wAP_Password, testDocument["Password"] | "12345678");
-			strcpy(tAP_Config.wMotor_Offset, testDocument["MotorOffset"] | "0.0");
-      strcpy(tAP_Config.wCoolant_Offset, testDocument["CoolantOffset"] | "0.0");
-      strcpy(tAP_Config.wFuellstandmax, testDocument["Fuellstandmax"] | "0.0");
-      strcpy(tAP_Config.wADC1_Cal, testDocument["ADC1_Cal"] | "0.0");
-      strcpy(tAP_Config.wADC2_Cal, testDocument["ADC2_Cal"] | "0.0");
+			Serial.println("Read Config - File");
+			strcpy(tAP_Config.wAP_SSID, testDocument["wAP_SSID"] | "Motordaten");
+			strcpy(tAP_Config.wAP_IP, testDocument["wAP_IP"] | "192.168.15.30");
+			strcpy(tAP_Config.wAP_Password, testDocument["wAP_Password"] | "12345678");
+			strcpy(tAP_Config.wMotor_Offset, testDocument["wMotorOffset"] | "0.0");
+      strcpy(tAP_Config.wCoolant_Offset, testDocument["wCoolantOffset"] | "0.0");
+      strcpy(tAP_Config.wFuellstandmax, testDocument["wFuellstandmax"] | "0.0");
+      strcpy(tAP_Config.wADC1_Cal, testDocument["wADC1_Cal"] | "0.0");
+      strcpy(tAP_Config.wADC2_Cal, testDocument["wADC2_Cal"] | "0.0");
 		}
 		configFile.close();
-		Serial.println("Config - Datei geschlossen");
+		Serial.println("Config - File closed");
 	}
 
 	else
@@ -174,41 +174,36 @@ void readConfig(String filename) {
 
 bool writeConfig(String json)
 {
-	Serial.println(json);
+    Serial.println(json);
+    Serial.println("neue Konfiguration speichern");
 
-	Serial.println("neue Konfiguration speichern");
+    // Datei zum Schreiben öffnen (überschreibt alte Datei)
+    File configFile = LittleFS.open("/config.json", "w");
+    if (!configFile) {
+        Serial.println("Config - Datei konnte nicht geöffnet werden!");
+        return false;
+    }
 
-	File configFile = LittleFS.open("/config.json", FILE_WRITE);
-	if (configFile)
-	{
-		Serial.println("Config - Datei öffnen");
-		File configFile = LittleFS.open("/config.json", FILE_WRITE);
-		if (configFile)
-		{
-			Serial.println("Config - Datei zum Schreiben geöffnet");
-			JsonDocument testDocument;
-			Serial.println("JSON - Daten übergeben");
-			DeserializationError error = deserializeJson(testDocument, json);
-			// Test if parsing succeeds.
-			if (error)
-			{
-				Serial.print(F("deserializeJson() failed: "));
-				Serial.println(error.f_str());
-				// bei Memory - Fehler den <Wert> in StaticJsonDocument<200> testDocument; erhöhen
-				return false;
-			}
-			Serial.println("Konfiguration schreiben...");
-			serializeJson(testDocument, configFile);
-			Serial.println("Konfiguration geschrieben...");
+    // JSON-Dokument parsen
+    JsonDocument testDocument;
+    DeserializationError error = deserializeJson(testDocument, json);
+    if (error) {
+        Serial.print(F("deserializeJson() failed: "));
+        Serial.println(error.f_str());
+        configFile.close();
+        return false;
+    }
 
-			// neue Config in Serial ausgeben zur Kontrolle
-			serializeJsonPretty(testDocument, Serial);
+    // JSON in Datei schreiben
+    serializeJson(testDocument, configFile);
+    Serial.println("Konfiguration geschrieben...");
 
-			Serial.println("Config - Datei geschlossen");
-			configFile.close();
-		}
-	}
-	return true;
+    // Kontrolle
+    serializeJsonPretty(testDocument, Serial);
+
+    configFile.close();
+    Serial.println("Config - Datei geschlossen");
+    return true;
 }
 
 /**

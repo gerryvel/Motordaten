@@ -1,9 +1,9 @@
-{   "ssid": "Motordaten",
-    "IP": "192.168.15.30",
-    "passwort": "12345678",
-    "MotorOffset":"0.0",
-    "CoolantOffset":"0.0",
-    "Fuellstandmax": "0.0",
-    "ADC1_Cal": "170.0",
-    "ADC2_Cal": "17.0"
+{   "wSSID": "Motordaten",
+    "wIP": "192.168.15.30",
+    "wPasswort": "12345678",
+    "wCoolantOffset":"0.0",
+    "wMotorOffset":"0.0",
+    "wFuellstandmax": "0.0",
+    "wADC1_Cal": "170.0",
+    "wADC2_Cal": "17.0"
 }

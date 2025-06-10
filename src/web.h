@@ -31,7 +31,7 @@ String processor(const String& var)
     if (var == "CONFIGPLACEHOLDER")
     {
         String buttons = "";
-        buttons += "<form onSubmit = \"event.preventDefault(); formToJson(this);\">";
+        buttons += "<form onsubmit = \"event.preventDefault(); formToJson(this);\">";
         buttons += "<p class=\"CInput\"><label>SSID </label><input type = \"text\" name = \"SSID\" value=\"";
         buttons += tAP_Config.wAP_SSID;
         buttons += "\"/></p>";
@@ -127,23 +127,17 @@ void website() {
     server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request) {
         request->send(LittleFS, "/style.css", "text/css");
     });
-    server.on("/settings.html", HTTP_POST, [](AsyncWebServerRequest *request)
-    {
-        int count = request->params();
-        Serial.printf("Anzahl: %i\n", count);
-        for (int i = 0; i < count; i++)
-        {
-            AsyncWebParameter* p = request->getParam(i);
-            Serial.print("PWerte von der Internet - Seite: ");
-            Serial.print("Param name: ");
-            Serial.println(p->name());
-            Serial.print("Param value: ");
-            Serial.println(p->value());
-            Serial.println("------");
-            // p->value in die config schreiben
-            writeConfig(p->name(), p->value());
-        }
-        request->send(200, "text/plain", "Daten gespeichert");
-    });
+    server.on("/settings.html", HTTP_POST, [](AsyncWebServerRequest *request){
+    // Body wird asynchron empfangen!
+        }, NULL, [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total) {
+        String json = "";
+    for (size_t i = 0; i < len; i++) {
+        json += (char)data[i];
+    }
+            Serial.println("Empfangenes JSON (Body):");
+            Serial.println(json);
+            writeConfig(json);
+            request->send(200, "text/plain", "Daten gespeichert");
+});
 }
 

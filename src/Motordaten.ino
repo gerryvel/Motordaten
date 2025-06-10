@@ -141,8 +141,19 @@ void setup() {
     FuelLevelMax = atof(tAP_Config.wFuellstandmax);
     ADC_Calibration_Value1 = atof(tAP_Config.wADC1_Cal);
     ADC_Calibration_Value2 = atof(tAP_Config.wADC2_Cal);
-    Serial.println("\nConfigdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " , MotorTOffset: " + fMotorOffset + " , CoolantTOffset: " + fCoolantOffset + " read from file");
+    Serial.println("\nAP-Configdata : AP IP: " + IP.toString() + ", AP SSID: " + AP_SSID + " , Passwort: " + AP_PASSWORD + " read from file");
+    Serial.println("Configdata : TMotorOffset: " + String(fMotorOffset) + " , TCoolantOffset: " + String(fCoolantOffset) + " read from file");
+    Serial.println("Configdata : Füllstandmax: " + String(FuelLevelMax) + " , ADC1: " + String(ADC_Calibration_Value1) + " , ADC2: " + String(ADC_Calibration_Value2)+ " read from file");
 
+    File f = LittleFS.open("/config.json", "r");
+  if (!f) {
+    Serial.println("config.json konnte nicht geöffnet werden!");
+  } else {
+    String content = f.readString();
+    Serial.println("\nconfig.json Inhalt:");
+    Serial.println(content);
+    f.close();
+  }
   // LED
   LEDInit();
 

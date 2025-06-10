@@ -15,30 +15,22 @@
     %CONFIGPLACEHOLDER%
     <script>
         function formToJson(form) {
+                alert("formToJson wird aufgerufen!");
             var xhr = new XMLHttpRequest();
-            var SSID = form.SSID.value;
-            var IP = form.IP.value;
-            var Password = form.Password.value;
-            var CoolantOffset = form.CoolantOffset.value;
-            var MotorOffset = form.MotorOffset.value;
-            var Fuellstandmax = form.Fuellstandmax.value;
-            var ADC1_Cal = form.ADC1_Cal.value;
-            var ADC2_Cal = form.ADC2_Cal.value;
-
             var jsonFormInfo = JSON.stringify({
-                SSID: SSID,
-                IP: IP,
-                Password: Password,
-                CoolantOffset: CoolantOffset,
-                MotorOffset: MotorOffset,
-                Fuellstandmax: Fuellstandmax,
-                ADC1_Cal: ADC1_Cal,
-                ADC2_Cal: ADC2_Cal
-            });
-
-            xhr.open("POST", "/settings.html?save=" + jsonFormInfo, true);
-            /* window.alert("Json function send end"); */
-            xhr.send();
+                wAP_SSID: form.SSID.value,
+                wAP_IP: form.IP.value,
+                wAP_Password: form.Password.value,
+                wMotor_Offset: form.MotorOffset.value,
+                wCoolant_Offset: form.CoolantOffset.value,
+                wFuellstandmax: form.Fuellstandmax.value,
+                wADC1_Cal: form.ADC1_Cal.value,
+                wADC2_Cal: form.ADC2_Cal.value
+        });
+           
+            xhr.open("POST", "/settings.html", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(jsonFormInfo);
             window.alert("Gespeichert!");
         }
     </script>
