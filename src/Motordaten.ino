@@ -113,7 +113,7 @@ void setup() {
   // Init USB serial port
   Serial.begin(115200);
 
-  Serial.printf("Motordaten setup %s start\n", Version);
+  Serial.printf("Motordaten setup %s start\n", VersionSoftware);
 
   /**
    * @brief Filesystem prepare for Webfiles
