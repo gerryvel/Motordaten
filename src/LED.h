@@ -47,7 +47,7 @@ void LEDflash(int PIN = LEDBoard) {
 }
 
 void flashLED(int PIN = LEDBoard) {
-  if (millis() % 1000 > 500) {
+  if (millis() % 1000 > 500) {    // 500ms pro 1000ms high (in der zweiten Hälfte Sekunde ein  
     digitalWrite(PIN, HIGH);
   } else {
     digitalWrite(PIN, LOW);
