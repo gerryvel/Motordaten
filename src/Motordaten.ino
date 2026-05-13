@@ -494,10 +494,11 @@ void SendN2kEngineData(double Oiltemp, double Coolanttemp, double rpm, double ho
   tN2kMsg N2kMsg;
   tN2kEngineDiscreteStatus1 Status1;
   tN2kEngineDiscreteStatus2 Status2;
-  Status1.Bits.OverTemperature = Oiltemp > 90;      // Alarm Motor over temp
-  Status1.Bits.LowCoolantLevel = Coolanttemp > 90;    // Alarm low cooling
-  Status1.Bits.LowSystemVoltage = voltage < 11;
-  Status2.Bits.EngineShuttingDown = rpm < 100;      // Alarm Motor off
+  Status1.Bits.OverTemperature = Oiltemp > 90;      // Alarm "Motor Über Temp"
+  Status1.Bits.LowCoolantLevel = Coolanttemp > 90;  // Alarm "Motor wenig Kühlung"
+  Status1.Bits.LowSystemVoltage = voltage < 11;     // Alarm "Motor zu wenig Spannung"
+  Status2.Bits.EngineShuttingDown = rpm < 100;      // Alarm "Motor ausstellen"
+  Status1.Bits.CheckEngine = hours > 100;           // Alarm "Motor prüfen"
   EngineOn = !Status2.Bits.EngineShuttingDown;
 
   if ( IsTimeToUpdate(SlowDataUpdated) ) {
