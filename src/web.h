@@ -91,7 +91,7 @@ String replaceVariable(const String& var)
     if (var == "sOneWire_Status") return String(sOneWire_Status);
     if (var == "sVersionS") return VersionSoftware;
     if (var == "sVersionH") return VersionHardware;
-    if (var == "sCounter") return String(Counter);
+    if (var == "sCounter") return String(Counter / 3600.0, 1);  // Convert Counter (seconds) to hours for display
     if (var == "CONFIGPLACEHOLDER") return processor(var);
     return "NoVariable";
 }
