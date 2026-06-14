@@ -5,10 +5,10 @@
  * @file configuration.h
  * @author Gerry Sebb
  * @brief Konfiguration für GPIO und Variable
- * @version 2.3
- * @date 2025-01-06
+ * @version 2.4
+ * @date 2026-06-06
  * 
- * @copyright Copyright (c) 2025
+ * @copyright Copyright (c) 2026
  * 
  */
 
