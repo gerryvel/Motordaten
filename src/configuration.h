@@ -16,7 +16,7 @@
 #include <Preferences.h>
 
 // Versionierung
-#define VersionSoftware "2.8.2.0 (2025-11-21)"  // Version Software
+#define VersionSoftware "2.8.2.0 (2026-05-21)"  // Version Software
 #define VersionHardware "2.3.0.0 (2024-11-30)"  // Version Hardware
 
 /**
