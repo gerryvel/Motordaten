@@ -17,7 +17,7 @@
 
 // Versionierung
 #define VersionSoftware "2.8.2.0 (2025-11-21)"  // Version Software
-#define VersionHardware "2.3.0.0 (2024-11-30)"  // Version HArdware
+#define VersionHardware "2.3.0.0 (2024-11-30)"  // Version Hardware
 
 /**
  * @brief Config NMEA2000
@@ -110,7 +110,7 @@ float BordSpannung = 0;
 bool EngineOn = false;
 String motorErrorReported = "Aus";
 String coolantErrorReported = "Aus";
-static unsigned long Counter;			// Enginehours
+static double Counter;			// Enginehours
 enum EngineStatus { Off = 0,  On = 1, };
 #define RPM_Calibration_Value 7.0 // Translates Generator RPM to Engine RPM 
 #define Eingine_RPM_Pin 19  // Engine RPM is measured as interrupt on GPIO 23

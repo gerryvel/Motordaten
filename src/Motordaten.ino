@@ -569,7 +569,7 @@ void loop() {
   EngineHours(EngineOn);
   
   SendN2kTankLevel(FuelLevel, FuelLevelMax);  // Adjust max tank capacity
-  SendN2kEngineData(MotorTemp, CoolantTemp, EngineRPM, Counter / 3600.0, BordSpannung);  // Convert Counter (seconds) to hours
+  SendN2kEngineData(MotorTemp, CoolantTemp, EngineRPM, Counter / 60.0, BordSpannung);  // Convert Counter (seconds) to hours
   SendN2kEngineRPM(EngineRPM);
   SendN2kBattery(BordSpannung);
   SendN2kDCStatus(BordSpannung, BatSoC, Bat1Capacity);
