@@ -17,7 +17,8 @@
 
 Preferences bsz1;
 
-static unsigned long lastRun, CounterOld, milliRest;
+static unsigned long lastRun, milliRest;
+static bool hourmeterInitialized = false;
 int state1 = LOW, laststate1 = LOW;
 
 /**
@@ -28,25 +29,34 @@ int state1 = LOW, laststate1 = LOW;
  */
 unsigned long EngineHours(bool CountOn = 0) {
     unsigned long now = millis();
-    milliRest += now - lastRun;
-    if (CountOn == 1) {
-        while (milliRest >= 1000) {
-            Counter++;
-            milliRest -= 1000;
-        }
+
+    if (!hourmeterInitialized) {
+        bsz1.begin("bsz", false);
+        Counter = bsz1.getULong("Start", 0);
+        bsz1.end();
+
+        lastRun = now;
+        laststate1 = CountOn;
+        state1 = CountOn;
+        hourmeterInitialized = true;
+        return Counter;
+    }
+
+    if (CountOn) {
+        milliRest += now - lastRun;
+        Counter += milliRest / 1000;
+        milliRest %= 1000;
     } else {
         milliRest = 0;
     }
-    lastRun = now;
 
     state1 = CountOn;
     if (laststate1 == HIGH && state1 == LOW) { // speichern bei Flanke negativ
-        bsz1.begin("bsz", false); // NVS nutzen, BSZ erstellen, lesen und schreiben (false)
-        CounterOld = bsz1.getLong("Start"); // Speicher auslesen
-        Counter = CounterOld + Counter; // Laufzeit alt + aktuell
-        bsz1.putLong("Start", Counter); // Speicher schreiben
-        bsz1.end(); // Preferences beenden
+        bsz1.begin("bsz", false);
+        bsz1.putULong("Start", Counter);
+        bsz1.end();
     }
+    lastRun = now;
     laststate1 = state1; // Aktualisiere laststate1
     return Counter;
 }

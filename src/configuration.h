@@ -110,7 +110,7 @@ float BordSpannung = 0;
 bool EngineOn = false;
 String motorErrorReported = "Aus";
 String coolantErrorReported = "Aus";
-static double Counter;			// Enginehours
+static unsigned long Counter;			// Enginehours in seconds
 enum EngineStatus { Off = 0,  On = 1, };
 #define RPM_Calibration_Value 7.0 // Translates Generator RPM to Engine RPM 
 #define Eingine_RPM_Pin 19  // Engine RPM is measured as interrupt on GPIO 23
