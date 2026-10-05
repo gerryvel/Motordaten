@@ -5,10 +5,10 @@
  * @file hourmeter.h
  * @author Gerry Sebb
  * @brief Betriebstundenzähler
- * @version 1.0
- * @date 2025-01-06
+ * @version 1.1
+ * @date 2026-09-22
  * 
- * @copyright Copyright (c) 2025
+ * @copyright Copyright (c) 2026
  * 
  */
 
